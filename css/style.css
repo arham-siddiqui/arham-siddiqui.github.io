@@ -1,0 +1,90 @@
+body {
+    font: normal 70% Arial, Helvetica, sans-serif;
+    background: url(background.jpg) center no-repeat #0a0d0f;
+    color: #fff;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 
+      'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif; 
+}
+.heading {
+    position: absolute;
+    text-align: center;
+    top: 15%;
+    width: 95%;
+}
+.heading h1 {
+	color: whitesmoke;
+	font-size: 5rem;
+	display: block;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+	
+
+	content: "";
+
+	border-radius: 2px;
+
+}
+.heading h2 {
+    color: lightgray;
+	font-size: 1rem;
+    font-style: italic;
+	display: block;
+    margin-top: -0.2em;
+    margin-bottom: 0.83em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+	z-index : -100;
+}
+/*.contact {
+    /*clear: left;*/
+	/*z-index : -100;*/
+	/*position: static;*/
+    /*text-align: center;*/
+    /*padding: 15% 0 0 0;*/
+/*}*/
+footer {
+    bottom: 0;
+    height: 50px;
+    left: 0;
+	text-align: center;
+	font-size: 15px;
+    position: fixed;
+    width: 100%;
+}
+a, a:visited {
+    text-decoration: none;
+    color: #9f9f9f;
+}
+.words li {
+    background: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    list-style: none;
+    color: #000;
+    display: inline;
+    float: center;
+    margin: 2px 2px 0 0;
+    cursor: default;
+}
+#particles-js canvas{
+	background: url("../img/background.jpg") center center ;
+    position: fixed;
+    height: 90vh;
+	z-index: -50;
+}
