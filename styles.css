@@ -11,6 +11,8 @@
   --button-text: #0b3d91;
   --icon-bg: #dbeafe;
   --icon-border: #b7cff2;
+  --nav-active-bg: rgba(11, 92, 173, 0.11);
+  --nav-active-border: rgba(11, 92, 173, 0.2);
   --selection: #bad7ff;
 }
 
@@ -27,6 +29,8 @@
   --button-text: #d8ecff;
   --icon-bg: #10243f;
   --icon-border: #284a73;
+  --nav-active-bg: rgba(139, 198, 255, 0.14);
+  --nav-active-border: rgba(139, 198, 255, 0.24);
   --selection: #17385f;
 }
 
@@ -131,12 +135,26 @@ h3 {
 }
 
 .topline a {
+  border: 1px solid transparent;
+  border-radius: 999px;
   color: var(--muted);
+  padding: 3px 8px;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
 }
 
 .topline a:hover,
-.topline a:focus-visible {
+.topline a:focus-visible,
+.topline a.is-active {
   color: var(--text);
+  text-decoration: none;
+}
+
+.topline a.is-active {
+  background: var(--nav-active-bg);
+  border-color: var(--nav-active-border);
 }
 
 .title-row {
@@ -180,9 +198,15 @@ h3 {
 }
 
 .contact-icons svg,
+.contact-icons img,
 .theme-toggle svg {
   width: 18px;
   height: 18px;
+  object-fit: contain;
+}
+
+.contact-icons svg,
+.theme-toggle svg {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.75;
@@ -193,6 +217,18 @@ h3 {
 .contact-icons a:nth-child(2) svg {
   fill: currentColor;
   stroke: none;
+}
+
+.github-logo-dark {
+  display: none;
+}
+
+:root.dark .github-logo-light {
+  display: none;
+}
+
+:root.dark .github-logo-dark {
+  display: block;
 }
 
 .theme-toggle {
@@ -268,7 +304,7 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 
-.entry:not(.compact) {
+.logo-entry {
   min-height: 78px;
   padding-left: 82px;
 }
@@ -335,7 +371,7 @@ h3 {
 
 .logo-icon {
   display: block;
-  padding: 12px;
+  padding: 0;
   object-fit: contain;
 }
 
@@ -370,7 +406,8 @@ h3 {
 .entry-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px 14px;
+  align-items: center;
+  gap: 8px;
   padding-top: 2px;
   color: var(--soft);
   font-family:
@@ -382,7 +419,21 @@ h3 {
   font-size: 0.78rem;
 }
 
+.entry-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+}
+
 .entry-links span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 4px 9px;
+  border: 1px solid var(--icon-border);
+  border-radius: 999px;
+  background: var(--icon-bg);
   color: var(--muted);
 }
 
@@ -466,7 +517,7 @@ h3 {
     display: block;
   }
 
-  .entry:not(.compact) {
+  .logo-entry {
     min-height: 64px;
     padding-left: 66px;
   }
@@ -475,10 +526,6 @@ h3 {
     width: 48px;
     height: 48px;
     border-radius: 9px;
-  }
-
-  .logo-icon {
-    padding: 10px;
   }
 
   .wordmark-icon {
