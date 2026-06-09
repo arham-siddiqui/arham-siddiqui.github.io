@@ -62,3 +62,251 @@ if ("IntersectionObserver" in window && sections.length) {
 }
 
 setActiveSection(sections[0]?.id || "experience");
+
+const brainCanvas = document.getElementById("brain-canvas");
+
+if (brainCanvas) {
+  const context = brainCanvas.getContext("2d");
+  const pointer = {
+    x: 0,
+    y: 0,
+    targetX: 0,
+    targetY: 0,
+    screenX: 0,
+    screenY: 0,
+    inside: false
+  };
+  const rawPoints = Array.isArray(window.BRAIN_POINTS) ? window.BRAIN_POINTS : [];
+  const points = [];
+  let width = 1;
+  let height = 1;
+  let pixelRatio = 1;
+  let time = 0;
+  let animationFrame = null;
+  const neuronTargets = [
+    { x: -0.42, y: -0.16, z: 0.08 },
+    { x: -0.18, y: 0.28, z: -0.2 },
+    { x: 0.1, y: -0.04, z: 0.24 },
+    { x: 0.32, y: 0.2, z: -0.08 },
+    { x: 0.48, y: -0.22, z: 0.14 }
+  ];
+
+  for (let index = 0; index < rawPoints.length; index += 3) {
+    points.push({
+      x: rawPoints[index],
+      y: rawPoints[index + 1],
+      z: rawPoints[index + 2],
+      dx: 0,
+      dy: 0,
+      vx: 0,
+      vy: 0,
+      glowPhase: 0,
+      glowSpeed: 0,
+      glowStrength: 0,
+      isNeuron: false
+    });
+  }
+
+  for (const [targetIndex, target] of neuronTargets.entries()) {
+    let closestPoint = null;
+    let closestDistance = Infinity;
+
+    for (const point of points) {
+      if (point.glowStrength) continue;
+
+      const distance =
+        (point.x - target.x) ** 2 +
+        (point.y - target.y) ** 2 +
+        (point.z - target.z) ** 2;
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestPoint = point;
+      }
+    }
+
+    if (closestPoint) {
+      closestPoint.glowPhase = targetIndex * 1.28;
+      closestPoint.glowSpeed = 4.2 + targetIndex * 0.45;
+      closestPoint.glowStrength = 2.25;
+      closestPoint.isNeuron = true;
+    }
+  }
+
+  function resizeBrain() {
+    const rect = brainCanvas.getBoundingClientRect();
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    width = Math.max(1, rect.width);
+    height = Math.max(1, rect.height);
+    brainCanvas.width = Math.round(width * pixelRatio);
+    brainCanvas.height = Math.round(height * pixelRatio);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  }
+
+  function drawFallbackBrain(color) {
+    const scale = Math.min(width, height) * 0.52;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    context.save();
+    context.translate(centerX, centerY);
+    context.scale(scale, scale);
+    context.strokeStyle = `${color} 0.55)`;
+    context.lineWidth = 1.8 / scale;
+    context.beginPath();
+    context.moveTo(-0.08, -0.76);
+    context.bezierCurveTo(-0.36, -0.88, -0.78, -0.66, -0.78, -0.24);
+    context.bezierCurveTo(-0.96, -0.02, -0.9, 0.38, -0.54, 0.48);
+    context.bezierCurveTo(-0.36, 0.74, -0.06, 0.72, 0, 0.48);
+    context.bezierCurveTo(0.08, 0.72, 0.38, 0.74, 0.56, 0.48);
+    context.bezierCurveTo(0.9, 0.38, 0.96, -0.02, 0.78, -0.24);
+    context.bezierCurveTo(0.78, -0.66, 0.36, -0.88, 0.08, -0.76);
+    context.bezierCurveTo(0.03, -0.58, -0.03, -0.58, -0.08, -0.76);
+    context.stroke();
+    context.restore();
+  }
+
+  function drawBrain() {
+    time += 0.01;
+    pointer.x += (pointer.targetX - pointer.x) * 0.28;
+    pointer.y += (pointer.targetY - pointer.y) * 0.28;
+    context.clearRect(0, 0, width, height);
+
+    const isDark = root.classList.contains("dark");
+    const color = isDark ? "rgba(234, 243, 255," : "rgba(6, 59, 122,";
+    const neuronColor = isDark ? "rgba(35, 94, 165," : "rgba(0, 50, 126,";
+
+    if (!points.length) {
+      drawFallbackBrain(color);
+      animationFrame = window.requestAnimationFrame(drawBrain);
+      return;
+    }
+
+    const scale = Math.min(width, height) * 0.56;
+    const yaw = Math.sin(time * 0.22) * 0.16 + pointer.x * 0.72;
+    const pitch = -pointer.y * 0.44;
+    const sinYaw = Math.sin(yaw);
+    const cosYaw = Math.cos(yaw);
+    const sinPitch = Math.sin(pitch);
+    const cosPitch = Math.cos(pitch);
+    const projected = [];
+
+    for (const point of points) {
+      const x1 = point.x * cosYaw - point.z * sinYaw;
+      const z1 = point.x * sinYaw + point.z * cosYaw;
+      const y1 = point.y * cosPitch - z1 * sinPitch;
+      const z2 = point.y * sinPitch + z1 * cosPitch;
+      const depth = 1 / (1 + (z2 + 1.7) * 0.13);
+
+      const baseX = width / 2 + x1 * scale * depth;
+      const baseY = height / 2 + y1 * scale * depth;
+
+      if (pointer.inside) {
+        const cursorDx = baseX + point.dx - pointer.screenX;
+        const cursorDy = baseY + point.dy - pointer.screenY;
+        const distance = Math.hypot(cursorDx, cursorDy);
+        const radius = Math.min(width, height) * 0.12;
+
+        if (distance < radius && distance > 0.001) {
+          const force = ((radius - distance) / radius) ** 2;
+          point.vx += (cursorDx / distance) * force * 0.95;
+          point.vy += (cursorDy / distance) * force * 0.95;
+        }
+      }
+
+      point.vx += -point.dx * 0.035;
+      point.vy += -point.dy * 0.035;
+      point.vx *= 0.84;
+      point.vy *= 0.84;
+      point.dx += point.vx;
+      point.dy += point.vy;
+
+      const pulse = point.glowStrength
+        ? ((Math.sin(time * point.glowSpeed + point.glowPhase) + 1) / 2) ** 6 * point.glowStrength
+        : 0;
+
+      projected.push({
+        x: baseX + point.dx,
+        y: baseY + point.dy,
+        depth,
+        pulse,
+        isNeuron: point.isNeuron,
+        alpha: Math.max(0.24, Math.min(1, 0.4 + depth * 0.38 + pulse * 0.55))
+      });
+    }
+
+    projected.sort((a, b) => a.depth - b.depth);
+
+    context.save();
+    context.globalCompositeOperation = "lighter";
+    for (const point of projected) {
+      if (!point.isNeuron || point.pulse < 0.1) continue;
+
+      const halo = 9 + point.depth * 5 + point.pulse * 10;
+      const gradient = context.createRadialGradient(point.x, point.y, 0, point.x, point.y, halo);
+      gradient.addColorStop(0, `${neuronColor} ${Math.min(0.9, point.pulse * 0.48)})`);
+      gradient.addColorStop(0.28, `${neuronColor} ${Math.min(0.36, point.pulse * 0.2)})`);
+      gradient.addColorStop(1, `${neuronColor} 0)`);
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.arc(point.x, point.y, halo, 0, Math.PI * 2);
+      context.fill();
+    }
+    context.restore();
+
+    for (const point of projected) {
+      context.fillStyle = `${color} ${point.alpha})`;
+      context.beginPath();
+      context.arc(point.x, point.y, 0.45 + point.depth * 0.62 + point.pulse * 0.65, 0, Math.PI * 2);
+      context.fill();
+    }
+
+    context.save();
+    context.globalCompositeOperation = "lighter";
+    for (const point of projected) {
+      if (!point.isNeuron || point.pulse < 0.16) continue;
+
+      context.fillStyle = `${neuronColor} ${Math.min(1, 0.46 + point.pulse * 0.32)})`;
+      context.beginPath();
+      context.arc(point.x, point.y, 2.2 + point.pulse * 2.9, 0, Math.PI * 2);
+      context.fill();
+
+      context.strokeStyle = `${neuronColor} ${Math.min(0.72, point.pulse * 0.28)})`;
+      context.lineWidth = 1;
+      context.beginPath();
+      context.arc(point.x, point.y, 4.8 + point.pulse * 3.6, 0, Math.PI * 2);
+      context.stroke();
+    }
+    context.restore();
+
+    animationFrame = window.requestAnimationFrame(drawBrain);
+  }
+
+  brainCanvas.addEventListener("pointermove", (event) => {
+    const rect = brainCanvas.getBoundingClientRect();
+    pointer.targetX = ((event.clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1;
+    pointer.targetY = -(((event.clientY - rect.top) / Math.max(1, rect.height)) * 2 - 1);
+    pointer.screenX = event.clientX - rect.left;
+    pointer.screenY = event.clientY - rect.top;
+    pointer.inside = true;
+  });
+
+  brainCanvas.addEventListener("pointerleave", () => {
+    pointer.targetX = 0;
+    pointer.targetY = 0;
+    pointer.inside = false;
+  });
+
+  window.addEventListener("resize", resizeBrain);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    } else if (!animationFrame) {
+      drawBrain();
+    }
+  });
+
+  resizeBrain();
+  drawBrain();
+}
