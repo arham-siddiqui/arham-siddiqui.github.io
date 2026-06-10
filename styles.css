@@ -301,14 +301,14 @@ h1 {
   position: relative;
   width: 100vw;
   height: min(620px, 62vh);
-  margin: -36px 0 -36px calc(50% - 50vw);
+  margin: 8px 0 -36px calc(50% - 50vw);
   overflow: hidden;
   background: var(--bg);
 }
 
 #brain-canvas {
   position: absolute;
-  top: 48%;
+  top: 46%;
   left: 50%;
   display: block;
   width: 100%;
@@ -672,7 +672,7 @@ h3 {
 
   .brain-strip {
     height: min(460px, 55vh);
-    margin: -24px 0 -30px calc(50% - 50vw);
+    margin: 4px 0 -30px calc(50% - 50vw);
   }
 
   #brain-canvas {
