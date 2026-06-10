@@ -301,7 +301,7 @@ h1 {
   position: relative;
   width: 100vw;
   height: min(620px, 62vh);
-  margin: -26px 0 -12px calc(50% - 50vw);
+  margin: -36px 0 -36px calc(50% - 50vw);
   overflow: hidden;
   background: var(--bg);
 }
@@ -672,7 +672,7 @@ h3 {
 
   .brain-strip {
     height: min(460px, 55vh);
-    margin: -18px 0 -10px calc(50% - 50vw);
+    margin: -24px 0 -30px calc(50% - 50vw);
   }
 
   #brain-canvas {
