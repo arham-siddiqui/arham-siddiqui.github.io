@@ -82,6 +82,10 @@ if (brainCanvas) {
   let height = 1;
   let pixelRatio = 1;
   let time = 0;
+  let idleYaw = 0;
+  let idleBlend = 1;
+  let currentYaw = 0;
+  let currentPitch = 0;
   let animationFrame = null;
   const neuronTargets = [
     { x: -0.42, y: -0.16, z: 0.08 },
@@ -103,7 +107,10 @@ if (brainCanvas) {
       glowPhase: 0,
       glowSpeed: 0,
       glowStrength: 0,
-      isNeuron: false
+      isNeuron: false,
+      burstSeed: 0,
+      burstSize: 1,
+      burstDuration: 1
     });
   }
 
@@ -127,9 +134,12 @@ if (brainCanvas) {
 
     if (closestPoint) {
       closestPoint.glowPhase = targetIndex * 1.28;
-      closestPoint.glowSpeed = 4.2 + targetIndex * 0.45;
-      closestPoint.glowStrength = 2.25;
+      closestPoint.glowSpeed = 5.8 + targetIndex * 0.95;
+      closestPoint.glowStrength = 1.85 + (targetIndex % 3) * 0.18;
       closestPoint.isNeuron = true;
+      closestPoint.burstSeed = targetIndex * 17.31;
+      closestPoint.burstSize = 0.72 + (targetIndex % 4) * 0.12;
+      closestPoint.burstDuration = 5 + (targetIndex % 3) * 1.15;
     }
   }
 
@@ -166,15 +176,67 @@ if (brainCanvas) {
     context.restore();
   }
 
+  function drawJaggedBurst(x, y, radius, seed, pulse, fillColor, strokeColor) {
+    const spikes = 13;
+    const wobble = time * 9 + seed;
+
+    context.beginPath();
+    for (let index = 0; index < spikes; index += 1) {
+      const angle = (Math.PI * 2 * index) / spikes + Math.sin(seed) * 0.18;
+      const jag =
+        0.72 +
+        Math.sin(wobble + index * 1.9) * 0.16 +
+        Math.sin(seed + index * 4.7) * 0.18;
+      const pointRadius = radius * (index % 2 ? 0.48 + pulse * 0.12 : jag);
+      const pointX = x + Math.cos(angle) * pointRadius;
+      const pointY = y + Math.sin(angle) * pointRadius;
+
+      if (index === 0) {
+        context.moveTo(pointX, pointY);
+      } else {
+        context.lineTo(pointX, pointY);
+      }
+    }
+    context.closePath();
+    context.fillStyle = fillColor;
+    context.fill();
+    context.strokeStyle = strokeColor;
+    context.lineWidth = 0.9;
+    context.stroke();
+
+    for (let index = 0; index < 5; index += 1) {
+      const angle = seed + time * 3 + index * 1.26;
+      const start = radius * 0.28;
+      const end = radius * (0.75 + Math.sin(wobble + index) * 0.16);
+
+      context.beginPath();
+      context.moveTo(x + Math.cos(angle) * start, y + Math.sin(angle) * start);
+      context.lineTo(x + Math.cos(angle) * end, y + Math.sin(angle) * end);
+      context.stroke();
+    }
+  }
+
   function drawBrain() {
     time += 0.01;
-    pointer.x += (pointer.targetX - pointer.x) * 0.28;
-    pointer.y += (pointer.targetY - pointer.y) * 0.28;
+    const pointerFollow = pointer.inside ? 1 : 0.075;
+    const rotationFollow = pointer.inside ? 0.8 : 0.13;
+
+    pointer.x += (pointer.targetX - pointer.x) * pointerFollow;
+    pointer.y += (pointer.targetY - pointer.y) * pointerFollow;
+    idleBlend += ((pointer.inside ? 0 : 1) - idleBlend) * 0.04;
+
+    if (pointer.inside) {
+      idleYaw = currentYaw;
+    } else {
+      idleYaw += 0.0035;
+    }
+
     context.clearRect(0, 0, width, height);
 
     const isDark = root.classList.contains("dark");
     const color = isDark ? "rgba(234, 243, 255," : "rgba(6, 59, 122,";
-    const neuronColor = isDark ? "rgba(35, 94, 165," : "rgba(0, 50, 126,";
+    const neuronGlowColor = isDark ? "rgba(35, 94, 165," : "rgba(42, 112, 226,";
+    const neuronCoreColor = isDark ? "rgba(128, 184, 255," : "rgba(245, 250, 255,";
 
     if (!points.length) {
       drawFallbackBrain(color);
@@ -183,8 +245,15 @@ if (brainCanvas) {
     }
 
     const scale = Math.min(width, height) * 0.56;
-    const yaw = Math.sin(time * 0.22) * 0.16 + pointer.x * 0.72;
-    const pitch = -pointer.y * 0.44;
+    const driftYaw = Math.sin(time * 0.22) * 0.16;
+    const cursorYaw = driftYaw + pointer.x * 0.76;
+    const spinYaw = driftYaw + idleYaw;
+    const targetYaw = cursorYaw * (1 - idleBlend) + spinYaw * idleBlend;
+    const targetPitch = -pointer.y * 0.46;
+    currentYaw += (targetYaw - currentYaw) * rotationFollow;
+    currentPitch += (targetPitch - currentPitch) * rotationFollow;
+    const yaw = currentYaw;
+    const pitch = currentPitch;
     const sinYaw = Math.sin(yaw);
     const cosYaw = Math.cos(yaw);
     const sinPitch = Math.sin(pitch);
@@ -222,7 +291,8 @@ if (brainCanvas) {
       point.dy += point.vy;
 
       const pulse = point.glowStrength
-        ? ((Math.sin(time * point.glowSpeed + point.glowPhase) + 1) / 2) ** 6 * point.glowStrength
+        ? ((Math.sin(time * point.glowSpeed + point.glowPhase) + 1) / 2) ** point.burstDuration *
+          point.glowStrength
         : 0;
 
       projected.push({
@@ -231,6 +301,8 @@ if (brainCanvas) {
         depth,
         pulse,
         isNeuron: point.isNeuron,
+        burstSeed: point.burstSeed,
+        burstSize: point.burstSize,
         alpha: Math.max(0.24, Math.min(1, 0.4 + depth * 0.38 + pulse * 0.55))
       });
     }
@@ -242,11 +314,11 @@ if (brainCanvas) {
     for (const point of projected) {
       if (!point.isNeuron || point.pulse < 0.1) continue;
 
-      const halo = 9 + point.depth * 5 + point.pulse * 10;
+      const halo = (5.2 + point.depth * 3 + point.pulse * 4.8) * point.burstSize;
       const gradient = context.createRadialGradient(point.x, point.y, 0, point.x, point.y, halo);
-      gradient.addColorStop(0, `${neuronColor} ${Math.min(0.9, point.pulse * 0.48)})`);
-      gradient.addColorStop(0.28, `${neuronColor} ${Math.min(0.36, point.pulse * 0.2)})`);
-      gradient.addColorStop(1, `${neuronColor} 0)`);
+      gradient.addColorStop(0, `${neuronCoreColor} ${Math.min(0.95, point.pulse * 0.52)})`);
+      gradient.addColorStop(0.26, `${neuronGlowColor} ${Math.min(0.42, point.pulse * 0.24)})`);
+      gradient.addColorStop(1, `${neuronGlowColor} 0)`);
       context.fillStyle = gradient;
       context.beginPath();
       context.arc(point.x, point.y, halo, 0, Math.PI * 2);
@@ -266,16 +338,20 @@ if (brainCanvas) {
     for (const point of projected) {
       if (!point.isNeuron || point.pulse < 0.16) continue;
 
-      context.fillStyle = `${neuronColor} ${Math.min(1, 0.46 + point.pulse * 0.32)})`;
+      context.fillStyle = `${neuronCoreColor} ${Math.min(1, 0.46 + point.pulse * 0.32)})`;
       context.beginPath();
-      context.arc(point.x, point.y, 2.2 + point.pulse * 2.9, 0, Math.PI * 2);
+      context.arc(point.x, point.y, (1.2 + point.pulse * 1.35) * point.burstSize, 0, Math.PI * 2);
       context.fill();
 
-      context.strokeStyle = `${neuronColor} ${Math.min(0.72, point.pulse * 0.28)})`;
-      context.lineWidth = 1;
-      context.beginPath();
-      context.arc(point.x, point.y, 4.8 + point.pulse * 3.6, 0, Math.PI * 2);
-      context.stroke();
+      drawJaggedBurst(
+        point.x,
+        point.y,
+        (3.2 + point.pulse * 2) * point.burstSize,
+        point.burstSeed,
+        point.pulse,
+        `${neuronCoreColor} ${Math.min(0.62, point.pulse * 0.26)})`,
+        `${neuronGlowColor} ${Math.min(0.9, point.pulse * 0.34)})`
+      );
     }
     context.restore();
 
