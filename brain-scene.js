@@ -1,187 +1,9 @@
-import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+(function () {
+  const container = document.querySelector(".brain-strip");
+  const canvas = document.getElementById("brain-canvas");
+  const THREE = window.THREE;
 
-const container = document.querySelector(".brain-strip");
-const canvas = document.getElementById("brain-canvas");
-
-if (container && canvas) {
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    alpha: true,
-    antialias: true,
-    powerPreference: "high-performance"
-  });
-  const loader = new GLTFLoader();
-  const brain = new THREE.Group();
-  const pointer = new THREE.Vector2(0, 0);
-  const targetRotation = new THREE.Vector2(0, 0);
-  const currentRotation = new THREE.Vector2(0, 0);
-  const clock = new THREE.Clock();
-  let points = null;
-  let resizeObserver = null;
-  let animationFrame = null;
-
-  scene.add(brain);
-  camera.position.set(0, 0, 6.2);
-
-  function getThemeColors() {
-    const isDark = document.documentElement.classList.contains("dark");
-    return {
-      point: new THREE.Color(isDark ? "#eaf3ff" : "#063b7a"),
-      line: new THREE.Color(isDark ? "#8bc6ff" : "#0b5cad")
-    };
-  }
-
-  function createSprite() {
-    const spriteCanvas = document.createElement("canvas");
-    spriteCanvas.width = 96;
-    spriteCanvas.height = 96;
-    const context = spriteCanvas.getContext("2d");
-    const gradient = context.createRadialGradient(48, 48, 2, 48, 48, 44);
-
-    gradient.addColorStop(0, "rgba(255,255,255,1)");
-    gradient.addColorStop(0.55, "rgba(255,255,255,0.9)");
-    gradient.addColorStop(1, "rgba(255,255,255,0)");
-    context.fillStyle = gradient;
-    context.fillRect(0, 0, 96, 96);
-
-    const texture = new THREE.CanvasTexture(spriteCanvas);
-    texture.needsUpdate = true;
-    return texture;
-  }
-
-  function samplePositions(geometries) {
-    const all = [];
-    const maxPoints = 18000;
-
-    for (const geometry of geometries) {
-      const position = geometry.getAttribute("position");
-      if (!position) continue;
-
-      for (let index = 0; index < position.count; index += 1) {
-        all.push(position.getX(index), position.getY(index), position.getZ(index));
-      }
-    }
-
-    const sourceCount = all.length / 3;
-    const stride = Math.max(1, Math.ceil(sourceCount / maxPoints));
-    const sampled = [];
-
-    for (let index = 0; index < sourceCount; index += stride) {
-      sampled.push(all[index * 3], all[index * 3 + 1], all[index * 3 + 2]);
-    }
-
-    return new Float32Array(sampled);
-  }
-
-  function normalizePositions(positions) {
-    const box = new THREE.Box3();
-
-    for (let index = 0; index < positions.length; index += 3) {
-      box.expandByPoint(new THREE.Vector3(positions[index], positions[index + 1], positions[index + 2]));
-    }
-
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const scale = 2.7 / Math.max(size.x, size.y, size.z);
-
-    for (let index = 0; index < positions.length; index += 3) {
-      positions[index] = (positions[index] - center.x) * scale;
-      positions[index + 1] = (positions[index + 1] - center.y) * scale;
-      positions[index + 2] = (positions[index + 2] - center.z) * scale;
-    }
-  }
-
-  function buildPointCloud(gltf) {
-    const geometries = [];
-
-    gltf.scene.updateMatrixWorld(true);
-    gltf.scene.traverse((child) => {
-      if (!child.isMesh || !child.geometry) return;
-
-      const geometry = child.geometry.clone();
-      geometry.applyMatrix4(child.matrixWorld);
-      geometries.push(geometry);
-    });
-
-    const positions = samplePositions(geometries);
-    normalizePositions(positions);
-
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-    const colors = getThemeColors();
-    const material = new THREE.PointsMaterial({
-      color: colors.point,
-      size: 0.018,
-      map: createSprite(),
-      transparent: true,
-      opacity: 0.78,
-      depthWrite: false,
-      blending: THREE.NormalBlending
-    });
-
-    points = new THREE.Points(geometry, material);
-    points.rotation.set(-0.08, -0.28, 0.02);
-    brain.add(points);
-  }
-
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    const width = Math.max(1, rect.width);
-    const height = Math.max(1, rect.height);
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  }
-
-  function animate() {
-    const elapsed = clock.getElapsedTime();
-    targetRotation.x = pointer.y * 0.18;
-    targetRotation.y = pointer.x * 0.28;
-    currentRotation.lerp(targetRotation, 0.055);
-
-    brain.rotation.x = currentRotation.x - 0.02;
-    brain.rotation.y = currentRotation.y + elapsed * 0.035;
-    brain.rotation.z = Math.sin(elapsed * 0.6) * 0.018;
-
-    if (points) {
-      const colors = getThemeColors();
-      points.material.color.lerp(colors.point, 0.08);
-      points.material.opacity = document.documentElement.classList.contains("dark") ? 0.72 : 0.78;
-    }
-
-    renderer.render(scene, camera);
-    animationFrame = window.requestAnimationFrame(animate);
-  }
-
-  container.addEventListener("pointermove", (event) => {
-    const rect = container.getBoundingClientRect();
-    pointer.x = ((event.clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1;
-    pointer.y = -(((event.clientY - rect.top) / Math.max(1, rect.height)) * 2 - 1);
-  });
-
-  container.addEventListener("pointerleave", () => {
-    pointer.set(0, 0);
-  });
-
-  resizeObserver = new ResizeObserver(resize);
-  resizeObserver.observe(container);
-  resize();
-
-  loader.load(
-    "assets/brain/cortex.glb",
-    (gltf) => buildPointCloud(gltf),
-    undefined,
-    () => {
-      brainCanvasFallback();
-    }
-  );
+  if (!container || !canvas) return;
 
   function brainCanvasFallback() {
     const context = canvas.getContext("2d");
@@ -202,14 +24,314 @@ if (container && canvas) {
     context.stroke();
   }
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
+  if (!THREE || !Array.isArray(window.BRAIN_POINTS) || !window.BRAIN_POINTS.length) {
+    brainCanvasFallback();
+    return;
+  }
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true,
+    powerPreference: "high-performance"
+  });
+  const brain = new THREE.Group();
+  const pointer = new THREE.Vector2(0, 0);
+  const targetRotation = new THREE.Vector2(0, 0);
+  const currentRotation = new THREE.Vector2(0, 0);
+  const clock = new THREE.Clock();
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const screenRepulsionRadius = 0.085;
+  const repulsionStrength = 0.052;
+  const surfaceDepthBand = 0.18;
+  const tempWorld = new THREE.Vector3();
+  const tempCamera = new THREE.Vector3();
+  const tempProjected = new THREE.Vector3();
+  const targetScale = new THREE.Vector3(1, 1, 1);
+  let points = null;
+  let basePositions = null;
+  let animationFrame = null;
+  let hoverAmount = 0;
+  let hoverTarget = 0;
+  let isVisible = true;
+
+  scene.add(brain);
+  camera.position.set(0, 0, 6.2);
+
+  function getThemeColor() {
+    return new THREE.Color(document.documentElement.classList.contains("dark") ? "#eaf3ff" : "#063b7a");
+  }
+
+  function createSprite() {
+    const spriteCanvas = document.createElement("canvas");
+    spriteCanvas.width = 96;
+    spriteCanvas.height = 96;
+    const context = spriteCanvas.getContext("2d");
+    const gradient = context.createRadialGradient(48, 48, 2, 48, 48, 44);
+
+    gradient.addColorStop(0, "rgba(255,255,255,1)");
+    gradient.addColorStop(0.55, "rgba(255,255,255,0.9)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, 96, 96);
+
+    const texture = new THREE.CanvasTexture(spriteCanvas);
+    texture.needsUpdate = true;
+    return texture;
+  }
+
+  function normalizePositions(positions) {
+    let minX = Infinity;
+    let minY = Infinity;
+    let minZ = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+    let maxZ = -Infinity;
+
+    for (let index = 0; index < positions.length; index += 3) {
+      minX = Math.min(minX, positions[index]);
+      minY = Math.min(minY, positions[index + 1]);
+      minZ = Math.min(minZ, positions[index + 2]);
+      maxX = Math.max(maxX, positions[index]);
+      maxY = Math.max(maxY, positions[index + 1]);
+      maxZ = Math.max(maxZ, positions[index + 2]);
+    }
+
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+    const centerZ = (minZ + maxZ) / 2;
+    const scale = 2.7 / Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+
+    for (let index = 0; index < positions.length; index += 3) {
+      positions[index] = (positions[index] - centerX) * scale;
+      positions[index + 1] = -(positions[index + 1] - centerY) * scale;
+      positions[index + 2] = (positions[index + 2] - centerZ) * scale;
+    }
+  }
+
+  function buildPointCloud() {
+    const positions = new Float32Array(window.BRAIN_POINTS);
+    normalizePositions(positions);
+    basePositions = new Float32Array(positions);
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: getThemeColor(),
+      size: 0.018,
+      map: createSprite(),
+      transparent: true,
+      opacity: 0.78,
+      depthWrite: false,
+      blending: THREE.NormalBlending
+    });
+
+    points = new THREE.Points(geometry, material);
+    points.rotation.set(-0.08, -0.28, 0.02);
+    brain.add(points);
+    renderOnce();
+    updateAnimationState();
+  }
+
+  function resize() {
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(1, rect.width);
+    const height = Math.max(1, rect.height);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    renderer.setPixelRatio(dpr);
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderOnce();
+  }
+
+  function updateBrainTransform() {
+    const elapsed = clock.getElapsedTime();
+    targetRotation.x = -pointer.y * 0.18;
+    targetRotation.y = pointer.x * 0.28;
+    currentRotation.lerp(targetRotation, 0.055);
+    const zoom = 1 + hoverAmount * 0.045;
+    targetScale.set(zoom, zoom, zoom);
+
+    brain.rotation.x = currentRotation.x - 0.02;
+    brain.rotation.y = currentRotation.y + elapsed * 0.035;
+    brain.rotation.z = Math.sin(elapsed * 0.6) * 0.018;
+    brain.scale.lerp(targetScale, 0.08);
+
+    if (points) {
+      points.material.color.lerp(getThemeColor(), 0.08);
+      points.material.opacity = document.documentElement.classList.contains("dark") ? 0.72 : 0.78;
+    }
+  }
+
+  function updateParticlePositions() {
+    if (!points || !basePositions) return;
+    if (hoverAmount === 0 && hoverTarget === 0) return;
+
+    const surfaceHit = getSurfaceHit();
+    if (!surfaceHit) {
+      hoverTarget = 0;
+    }
+
+    hoverAmount += (hoverTarget - hoverAmount) * 0.09;
+    if (Math.abs(hoverTarget - hoverAmount) < 0.001) {
+      hoverAmount = hoverTarget;
+    }
+
+    const positionAttribute = points.geometry.getAttribute("position");
+    const positions = positionAttribute.array;
+    const radiusSquared = screenRepulsionRadius * screenRepulsionRadius;
+    points.updateMatrixWorld(true);
+    camera.updateMatrixWorld(true);
+
+    for (let index = 0; index < positions.length; index += 3) {
+      const x = basePositions[index];
+      const y = basePositions[index + 1];
+      const z = basePositions[index + 2];
+      let localInfluence = 0;
+      let directionX = 0;
+      let directionY = 0;
+
+      if (surfaceHit) {
+        tempWorld.set(x, y, z).applyMatrix4(points.matrixWorld);
+        tempCamera.copy(tempWorld).applyMatrix4(camera.matrixWorldInverse);
+
+        if (tempCamera.z >= surfaceHit.cameraZ - surfaceDepthBand) {
+          tempProjected.copy(tempWorld).project(camera);
+          const dx = tempProjected.x - pointer.x;
+          const dy = tempProjected.y - pointer.y;
+          const distanceSquared = dx * dx + dy * dy;
+
+          if (distanceSquared < radiusSquared) {
+            const distance = Math.sqrt(distanceSquared) || 0.001;
+            localInfluence = (1 - distance / screenRepulsionRadius) ** 2;
+            directionX = dx / distance;
+            directionY = dy / distance;
+          }
+        }
+      }
+
+      positions[index] = x + directionX * repulsionStrength * localInfluence * hoverAmount;
+      positions[index + 1] = y + directionY * repulsionStrength * localInfluence * hoverAmount;
+      positions[index + 2] = z;
+    }
+
+    positionAttribute.needsUpdate = true;
+  }
+
+  function getSurfaceHit() {
+    if (!points || !basePositions) return null;
+
+    let cameraZ = -Infinity;
+    const radiusSquared = screenRepulsionRadius * screenRepulsionRadius;
+    points.updateMatrixWorld(true);
+    camera.updateMatrixWorld(true);
+
+    for (let index = 0; index < basePositions.length; index += 3) {
+      tempWorld.set(basePositions[index], basePositions[index + 1], basePositions[index + 2]).applyMatrix4(points.matrixWorld);
+      tempCamera.copy(tempWorld).applyMatrix4(camera.matrixWorldInverse);
+
+      if (tempCamera.z >= -camera.near || tempCamera.z <= -camera.far) continue;
+
+      tempProjected.copy(tempWorld).project(camera);
+      if (tempProjected.z < -1 || tempProjected.z > 1) continue;
+
+      const dx = tempProjected.x - pointer.x;
+      const dy = tempProjected.y - pointer.y;
+      const distanceSquared = dx * dx + dy * dy;
+      if (distanceSquared < radiusSquared) {
+        cameraZ = Math.max(cameraZ, tempCamera.z);
+      }
+    }
+
+    return cameraZ > -Infinity ? { cameraZ } : null;
+  }
+
+  function renderOnce() {
+    updateBrainTransform();
+    updateParticlePositions();
+    renderer.render(scene, camera);
+  }
+
+  function shouldAnimate() {
+    return isVisible && !document.hidden && !reducedMotionQuery.matches;
+  }
+
+  function startAnimation() {
+    if (!animationFrame && shouldAnimate()) {
+      animationFrame = window.requestAnimationFrame(animate);
+    }
+  }
+
+  function stopAnimation() {
+    if (animationFrame) {
       window.cancelAnimationFrame(animationFrame);
       animationFrame = null;
-    } else if (!animationFrame) {
-      animate();
     }
+  }
+
+  function updateAnimationState() {
+    if (shouldAnimate()) {
+      startAnimation();
+      return;
+    }
+
+    stopAnimation();
+    renderOnce();
+  }
+
+  function animate() {
+    animationFrame = null;
+    renderOnce();
+
+    if (shouldAnimate()) {
+      animationFrame = window.requestAnimationFrame(animate);
+    }
+  }
+
+  function updatePointer(event) {
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = ((event.clientX - rect.left) / Math.max(1, rect.width)) * 2 - 1;
+    pointer.y = -(((event.clientY - rect.top) / Math.max(1, rect.height)) * 2 - 1);
+  }
+
+  container.addEventListener("pointerenter", (event) => {
+    updatePointer(event);
+    hoverTarget = 1;
+    startAnimation();
   });
 
-  animate();
-}
+  container.addEventListener("pointermove", (event) => {
+    updatePointer(event);
+    hoverTarget = 1;
+    startAnimation();
+  });
+
+  container.addEventListener("pointerleave", () => {
+    pointer.set(0, 0);
+    hoverTarget = 0;
+    startAnimation();
+  });
+
+  new ResizeObserver(resize).observe(container);
+
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        updateAnimationState();
+      },
+      { threshold: 0.05 }
+    ).observe(container);
+  }
+
+  document.addEventListener("visibilitychange", updateAnimationState);
+  reducedMotionQuery.addEventListener?.("change", updateAnimationState);
+
+  resize();
+  buildPointCloud();
+})();
