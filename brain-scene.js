@@ -43,8 +43,8 @@
   const currentRotation = new THREE.Vector2(0, 0);
   const clock = new THREE.Clock();
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const screenRepulsionRadius = 0.085;
-  const repulsionStrength = 0.052;
+  const screenRepulsionRadius = 0.13;
+  const repulsionStrength = 0.078;
   const surfaceDepthBand = 0.18;
   const tempWorld = new THREE.Vector3();
   const tempCamera = new THREE.Vector3();
@@ -102,7 +102,7 @@
     const centerX = (minX + maxX) / 2;
     const centerY = (minY + maxY) / 2;
     const centerZ = (minZ + maxZ) / 2;
-    const scale = 2.7 / Math.max(maxX - minX, maxY - minY, maxZ - minZ);
+    const scale = 3.55 / Math.max(maxX - minX, maxY - minY, maxZ - minZ);
 
     for (let index = 0; index < positions.length; index += 3) {
       positions[index] = (positions[index] - centerX) * scale;
