@@ -10,7 +10,7 @@
     <title>Arham Siddiqui</title>
     <script>
       const savedTheme = localStorage.getItem("theme");
-      if (savedTheme === "dark") {
+      if (savedTheme !== "light") {
         document.documentElement.classList.add("dark");
       }
     </script>
@@ -57,9 +57,10 @@
         </div>
 
         <p>
-          I study Electrical Engineering & Computer Science at UC Berkeley and build
-          machine learning systems across computer vision, multimodal perception,
-          AI agents, neurotechnology, and embedded assistive technology.
+          I am from Santa Clara, California, and study Electrical Engineering &
+          Computer Science at UC Berkeley. I build machine learning systems across
+          computer vision, multimodal perception, AI agents, neurotechnology, and
+          embedded assistive technology.
         </p>
 
         <p>
@@ -480,7 +481,7 @@
         <span>Berkeley, CA</span>
       </footer>
     </main>
-    <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
       <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path>
       </svg>
@@ -499,6 +500,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
     <script src="assets/brain/brain-points.js?v=20260705-curriculearn-brain"></script>
     <script src="theme.js?v=20260613"></script>
-    <script src="brain-scene.js?v=20260705-curriculearn-hover"></script>
+    <script src="brain-scene.js?v=20260705-neuron-firing"></script>
   </body>
 </html>
