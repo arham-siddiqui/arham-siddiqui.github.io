@@ -62,3 +62,31 @@ if ("IntersectionObserver" in window && sections.length) {
 }
 
 setActiveSection(sections[0]?.id || "experience");
+
+document.querySelectorAll(".intro-link[href^='#']").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    const target = document.querySelector(link.getAttribute("href"));
+    if (!target) return;
+
+    event.preventDefault();
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    const offset = Math.min(150, window.innerHeight * 0.18);
+
+    window.scrollTo({
+      top: Math.max(0, targetTop - offset),
+      behavior: "smooth"
+    });
+
+    history.pushState(null, "", link.getAttribute("href"));
+
+    window.clearTimeout(target.pulseTimeout);
+    target.classList.remove("is-pulsing");
+    window.requestAnimationFrame(() => {
+      target.classList.add("is-pulsing");
+    });
+
+    target.pulseTimeout = window.setTimeout(() => {
+      target.classList.remove("is-pulsing");
+    }, 1900);
+  });
+});
