@@ -56,6 +56,11 @@
   const repulsionStrength = 0.26;
   const maxDisplace = 0.11;
   const frontThreshold = 0.08;
+  const firingParticleCount = 180;
+  const firingPulseMinDelay = 0.45;
+  const firingPulseMaxDelay = 4.2;
+  const firingPulseMinDuration = 0.42;
+  const firingPulseMaxDuration = 0.95;
   const tempWorld = new THREE.Vector3();
   const tempCamera = new THREE.Vector3();
   const tempProjected = new THREE.Vector3();
@@ -70,7 +75,12 @@
   const mvpMatrix = new THREE.Matrix4();
   const targetScale = new THREE.Vector3(1, 1, 1);
   let points = null;
+  let firingPoints = null;
+  let firingPositions = null;
+  let firingColors = null;
   let basePositions = null;
+  let baseColors = null;
+  let firingParticles = [];
   let velocities = null;
   let animationFrame = null;
   let hoverAmount = 0;
@@ -142,9 +152,11 @@
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
-    if (Array.isArray(window.BRAIN_COLORS) && window.BRAIN_COLORS.length === positions.length) {
-      geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(window.BRAIN_COLORS), 3));
-    }
+    baseColors = Array.isArray(window.BRAIN_COLORS) && window.BRAIN_COLORS.length === positions.length
+      ? new Float32Array(window.BRAIN_COLORS)
+      : createFallbackColors(positions.length);
+    geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(baseColors), 3));
+    seedFiringParticles(positions.length / 3);
 
     const material = new THREE.PointsMaterial({
       color: getThemeColor(),
@@ -154,14 +166,49 @@
       opacity: 0.82,
       depthWrite: false,
       blending: THREE.NormalBlending,
-      vertexColors: Boolean(geometry.getAttribute("color"))
+      vertexColors: true
     });
 
     points = new THREE.Points(geometry, material);
     points.rotation.set(-0.08, -0.28, 0.02);
     brain.add(points);
+    buildFiringOverlay();
     renderOnce();
     updateAnimationState();
+  }
+
+  function buildFiringOverlay() {
+    if (!firingParticles.length || !basePositions) return;
+
+    firingPositions = new Float32Array(firingParticles.length * 3);
+    firingColors = new Float32Array(firingParticles.length * 3);
+
+    for (let index = 0; index < firingParticles.length; index += 1) {
+      const sourceIndex = firingParticles[index].index;
+      const targetIndex = index * 3;
+      firingPositions[targetIndex] = basePositions[sourceIndex];
+      firingPositions[targetIndex + 1] = basePositions[sourceIndex + 1];
+      firingPositions[targetIndex + 2] = basePositions[sourceIndex + 2];
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(firingPositions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(firingColors, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: "#ffffff",
+      size: 0.058,
+      map: createSprite(),
+      transparent: true,
+      opacity: 0.9,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true
+    });
+
+    firingPoints = new THREE.Points(geometry, material);
+    firingPoints.rotation.copy(points.rotation);
+    brain.add(firingPoints);
   }
 
   function resize() {
@@ -200,6 +247,92 @@
   function smoothstep01(value) {
     const t = Math.max(0, Math.min(1, value));
     return t * t * (3 - 2 * t);
+  }
+
+  function createFallbackColors(length) {
+    const colors = new Float32Array(length);
+    colors.fill(1);
+    return colors;
+  }
+
+  function randomBetween(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function seedFiringParticles(pointCount) {
+    const selected = new Set();
+    const count = Math.min(firingParticleCount, pointCount);
+
+    while (selected.size < count) {
+      selected.add(Math.floor(Math.random() * pointCount));
+    }
+
+    firingParticles = Array.from(selected, (particleIndex) => ({
+      index: particleIndex * 3,
+      start: randomBetween(0, firingPulseMaxDelay),
+      duration: randomBetween(firingPulseMinDuration, firingPulseMaxDuration),
+      nextDelay: randomBetween(firingPulseMinDelay, firingPulseMaxDelay)
+    }));
+  }
+
+  function updateFiringParticles(elapsed) {
+    if (!points || !baseColors || !firingParticles.length) return;
+
+    const colorAttribute = points.geometry.getAttribute("color");
+    if (!colorAttribute) return;
+
+    const colors = colorAttribute.array;
+    const positionAttribute = points.geometry.getAttribute("position");
+    const positions = positionAttribute.array;
+    const firingPositionAttribute = firingPoints?.geometry.getAttribute("position");
+    const firingColorAttribute = firingPoints?.geometry.getAttribute("color");
+    let changed = false;
+    let firingOverlayChanged = false;
+
+    for (let pulseIndex = 0; pulseIndex < firingParticles.length; pulseIndex += 1) {
+      const pulse = firingParticles[pulseIndex];
+      const index = pulse.index;
+      let intensity = 0;
+
+      if (elapsed >= pulse.start) {
+        const progress = (elapsed - pulse.start) / pulse.duration;
+
+        if (progress >= 1) {
+          pulse.start = elapsed + pulse.nextDelay;
+          pulse.duration = randomBetween(firingPulseMinDuration, firingPulseMaxDuration);
+          pulse.nextDelay = randomBetween(firingPulseMinDelay, firingPulseMaxDelay);
+        } else {
+          intensity = Math.sin(progress * Math.PI);
+        }
+      }
+
+      const glow = intensity * intensity;
+      const blueLift = document.documentElement.classList.contains("dark") ? 0.65 : 0.45;
+      colors[index] = baseColors[index] + glow * 1.1;
+      colors[index + 1] = baseColors[index + 1] + glow * (0.95 + blueLift * 0.25);
+      colors[index + 2] = baseColors[index + 2] + glow * (1.35 + blueLift);
+      changed = true;
+
+      if (firingPositions && firingColors) {
+        const targetIndex = pulseIndex * 3;
+        firingPositions[targetIndex] = positions[index];
+        firingPositions[targetIndex + 1] = positions[index + 1];
+        firingPositions[targetIndex + 2] = positions[index + 2];
+        firingColors[targetIndex] = glow * 0.72;
+        firingColors[targetIndex + 1] = glow * 0.95;
+        firingColors[targetIndex + 2] = glow * 1.45;
+        firingOverlayChanged = true;
+      }
+    }
+
+    if (changed) {
+      colorAttribute.needsUpdate = true;
+    }
+
+    if (firingOverlayChanged) {
+      firingPositionAttribute.needsUpdate = true;
+      firingColorAttribute.needsUpdate = true;
+    }
   }
 
   function updateParticlePositions(dt) {
@@ -325,6 +458,7 @@
     const dt = Math.min(clock.getDelta() || 1 / 60, 1 / 30);
     updateBrainTransform();
     updateParticlePositions(dt);
+    updateFiringParticles(clock.getElapsedTime());
     renderer.render(scene, camera);
   }
 
