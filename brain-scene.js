@@ -31,31 +31,53 @@
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    alpha: true,
-    antialias: true,
-    powerPreference: "high-performance"
-  });
+  let renderer = null;
+
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: "high-performance"
+    });
+  } catch (error) {
+    brainCanvasFallback();
+    return;
+  }
   const brain = new THREE.Group();
   const pointer = new THREE.Vector2(0, 0);
   const targetRotation = new THREE.Vector2(0, 0);
   const currentRotation = new THREE.Vector2(0, 0);
   const clock = new THREE.Clock();
   const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const screenRepulsionRadius = 0.13;
-  const repulsionStrength = 0.078;
-  const surfaceDepthBand = 0.18;
+  const springK = 0.075;
+  const damping = 0.9;
+  const repulsionRadiusPx = 78;
+  const repulsionStrength = 0.26;
+  const maxDisplace = 0.11;
+  const frontThreshold = 0.08;
   const tempWorld = new THREE.Vector3();
   const tempCamera = new THREE.Vector3();
   const tempProjected = new THREE.Vector3();
+  const cameraForward = new THREE.Vector3();
+  const cameraRight = new THREE.Vector3();
+  const cameraUp = new THREE.Vector3();
+  const groupQuaternionWorld = new THREE.Quaternion();
+  const inverseGroupQuaternion = new THREE.Quaternion();
+  const localRight = new THREE.Vector3();
+  const localUp = new THREE.Vector3();
+  const localForward = new THREE.Vector3();
+  const mvpMatrix = new THREE.Matrix4();
   const targetScale = new THREE.Vector3(1, 1, 1);
   let points = null;
   let basePositions = null;
+  let velocities = null;
   let animationFrame = null;
   let hoverAmount = 0;
   let hoverTarget = 0;
+  let pointerInside = false;
   let isVisible = true;
+  let fitScale = 1;
 
   scene.add(brain);
   camera.position.set(0, 0, 6.2);
@@ -106,7 +128,7 @@
 
     for (let index = 0; index < positions.length; index += 3) {
       positions[index] = (positions[index] - centerX) * scale;
-      positions[index + 1] = -(positions[index + 1] - centerY) * scale;
+      positions[index + 1] = (positions[index + 1] - centerY) * scale;
       positions[index + 2] = (positions[index + 2] - centerZ) * scale;
     }
   }
@@ -115,18 +137,24 @@
     const positions = new Float32Array(window.BRAIN_POINTS);
     normalizePositions(positions);
     basePositions = new Float32Array(positions);
+    velocities = new Float32Array(positions.length);
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 
+    if (Array.isArray(window.BRAIN_COLORS) && window.BRAIN_COLORS.length === positions.length) {
+      geometry.setAttribute("color", new THREE.BufferAttribute(new Float32Array(window.BRAIN_COLORS), 3));
+    }
+
     const material = new THREE.PointsMaterial({
       color: getThemeColor(),
-      size: 0.026,
+      size: 0.03,
       map: createSprite(),
       transparent: true,
-      opacity: 0.78,
+      opacity: 0.82,
       depthWrite: false,
-      blending: THREE.NormalBlending
+      blending: THREE.NormalBlending,
+      vertexColors: Boolean(geometry.getAttribute("color"))
     });
 
     points = new THREE.Points(geometry, material);
@@ -146,6 +174,7 @@
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
+    fitScale = Math.min(1, Math.max(0.78, camera.aspect / 1.02));
     renderOnce();
   }
 
@@ -154,7 +183,7 @@
     targetRotation.x = -pointer.y * 0.18;
     targetRotation.y = pointer.x * 0.28;
     currentRotation.lerp(targetRotation, 0.055);
-    const zoom = 1 + hoverAmount * 0.045;
+    const zoom = fitScale * (1 + hoverAmount * 0.045);
     targetScale.set(zoom, zoom, zoom);
 
     brain.rotation.x = currentRotation.x - 0.02;
@@ -164,18 +193,17 @@
 
     if (points) {
       points.material.color.lerp(getThemeColor(), 0.08);
-      points.material.opacity = document.documentElement.classList.contains("dark") ? 0.72 : 0.78;
+      points.material.opacity = document.documentElement.classList.contains("dark") ? 0.82 : 0.84;
     }
   }
 
-  function updateParticlePositions() {
-    if (!points || !basePositions) return;
-    if (hoverAmount === 0 && hoverTarget === 0) return;
+  function smoothstep01(value) {
+    const t = Math.max(0, Math.min(1, value));
+    return t * t * (3 - 2 * t);
+  }
 
-    const surfaceHit = getSurfaceHit();
-    if (!surfaceHit) {
-      hoverTarget = 0;
-    }
+  function updateParticlePositions(dt) {
+    if (!points || !basePositions || !velocities) return;
 
     hoverAmount += (hoverTarget - hoverAmount) * 0.09;
     if (Math.abs(hoverTarget - hoverAmount) < 0.001) {
@@ -184,76 +212,119 @@
 
     const positionAttribute = points.geometry.getAttribute("position");
     const positions = positionAttribute.array;
-    const radiusSquared = screenRepulsionRadius * screenRepulsionRadius;
+    const frameScale = Math.min(dt || 1 / 60, 1 / 30) * 60;
+    const dampingFactor = Math.pow(damping, frameScale);
+    const maxDisplaceSquared = maxDisplace * maxDisplace;
+    const radiusSquared = repulsionRadiusPx * repulsionRadiusPx;
+    const rect = canvas.getBoundingClientRect();
+    const cursorPx = {
+      x: (pointer.x * 0.5 + 0.5) * Math.max(1, rect.width),
+      y: (1 - (pointer.y * 0.5 + 0.5)) * Math.max(1, rect.height)
+    };
+    const physicsActive = pointerInside && hoverAmount > 0.01 && !reducedMotionQuery.matches;
+
     points.updateMatrixWorld(true);
+    brain.updateMatrixWorld(true);
     camera.updateMatrixWorld(true);
+    camera.matrixWorldInverse.copy(camera.matrixWorld).invert();
+    mvpMatrix.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+    mvpMatrix.multiply(points.matrixWorld);
+
+    camera.getWorldDirection(cameraForward).normalize();
+    cameraRight.setFromMatrixColumn(camera.matrixWorld, 0).normalize();
+    cameraUp.setFromMatrixColumn(camera.matrixWorld, 1).normalize();
+    points.getWorldQuaternion(groupQuaternionWorld);
+    inverseGroupQuaternion.copy(groupQuaternionWorld).invert();
+    localRight.copy(cameraRight).applyQuaternion(inverseGroupQuaternion).normalize();
+    localUp.copy(cameraUp).applyQuaternion(inverseGroupQuaternion).normalize();
+    localForward.copy(cameraForward).applyQuaternion(inverseGroupQuaternion).normalize().multiplyScalar(-1);
 
     for (let index = 0; index < positions.length; index += 3) {
-      const x = basePositions[index];
-      const y = basePositions[index + 1];
-      const z = basePositions[index + 2];
-      let localInfluence = 0;
-      let directionX = 0;
-      let directionY = 0;
+      const restX = basePositions[index];
+      const restY = basePositions[index + 1];
+      const restZ = basePositions[index + 2];
+      const x = positions[index];
+      const y = positions[index + 1];
+      const z = positions[index + 2];
 
-      if (surfaceHit) {
+      velocities[index] += (restX - x) * springK * frameScale;
+      velocities[index + 1] += (restY - y) * springK * frameScale;
+      velocities[index + 2] += (restZ - z) * springK * frameScale;
+
+      if (physicsActive) {
         tempWorld.set(x, y, z).applyMatrix4(points.matrixWorld);
         tempCamera.copy(tempWorld).applyMatrix4(camera.matrixWorldInverse);
-
-        if (tempCamera.z >= surfaceHit.cameraZ - surfaceDepthBand) {
+        if (tempCamera.z < -camera.near && tempCamera.z > -camera.far) {
           tempProjected.copy(tempWorld).project(camera);
-          const dx = tempProjected.x - pointer.x;
-          const dy = tempProjected.y - pointer.y;
-          const distanceSquared = dx * dx + dy * dy;
 
-          if (distanceSquared < radiusSquared) {
-            const distance = Math.sqrt(distanceSquared) || 0.001;
-            localInfluence = (1 - distance / screenRepulsionRadius) ** 2;
-            directionX = dx / distance;
-            directionY = dy / distance;
+          if (Math.abs(tempProjected.x) <= 1.15 && Math.abs(tempProjected.y) <= 1.15) {
+            const outLength = Math.hypot(x, y, z) || 1;
+            const frontness =
+              (x / outLength) * localForward.x +
+              (y / outLength) * localForward.y +
+              (z / outLength) * localForward.z;
+
+            if (frontness >= frontThreshold) {
+              const screenX = (tempProjected.x * 0.5 + 0.5) * Math.max(1, rect.width);
+              const screenY = (1 - (tempProjected.y * 0.5 + 0.5)) * Math.max(1, rect.height);
+              const dx = screenX - cursorPx.x;
+              const dy = screenY - cursorPx.y;
+              const distanceSquared = dx * dx + dy * dy;
+
+              if (distanceSquared < radiusSquared) {
+                const distance = Math.sqrt(distanceSquared) || 0.001;
+                const directionX = dx / distance;
+                const directionY = dy / distance;
+                const falloff = smoothstep01(1 - distance / repulsionRadiusPx);
+                const push = repulsionStrength * falloff * frameScale * hoverAmount;
+
+                velocities[index] += (localRight.x * directionX + localUp.x * -directionY) * push;
+                velocities[index + 1] += (localRight.y * directionX + localUp.y * -directionY) * push;
+                velocities[index + 2] += (localRight.z * directionX + localUp.z * -directionY) * push;
+              }
+            }
           }
         }
       }
 
-      positions[index] = x + directionX * repulsionStrength * localInfluence * hoverAmount;
-      positions[index + 1] = y + directionY * repulsionStrength * localInfluence * hoverAmount;
-      positions[index + 2] = z;
+      let velocityX = velocities[index] * dampingFactor;
+      let velocityY = velocities[index + 1] * dampingFactor;
+      let velocityZ = velocities[index + 2] * dampingFactor;
+
+      let nextX = x + velocityX * Math.min(dt || 1 / 60, 1 / 30);
+      let nextY = y + velocityY * Math.min(dt || 1 / 60, 1 / 30);
+      let nextZ = z + velocityZ * Math.min(dt || 1 / 60, 1 / 30);
+
+      const displaceX = nextX - restX;
+      const displaceY = nextY - restY;
+      const displaceZ = nextZ - restZ;
+      const displaceSquared = displaceX * displaceX + displaceY * displaceY + displaceZ * displaceZ;
+
+      if (displaceSquared > maxDisplaceSquared) {
+        const scale = maxDisplace / Math.sqrt(displaceSquared);
+        nextX = restX + displaceX * scale;
+        nextY = restY + displaceY * scale;
+        nextZ = restZ + displaceZ * scale;
+        velocityX *= 0.72;
+        velocityY *= 0.72;
+        velocityZ *= 0.72;
+      }
+
+      positions[index] = nextX;
+      positions[index + 1] = nextY;
+      positions[index + 2] = nextZ;
+      velocities[index] = velocityX;
+      velocities[index + 1] = velocityY;
+      velocities[index + 2] = velocityZ;
     }
 
     positionAttribute.needsUpdate = true;
   }
 
-  function getSurfaceHit() {
-    if (!points || !basePositions) return null;
-
-    let cameraZ = -Infinity;
-    const radiusSquared = screenRepulsionRadius * screenRepulsionRadius;
-    points.updateMatrixWorld(true);
-    camera.updateMatrixWorld(true);
-
-    for (let index = 0; index < basePositions.length; index += 3) {
-      tempWorld.set(basePositions[index], basePositions[index + 1], basePositions[index + 2]).applyMatrix4(points.matrixWorld);
-      tempCamera.copy(tempWorld).applyMatrix4(camera.matrixWorldInverse);
-
-      if (tempCamera.z >= -camera.near || tempCamera.z <= -camera.far) continue;
-
-      tempProjected.copy(tempWorld).project(camera);
-      if (tempProjected.z < -1 || tempProjected.z > 1) continue;
-
-      const dx = tempProjected.x - pointer.x;
-      const dy = tempProjected.y - pointer.y;
-      const distanceSquared = dx * dx + dy * dy;
-      if (distanceSquared < radiusSquared) {
-        cameraZ = Math.max(cameraZ, tempCamera.z);
-      }
-    }
-
-    return cameraZ > -Infinity ? { cameraZ } : null;
-  }
-
   function renderOnce() {
+    const dt = Math.min(clock.getDelta() || 1 / 60, 1 / 30);
     updateBrainTransform();
-    updateParticlePositions();
+    updateParticlePositions(dt);
     renderer.render(scene, camera);
   }
 
@@ -301,18 +372,21 @@
 
   container.addEventListener("pointerenter", (event) => {
     updatePointer(event);
+    pointerInside = true;
     hoverTarget = 1;
     startAnimation();
   });
 
   container.addEventListener("pointermove", (event) => {
     updatePointer(event);
+    pointerInside = true;
     hoverTarget = 1;
     startAnimation();
   });
 
   container.addEventListener("pointerleave", () => {
     pointer.set(0, 0);
+    pointerInside = false;
     hoverTarget = 0;
     startAnimation();
   });
