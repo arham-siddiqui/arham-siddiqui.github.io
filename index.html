@@ -14,7 +14,7 @@
         document.documentElement.classList.add("dark");
       }
     </script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260704-resume-refresh">
   </head>
   <body>
     <main class="page">
@@ -25,6 +25,7 @@
           <a href="#projects">projects</a>
           <a href="#research">research</a>
           <a href="#leadership">leadership</a>
+          <a href="#skills">skills</a>
         </nav>
       </header>
 
@@ -58,43 +59,69 @@
         <p>
           I study Electrical Engineering & Computer Science at UC Berkeley and build
           machine learning systems across computer vision, multimodal perception,
-          robotics, and adaptive AI agents.
+          AI agents, neurotechnology, and embedded assistive technology.
         </p>
 
         <p>
-          Currently, I am a contract Computer Vision Engineer at Apple. Previously, I
-          worked on trust-aware autonomy selection for a Google Calendar AI agent at
-          Google DeepMind, researched assistive perception systems through BWSI, and
-          contributed to AI and climate-technology policy work with CSIRO.
+          I am currently building an interpretable silent-speech foundation-model
+          system. Recently, I built computer vision data-validation pipelines at Apple
+          and developed trust-aware autonomy selection for a Gemini-powered Google
+          Calendar agent at Google DeepMind.
         </p>
-
       </section>
 
-      <div class="brain-strip" aria-label="Interactive brain animation">
+      <section class="brain-strip" aria-label="Interactive brain animation">
         <canvas id="brain-canvas" aria-hidden="true"></canvas>
-      </div>
+      </section>
+
+      <section id="education" class="section">
+        <h2>Education</h2>
+
+        <article class="entry">
+          <div class="entry-head">
+            <h3>University of California, Berkeley</h3>
+            <span>Expected May 2028</span>
+          </div>
+          <p class="meta">B.S. Electrical Engineering & Computer Science</p>
+          <p>
+            Relevant Coursework: Optimization Models in Engineering, Discrete
+            Mathematics and Probability Theory, Machine Structures, Data Structures,
+            The Structure and Interpretation of Computer Programs, Foundations of
+            Signals Dynamical Systems and Information Processing, Linear Algebra and
+            Differential Equations, Physics for Scientists and Engineers.
+          </p>
+        </article>
+      </section>
 
       <section id="experience" class="section">
         <h2>Experience</h2>
 
         <article class="entry logo-entry">
           <div class="entry-head">
-            <h3><a class="entry-icon logo-link" href="https://www.apple.com/" target="_blank" rel="noreferrer" aria-label="Apple homepage"><img class="logo-icon" src="assets/logos/apple.jpeg" alt="" loading="lazy"></a>Computer Vision Engineer</h3>
-            <span>Jan 2026 - present</span>
+            <h3><a class="entry-icon logo-link" href="https://www.apple.com/" target="_blank" rel="noreferrer" aria-label="Apple homepage"><img class="logo-icon" src="assets/logos/apple.jpeg" alt="" loading="lazy"></a>Software Engineer (Contract)</h3>
+            <span>Jan 2026 - May 2026</span>
           </div>
           <p class="meta">Apple</p>
           <p>
-            Building a computer vision pipeline for automated image dataset validation
-            across quality, content, and aesthetic dimensions. Developing backend
-            infrastructure for score aggregation and threshold-based verdict assignment
-            for large-scale ML dataset curation.
+            Built an end-to-end computer vision pipeline to automatically validate
+            large-scale image datasets for ML training, with multi-model image-quality
+            scoring for blur, noise, content, and aesthetics.
+          </p>
+          <p>
+            Designed backend aggregation logic for threshold-based filtering and
+            human-in-the-loop review across dataset quality checks.
+          </p>
+          <p class="entry-links">
+            <span>Computer Vision</span>
+            <span>Data Pipelines</span>
+            <span>OpenCV</span>
           </p>
         </article>
 
         <article class="entry logo-entry">
           <div class="entry-head">
             <div class="entry-title">
-              <h3><a class="entry-icon logo-link" href="https://deepmind.google/" target="_blank" rel="noreferrer" aria-label="Google DeepMind homepage"><img class="logo-icon" src="assets/logos/deepmind.jpeg" alt="" loading="lazy"></a>Machine Learning Engineer</h3>
+              <h3><a class="entry-icon logo-link" href="https://deepmind.google/" target="_blank" rel="noreferrer" aria-label="Google DeepMind homepage"><img class="logo-icon" src="assets/logos/deepmind.jpeg" alt="" loading="lazy"></a>Software Engineer (Contract)</h3>
               <div class="inline-links">
                 <a href="https://drive.google.com/file/d/1IaMvZWYHsVTkg4qxuARYHjinMlAsfYGb/view?usp=sharing" target="_blank" rel="noreferrer">report</a>
                 <a href="https://github.com/arham-siddiqui/deepmindtrustbandit" target="_blank" rel="noreferrer">github</a>
@@ -104,14 +131,20 @@
           </div>
           <p class="meta">Google DeepMind</p>
           <p>
-            Designed a Hybrid LinUCB contextual bandit with Bayesian confidence bounds
-            to adaptively select autonomy levels for a Google Calendar AI agent.
-            Engineered trust-aware reward functions and feature pipelines from user
-            history, task context, and uncertainty-driven exploration.
+            Designed and built a Gemini-powered Google Calendar AI agent with
+            LangChain, integrating tool-calling workflows for calendar reasoning,
+            scheduling assistance, and adaptive task execution.
+          </p>
+          <p>
+            Developed a Hybrid LinUCB contextual bandit to dynamically select agent
+            autonomy levels, modeling user trust as a time-evolving latent state with
+            Bayesian-inspired uncertainty and confidence-bound exploration.
           </p>
           <p class="entry-links">
-            <span>contextual bandits</span>
-            <span>trust-aware ai</span>
+            <span>Reinforcement Learning</span>
+            <span>AI Agents</span>
+            <span>Contextual Bandits</span>
+            <span>Bayesian Uncertainty</span>
           </p>
         </article>
 
@@ -125,6 +158,12 @@
             Built four multimodal perception systems for assistive navigation across
             audio, visual, and language domains, including DFT-based feature extraction,
             sequential neural networks, NLP, and transformers.
+          </p>
+          <p class="entry-links">
+            <span>Multimodal ML</span>
+            <span>Signal Processing</span>
+            <span>NLP</span>
+            <span>Transformers</span>
           </p>
         </article>
 
@@ -146,14 +185,49 @@
             ESG risk assessment.
           </p>
           <p class="entry-links">
-            <span>climate technology</span>
-            <span>ai policy</span>
+            <span>Climate Technology</span>
+            <span>AI Policy</span>
           </p>
         </article>
       </section>
 
       <section id="projects" class="section">
         <h2>Projects</h2>
+
+        <article class="entry">
+          <div class="entry-head">
+            <div class="entry-title">
+              <h3>Speech Foundation Models for Silent Speech Decoding</h3>
+              <div class="inline-links">
+                <a href="https://drive.google.com/file/d/1xHhZNLfurAyho5anMl13Zp7aPgUI7awr/view?usp=sharing" target="_blank" rel="noreferrer">poster</a>
+                <a href="https://github.com/arham-siddiqui/silentSpeech" target="_blank" rel="noreferrer">github</a>
+              </div>
+            </div>
+            <span>Sep 2025 - present</span>
+          </div>
+          <p>
+            Building an interpretable silent-speech decoding framework that extends a
+            30-class multimodal pipeline into a causal analysis system for speech
+            self-supervised models.
+          </p>
+          <p>
+            Implemented layer-wise probing, sparse autoencoder feature discovery,
+            causal ablation, and activation steering on HuBERT/Wav2Vec2 hidden states
+            to study articulatory and phonetic representations.
+          </p>
+          <p>
+            Engineered multimodal encoders for lip landmarks, mouth video, UWB radar,
+            mmWave/FMCW radar, and laser speckle signals using CNN-LSTMs, BiLSTMs,
+            temporal attention, ResNet18, and 1D/2D convolutions.
+          </p>
+          <p class="entry-links">
+            <span>Multimodal Deep Learning</span>
+            <span>Mechanistic Interpretability</span>
+            <span>PyTorch</span>
+            <span>Sensor Fusion</span>
+            <span>Contrastive Learning</span>
+          </p>
+        </article>
 
         <article class="entry">
           <div class="entry-head">
@@ -176,38 +250,9 @@
             metrics, bootstrap tests, and an affordance index.
           </p>
           <p class="entry-links">
-            <span>interpretability</span>
-            <span>representation geometry</span>
-            <span>computer vision</span>
-          </p>
-        </article>
-
-        <article class="entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3>Silent Speech Decoding</h3>
-              <div class="inline-links">
-                <a href="https://drive.google.com/file/d/1xHhZNLfurAyho5anMl13Zp7aPgUI7awr/view?usp=sharing" target="_blank" rel="noreferrer">poster</a>
-                <a href="https://github.com/arham-siddiqui/silentSpeech" target="_blank" rel="noreferrer">github</a>
-              </div>
-            </div>
-            <span>Sep 2025 - May 2026</span>
-          </div>
-          <p>
-            Built a five-modality silent speech pipeline using mmWave radar, UWB,
-            laser, lip landmarks, and mouth video on the RVTALL dataset. Trained
-            BiLSTM/CNN encoders with domain adversarial training and supervised
-            contrastive loss for speaker-invariant embeddings.
-          </p>
-          <p>
-            Designed prototype-based consistency-weighted late fusion across sensor
-            modalities, reaching 78.3% test accuracy on 30 classes with unseen
-            speakers.
-          </p>
-          <p class="entry-links">
-            <span>multimodal ml</span>
-            <span>sensor fusion</span>
-            <span>neurotech</span>
+            <span>Interpretability</span>
+            <span>Representation Geometry</span>
+            <span>Computer Vision</span>
           </p>
         </article>
 
@@ -228,9 +273,9 @@
             evaluation.
           </p>
           <p class="entry-links">
-            <span>audio ml</span>
-            <span>cnn-lstm</span>
-            <span>librosa</span>
+            <span>Audio ML</span>
+            <span>CNN-LSTM</span>
+            <span>Librosa</span>
           </p>
         </article>
 
@@ -246,21 +291,45 @@
             <span>Sep 2021 - Jun 2025</span>
           </div>
           <p>
-            Led development of an assistive device that detects overhead obstacles
-            for blind and low-vision users with computer vision, Arduino Uno/Nano,
-            ultrasonic sensors, and vibration motors. Received the California State
-            Seal of Civic Engagement and Explorer Award sponsored by Google.
+            Built an assistive wearable to detect overhead obstacles for blind users
+            using computer vision, ultrasonic sensors, Arduino Nano, and vibration
+            motors; earned the California State Seal of Civic Engagement.
+          </p>
+          <p>
+            Iteratively prototyped and tested with the same blind user over four years,
+            improving detection range, feedback timing, sensor placement, and wearable
+            form factor.
           </p>
           <p class="entry-links">
-            <span>assistive tech</span>
-            <span>robotics</span>
-            <span>arduino</span>
+            <span>Embedded Systems</span>
+            <span>Computer Vision</span>
+            <span>Wearable Prototyping</span>
           </p>
         </article>
       </section>
 
       <section id="research" class="section">
         <h2>Research</h2>
+
+        <article class="entry">
+          <p>
+            Conducted long-term ML research across audio, vision, and language domains,
+            developing skills in model design, literature review, experimental
+            methodology, and comparative analysis.
+          </p>
+          <p>
+            Built and compared CNN, LSTM, hybrid, ensemble, and classical ML models
+            using engineered features such as MFCCs, spectral representations, image
+            features, and structured behavioral/testing data.
+          </p>
+        </article>
+
+        <article class="entry compact">
+          <p>
+            <strong>A. Siddiqui.</strong> "Deep Learning for Spatial-Temporal Audio
+            Modeling," 2025. <a class="inline-link" href="https://drive.google.com/file/d/1QWZQWzyw2lvL7dsTVzgifarasgnO7Yx-/view" target="_blank" rel="noreferrer">paper</a>
+          </p>
+        </article>
 
         <article class="entry compact">
           <p>
@@ -307,8 +376,8 @@
             Bay Area Proud.
           </p>
           <p class="entry-links">
-            <span>robotics education</span>
-            <span>curriculum</span>
+            <span>Robotics Education</span>
+            <span>Curriculum</span>
           </p>
         </article>
 
@@ -325,63 +394,80 @@
         </article>
       </section>
 
-      <section class="section">
+      <section id="skills" class="section">
         <h2>Skills</h2>
         <div class="skills">
           <div class="skill-group">
-            <h3>Frameworks</h3>
+            <h3>Languages</h3>
             <div class="skill-pills">
-              <span>TensorFlow</span>
-              <span>Keras</span>
-              <span>PyTorch</span>
-              <span>scikit-learn</span>
-              <span>OpenCV</span>
-              <span>NumPy</span>
-              <span>Pandas</span>
-              <span>SciPy</span>
-              <span>Matplotlib</span>
-              <span>Plotly</span>
-              <span>Streamlit</span>
-              <span>DINOv2</span>
-              <span>CLIP</span>
-              <span>ResNet</span>
-              <span>ViT</span>
+              <span>Python</span>
+              <span>C++</span>
+              <span>Java</span>
+              <span>TypeScript</span>
+              <span>JavaScript</span>
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>SQL</span>
             </div>
           </div>
           <div class="skill-group">
-            <h3>Tools</h3>
+            <h3>ML / AI</h3>
             <div class="skill-pills">
-              <span>Python</span>
-              <span>Java</span>
-              <span>C++</span>
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>JavaScript</span>
+              <span>PyTorch</span>
+              <span>Machine Learning Models</span>
+              <span>TensorFlow</span>
+              <span>Keras</span>
+              <span>scikit-learn</span>
+              <span>NumPy</span>
+              <span>Pandas</span>
+              <span>OpenCV</span>
+              <span>Computer Vision</span>
+              <span>Deep Learning</span>
+              <span>Deep Learning Optimization</span>
+              <span>Neural Network Architectures</span>
+              <span>Reinforcement Learning</span>
+              <span>Multi-modal Learning</span>
+              <span>Foundation Models</span>
+              <span>Supervised Learning</span>
+              <span>Unsupervised Learning</span>
+              <span>Transformers</span>
+              <span>LangChain</span>
+              <span>Large Language Models</span>
+              <span>NLP</span>
+              <span>Classification</span>
+              <span>ModelOps</span>
+              <span>AI Application</span>
+              <span>Contrastive Learning</span>
+            </div>
+          </div>
+          <div class="skill-group">
+            <h3>Systems / Infrastructure</h3>
+            <div class="skill-pills">
+              <span>Object-Oriented Design</span>
+              <span>Data Structures</span>
+              <span>Algorithms</span>
+              <span>Software Design</span>
+              <span>Software Development</span>
+              <span>Software Optimization</span>
+              <span>Embedded Systems</span>
+              <span>Robotics</span>
+              <span>Neuroscience</span>
+              <span>Neurotechnology</span>
+              <span>Biotechnology</span>
+              <span>Cloud Infrastructure</span>
+              <span>Data Integration</span>
+              <span>Version Control Systems</span>
               <span>Git</span>
+              <span>React</span>
+              <span>Node.js</span>
+              <span>VSCode</span>
               <span>Jupyter</span>
               <span>LaTeX</span>
               <span>Arduino</span>
               <span>Raspberry Pi</span>
-              <span>AI2-THOR</span>
-              <span>ProcTHOR</span>
-              <span>Typer</span>
-              <span>pytest</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3>Concepts</h3>
-            <div class="skill-pills">
-              <span>deep learning</span>
-              <span>reinforcement learning</span>
-              <span>transformers</span>
-              <span>NLP</span>
-              <span>computer vision</span>
-              <span>representation learning</span>
-              <span>interpretability</span>
-              <span>CKA</span>
-              <span>PCA</span>
-              <span>linear probing</span>
-              <span>bootstrap confidence intervals</span>
+              <span>Slack</span>
+              <span>Debugging</span>
+              <span>Analytics</span>
             </div>
           </div>
         </div>
@@ -411,6 +497,6 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
     <script src="assets/brain/brain-points.js"></script>
     <script src="theme.js?v=20260613"></script>
-    <script src="brain-scene.js?v=20260613-large-brain"></script>
+    <script src="brain-scene.js?v=20260704-resume-refresh"></script>
   </body>
 </html>
