@@ -121,7 +121,7 @@
 
     const material = new THREE.PointsMaterial({
       color: getThemeColor(),
-      size: 0.018,
+      size: 0.026,
       map: createSprite(),
       transparent: true,
       opacity: 0.78,
@@ -158,7 +158,7 @@
     targetScale.set(zoom, zoom, zoom);
 
     brain.rotation.x = currentRotation.x - 0.02;
-    brain.rotation.y = currentRotation.y + elapsed * 0.035;
+    brain.rotation.y = currentRotation.y + elapsed * 0.052;
     brain.rotation.z = Math.sin(elapsed * 0.6) * 0.018;
     brain.scale.lerp(targetScale, 0.08);
 
