@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Spatial-Temporal Audio Modeling - Arham Siddiqui">
+    <title>Spatial-Temporal Audio Modeling - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260718-audio-writeup">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Spatial-Temporal Audio Modeling</h1>
+            <p class="project-detail-date">2025</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/research/auditory-hazard-p11-2.png" alt="Hybrid CNN-LSTM model architecture for audio classification." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/auditory-hazard-p14-1.png" alt="Audio model confusion matrices and evaluation metrics." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/auditory-hazard-p10-1.png" alt="Baseline dense neural network architecture." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/auditory-hazard-p11-1.png" alt="LSTM model architecture for sequential audio modeling." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show CNN-LSTM architecture" aria-selected="true"><img src="assets/images/research/auditory-hazard-p11-2.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show evaluation results" aria-selected="false"><img src="assets/images/research/auditory-hazard-p14-1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show baseline model" aria-selected="false"><img src="assets/images/research/auditory-hazard-p10-1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show LSTM model" aria-selected="false"><img src="assets/images/research/auditory-hazard-p11-1.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://drive.google.com/file/d/1QWZQWzyw2lvL7dsTVzgifarasgnO7Yx-/view" target="_blank" rel="noreferrer">Paper</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Project / Research</span>
+              <span><strong>Timeline:</strong> 2025</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Python</span><span>TensorFlow</span><span>Keras</span><span>Librosa</span><span>MFCCs</span><span>Conv1D</span><span>LSTM</span><span>Audio Classification</span><span>Model Evaluation</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I studied spatial-temporal audio modeling for auditory hazard classification, with the larger goal of identifying which neural architecture best detects safety-relevant sounds for visually impaired pedestrians. I framed audio hazard detection as a sequential classification problem: urban sounds contain both local spectral structure and time-dependent patterns, so my model needed to learn what a sound is made of and how it evolves over a short clip.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>My motivation came from the limitations of relying only on human auditory perception in noisy public spaces. Visually impaired individuals often depend heavily on sound cues for navigation, but traffic, construction, conversations, and other masking noise can make important hazards difficult to isolate. I wanted to determine which machine-learning architecture was most effective for classifying hazard-relevant auditory events under realistic urban-sound conditions.</p>
+          </div>
+          <div>
+            <h2>Dataset And Features</h2>
+            <p>I used the UrbanSound8K dataset from Kaggle, which contains 8,732 labeled urban audio clips across 10 classes. I narrowed the dataset to seven classes most relevant to pedestrian safety: car horn, dog barking, drilling, engine idling, jackhammer, siren, and violence. Each clip is stored as a short `.wav` sample, generally under four seconds, with roughly balanced representation across the selected classes.</p>
+            <p>I performed audio preprocessing with Librosa. My feature pipeline extracted spectral and temporal descriptors including spectral centroid, spectral contrast, chroma features, zero-crossing rate, and Mel-frequency cepstral coefficients. MFCCs were especially important because they compactly represent perceptual frequency structure in a way that is closer to how humans hear sound. My dense models consumed averaged 1D feature vectors, while my LSTM and CNN-LSTM models preserved sequential MFCC structure so temporal dynamics were not flattened away.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I implemented and compared five TensorFlow/Keras model families. My baseline model used fully connected dense layers to establish a feed-forward performance reference. A second dense model added batch normalization to stabilize training, improve loss convergence, and reduce overfitting. A third model used LSTM layers to capture sequential dependencies such as rising pitch, gradual noise buildup, and time-varying acoustic envelopes.</p>
+            <p>My core spatial-temporal architecture was a hybrid CNN-LSTM. Conv1D layers learned local patterns in the feature maps, max-pooling reduced spatial dimensionality and overfitting risk, and LSTM layers modeled temporal dependencies across the resulting sequence. I also built a fifth model with greater dense-network depth to test whether additional abstraction alone could match sequence-aware architectures.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>My baseline dense neural network reached 81.03% accuracy, but its lower precision and recall suggested weak generalization across sound classes. Adding batch normalization improved accuracy to 88.58%, showing that training stabilization helped, but the model still lacked explicit temporal modeling. My LSTM model reached 88.77% accuracy and handled sequential patterns more effectively than the dense baselines.</p>
+            <p>My hybrid CNN-LSTM performed best, reaching 90.48% accuracy and producing the strongest precision, recall, and F1-score profile across the evaluated models. This supported my hypothesis that audio classification benefits from combining convolutional feature extraction with recurrent temporal modeling. The deeper dense network reached 87.87%, which showed me that simply adding depth was less effective than using an architecture aligned with the structure of audio data.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>I concluded that the CNN-LSTM architecture was the most effective model for auditory hazard detection because it jointly modeled local spectral features and temporal structure. For real-world assistive navigation, this matters because many hazard sounds are defined by both their frequency signature and their progression over time. My future improvements would include stronger hyperparameter tuning, attention mechanisms, additional normalization experiments, data augmentation, and broader collection of noisy real-world pedestrian audio.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/research/auditory-hazard-p11-2.png" alt="Hybrid CNN-LSTM architecture." loading="lazy"><figcaption>Hybrid CNN-LSTM architecture combining Conv1D feature extraction with recurrent temporal modeling.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/auditory-hazard-p14-1.png" alt="Model comparison results." loading="lazy"><figcaption>Model comparison table and confusion matrices used to evaluate accuracy, precision, recall, and F1-score.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/auditory-hazard-p11-1.png" alt="LSTM architecture." loading="lazy"><figcaption>LSTM-only architecture used to test the value of sequential modeling without convolutional feature extraction.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260715-resume-fixed"></script>
+  </body>
+</html>

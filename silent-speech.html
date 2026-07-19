@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Silent Speech Decoding - Arham Siddiqui">
+    <title>Silent Speech Decoding - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260718-silent-speech-writeup">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Silent Speech Decoding</h1>
+            <p class="project-detail-date"><span class="active-dot" aria-hidden="true"></span>2026 - Present</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/silent-speech/accuracy-comparison.png" alt="Accuracy comparison across silent-speech fusion and modality methods." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/silent-speech/per-class-heatmap.png" alt="Per-class heatmap for silent-speech decoding performance." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/silent-speech/gate-weights.png" alt="Fusion gate modality weights across silent-speech classes." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/silent-speech/encoder-improvement.png" alt="Encoder improvement after speaker-invariance training." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/silent-speech/tsne.png" alt="t-SNE embedding visualization for silent-speech representations." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/silent-speech/attention-weights-per-class.png" alt="Attention weights by class reveal where the lip encoder focuses across silent-speech categories." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/silent-speech/fusion-gate-attention.png" alt="Fusion attention summarizes how the system weights modalities during multimodal decoding." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show accuracy comparison" aria-selected="true"><img src="assets/images/silent-speech/accuracy-comparison.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show per-class heatmap" aria-selected="false"><img src="assets/images/silent-speech/per-class-heatmap.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show gate weights" aria-selected="false"><img src="assets/images/silent-speech/gate-weights.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show encoder improvement" aria-selected="false"><img src="assets/images/silent-speech/encoder-improvement.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show t-SNE embeddings" aria-selected="false"><img src="assets/images/silent-speech/tsne.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show attention weights" aria-selected="false"><img src="assets/images/silent-speech/attention-weights-per-class.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show fusion gate attention" aria-selected="false"><img src="assets/images/silent-speech/fusion-gate-attention.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://github.com/arham-siddiqui/silent-speech-interpretability" target="_blank" rel="noreferrer">GitHub</a><a href="https://drive.google.com/file/d/1xHhZNLfurAyho5anMl13Zp7aPgUI7awr/view?usp=sharing" target="_blank" rel="noreferrer">Poster</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Project</span>
+              <span><strong>Timeline:</strong> 2026 - Present</span>
+              <span><strong>Status:</strong> Active</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>PyTorch</span><span>Multimodal Learning</span><span>Sensor Fusion</span><span>Prototype Fusion</span><span>Speaker-Disjoint CV</span><span>DANN</span><span>Supervised Contrastive Loss</span><span>HuBERT</span><span>Sparse Autoencoders</span><span>Radar Signals</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p class="abstract-copy">I am studying silent speech decoding: classifying intended but unvocalized utterances without microphone input. Using the RVTALL dataset, I built a pipeline that learns speaker-independent representations from lip landmarks, mouth video, UWB radar, mmWave radar, and laser speckle signals, then combines them through late-fusion and prototype-based classification.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>I frame the task as a 30-class problem across vowels, words, and sentences, with speaker-disjoint splits so my model has to generalize to entirely unseen people rather than memorizing speaker identity. Chance accuracy is 3.3%, so my main technical challenge is extracting articulatory information while suppressing speaker-specific shape, motion, and sensor artifacts.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I implemented modality-specific encoders that map variable-length sensor recordings into 128-dimensional embeddings. For lip landmarks, I use BiLSTM encoders with temporal attention, supervised contrastive loss, and domain-adversarial speaker removal through a gradient reversal layer. My other streams include ResNet-style mouth encoders, CNN-LSTM models for UWB and laser signals, and CNN processing for mmWave range-Doppler maps. I perform fusion over precomputed embeddings using nearest-prototype voting, equal-weight averaging, Borda count, consistency-weighted fusion, and learned modality gates.</p>
+          </div>
+          <div>
+            <h2>What Was Built</h2>
+            <p>I built data manifest tooling, speaker-disjoint cross-validation scripts, per-modality training pipelines, fusion baselines, true encoder-disjoint evaluation, teacher-student HuBERT target extraction, sparse bottleneck feature analysis, causal ablation scripts, temporal HuBERT students, and probe-based interpretability reports. My strict evaluation path uses fold-specific encoder artifacts so encoder-training speakers do not overlap held-out test speakers.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>My most reliable current benchmark is five-fold true encoder-disjoint speaker CV, where validation-weighted fusion reaches 63.9% mean accuracy and equal-weight fusion reaches 61.9%. In earlier fixed-split experiments, I reached 78.3% test accuracy with consistency-weighted prototype fusion after improving the lip encoder from 14.6% to 42.8% using temporal attention, DANN, and supervised contrastive learning. My HuBERT teacher-student experiments reached 64.0% mean accuracy, and temporal sensor alignment improved true-order HuBERT cosine from 0.346 to 0.381, showing that silent sensors preserve ordered speech structure.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>My work shows that robust silent-speech decoding depends less on a large learned fusion head and more on speaker-invariant modality encoders. Prototype fusion performs well because it reduces overfitting on small speaker cohorts, while my interpretability experiments with HuBERT targets, sparse features, and temporal probes expose where silent-sensor representations align with phonetic and articulatory structure. My next modeling direction is modality-specific temporal attention and richer phoneme-level supervision once transcript or forced-alignment metadata is available.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/silent-speech/accuracy-comparison.png" alt="Accuracy comparison across methods." loading="lazy"><figcaption>Accuracy comparison across prototype fusion, modality baselines, and validation-weighted fusion.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/silent-speech/per-class-heatmap.png" alt="Per-class heatmap." loading="lazy"><figcaption>Per-class performance heatmap showing which utterance groups remain difficult across modalities.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/silent-speech/gate-weights.png" alt="Fusion gate weights." loading="lazy"><figcaption>Learned or inferred modality weights reveal how sensor reliability shifts across classes and samples.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/silent-speech/encoder-improvement.png" alt="Encoder improvement comparison." loading="lazy"><figcaption>Encoder improvements from temporal attention, supervised contrastive learning, and domain-adversarial speaker invariance.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

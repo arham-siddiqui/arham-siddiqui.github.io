@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Overhead Movement Alarm Radar - Arham Siddiqui">
+    <title>Overhead Movement Alarm Radar - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-project-video-carousel">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Overhead Movement Alarm Radar</h1>
+            <p class="project-detail-date">2021 - 2025</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active">
+                <img src="assets/images/omar-figure-2.png" alt="OMAR sensor mount dimensions and side profile patent figure." loading="lazy">
+              </div>
+              <div class="project-slide project-diagram-slide">
+                <img src="assets/images/omar-figure-1.png" alt="OMAR circuit diagram connecting ultrasonic sensors, computing module, and vibration motors." loading="lazy">
+              </div>
+              <div class="project-slide project-diagram-slide">
+                <img src="assets/images/omar-figure-3.png" alt="OMAR ultrasonic sensors and sensor mounts attached to a cap." loading="lazy">
+              </div>
+              <div class="project-slide project-diagram-slide">
+                <img src="assets/images/omar-figure-4.png" alt="OMAR sensor mount rendered from front and rear views." loading="lazy">
+              </div>
+              <div class="project-slide project-photo-slide">
+                <img src="assets/images/IMG_8934.JPG" alt="OMAR wearable assistive navigation prototype in use outdoors." loading="lazy">
+              </div>
+              <div class="project-slide project-media-slide">
+                <video controls playsinline preload="metadata">
+                  <source src="assets/images/omar-demo-1.mp4" type="video/mp4">
+                  Your browser does not support this video.
+                </video>
+              </div>
+              <div class="project-slide project-media-slide">
+                <video controls playsinline preload="metadata">
+                  <source src="assets/images/omar-demo-2.mp4" type="video/mp4">
+                  Your browser does not support this video.
+                </video>
+              </div>
+              <div class="project-slide project-media-slide">
+                <video controls playsinline preload="metadata" poster="assets/images/omar-demo-3-thumb.png">
+                  <source src="assets/images/omar-demo-3.m4v" type="video/mp4">
+                  Your browser does not support this video.
+                </video>
+              </div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show mount dimensions" aria-selected="true"><img src="assets/images/omar-figure-2.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show circuit diagram" aria-selected="false"><img src="assets/images/omar-figure-1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show cap mount diagram" aria-selected="false"><img src="assets/images/omar-figure-3.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show sensor mount render" aria-selected="false"><img src="assets/images/omar-figure-4.png" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show prototype photo" aria-selected="false"><img src="assets/images/IMG_8934.JPG" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show video 1" aria-selected="false"><img src="assets/images/omar-demo-1-thumb.jpg" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show video 2" aria-selected="false"><img src="assets/images/omar-demo-2-thumb.jpg" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show video 3" aria-selected="false"><img src="assets/images/omar-demo-3-thumb.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://drive.google.com/file/d/1IsqUJUhZ8AhV0gP2z1cJfP_0TotN7TdU/view?usp=sharing" target="_blank" rel="noreferrer">Patent</a><a href="https://github.com/orgs/overheadinitiative/repositories" target="_blank" rel="noreferrer">GitHub</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Project / Leadership</span>
+              <span><strong>Timeline:</strong> 2021 - 2025</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Arduino</span><span>Embedded Systems</span><span>Computer Vision</span><span>Ultrasonic Sensing</span><span>Wearable Feedback</span><span>Assistive Technology</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I built the Overhead Movement Alarm Radar (OMAR) as a head-worn assistive navigation system for blind and visually impaired users who need awareness of obstacles that a cane often cannot detect, such as tree branches, signs, shelves, and other hazards above waist level. The core idea was to move overhead perception into a hands-free wearable: ultrasonic sensors detect nearby objects in front of and above the user, while left/right haptic motors communicate the direction and proximity of the obstacle without using audio or visual feedback. I designed OMAR to preserve the user's hearing, avoid adding another hand-held device, and provide tactile spatial information directly through the head-worn form factor.</p>
+          </div>
+          <div>
+            <h2>Problem</h2>
+            <p>Traditional mobility tools are strong at detecting ground-plane obstacles, but they leave a sensing gap for overhead hazards. That gap matters because a blind user can collide with low-hanging branches, wall-mounted signs, open cabinets, construction barriers, or other objects that sit outside the sweep path of a cane. My design goal was to create a low-cost wearable system that could detect these hazards before contact, encode both side and distance through vibration, and remain comfortable enough for repeated use. I also wanted the device to be mechanically understandable and manufacturable, which is why the patent application emphasized modular sensor mounts, internal wiring, and a head-worn integration strategy.</p>
+          </div>
+          <div>
+            <h2>System Architecture</h2>
+            <p>I implemented OMAR around a central computing module, ultrasonic sensing, and haptic actuation. The wiring diagram maps two ultrasonic sensors to trigger/echo pins on the computing module and maps two vibration motors to output pins for left/right tactile feedback. Each ultrasonic sensor alternates between transmitting and receiving ultrasonic pulses, and the firmware converts the echo timing into distance estimates. When a sensor reports an obstacle within a predefined adjustable threshold, the corresponding haptic motor activates, giving the user a directional cue tied to the side of the detected obstacle.</p>
+            <p>The patent application also describes an extensible architecture: additional ultrasonic sensors and haptic motors can be added for higher directional resolution, and the feedback logic can use pulse-width modulation (PWM) so closer obstacles produce stronger vibration intensity. I treated PWM as a more informative feedback channel than a binary alarm because it lets the user infer not only that an obstacle exists, but also whether they are moving closer to it. In practice, this made the device a tactile ranging system rather than just an on/off warning system.</p>
+          </div>
+          <div>
+            <h2>Mechanical Design</h2>
+            <p>I helped develop the head-mounted sensor geometry so the ultrasonic modules would point toward the region where overhead hazards are likely to appear. The application figures show an adjustable mount for each ultrasonic sensor, including front, side, and top views with measured dimensions. The mount seats the sensor board, protects the wiring from stress and breakage, and angles the transducers outward from the cap so the detection cone intersects the user's forward overhead path. The application specifies ABS as a practical mount material because it is low-cost, durable, and appropriate for prototyping and repeatable manufacturing.</p>
+            <p>The wearable layout placed the computing module toward the rear of the cap to improve balance and comfort, routed wiring through the head-worn structure, mounted ultrasonic sensors toward the front left and front right, and positioned haptic motors inside the cap slightly above the user's temples. This layout made the feedback spatially intuitive: a left-side detection activates the left haptic motor, and a right-side detection activates the right haptic motor. By separating the sensing modules from the haptic actuators while keeping both embedded in the cap, I could preserve a clean exterior form factor while still maintaining serviceable electronics.</p>
+          </div>
+          <div>
+            <h2>Firmware And Sensing Logic</h2>
+            <p>I structured the embedded loop around sensor initialization, distance acquisition, threshold evaluation, and haptic output. On startup, the firmware initializes trigger and echo pins for each ultrasonic sensor, initializes vibration pins for each haptic motor, declares duration and distance variables, and loads the distance thresholds used for actuation. During operation, the computing module repeatedly triggers each ultrasonic sensor, reads the echo duration, converts the pulse travel time into an estimated distance, and compares that distance against the active threshold. If the measured distance is inside the hazard range, the corresponding motor turns on; if the detected object is outside the range, the motor remains off.</p>
+            <p>I designed the control logic to support adjustable distance ranges because user height, walking speed, preferred warning distance, and environment all change how early a hazard should be communicated. The patent application also outlines a PWM extension where the firmware maps distance bands to vibration duty cycle, allowing the vibration amplitude to increase as the user approaches an obstacle. This gives the system a continuous haptic gradient: weak vibration for farther hazards, stronger vibration for closer hazards, and side-specific activation for left/right localization.</p>
+          </div>
+          <div>
+            <h2>Testing And Iteration</h2>
+            <p>I iteratively prototyped and tested OMAR over multiple years with the same blind user, using feedback from real outdoor and indoor navigation scenarios to improve the sensing range, sensor orientation, feedback timing, mount durability, and wearable comfort. The testing process was important because ultrasonic sensing is sensitive to angle, surface geometry, and environmental context. A flat sign, a leafy branch, and a narrow pole can return very different signals, so I had to think about practical detection behavior rather than only idealized sensor readings.</p>
+            <p>I also distributed OMAR to 50+ members at the Hatlen School, which helped move the project beyond a single prototype and into a real assistive-technology deployment context. That distribution forced me to think about repeatability, usability, robustness, and how clearly the device communicates its purpose to users who may have different mobility habits and comfort preferences. The project ultimately earned the California State Seal of Civic Engagement, reflecting both the technical build and the community-facing impact of the work.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>OMAR became a wearable overhead-obstacle detection system with a complete sensing-to-feedback pipeline: ultrasonic transduction, echo-time distance estimation, threshold-based hazard classification, side-specific haptic actuation, adjustable sensor mounting, internal cap wiring, and an extensible PWM-based feedback model. The most important result was that the device translated an environmental hazard into a tactile cue quickly enough for a blind user to react without blocking hearing or requiring another hand-held tool.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>OMAR taught me how to approach assistive technology as a full systems problem. The electronics had to work, but the device also had to be wearable, directional, interpretable, adjustable, durable, and respectful of how blind users already navigate. I built the project across embedded sensing, mechanical design, haptic feedback, user testing, patent documentation, and deployment, and the experience shaped how I think about engineering: the best assistive systems are not just technically clever, they are designed around the actual sensory channels, habits, and safety constraints of the people using them.</p>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

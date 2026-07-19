@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Assistive Navigation Systems - Arham Siddiqui">
+    <title>Assistive Navigation Systems - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Assistive Navigation Systems</h1>
+            <p class="project-detail-date">Feb 2024 - Aug 2024</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/bwsi/bwsi-streetsmart-architecture.png" alt="StreetSmart assistive navigation perception pipeline." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/bwsi/aud_to_fp_v2-cell16-out1.png" alt="Audio model confusion matrix for StreetSmart hazard classification." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/bwsi/classification_v5-cell23-out0.png" alt="Vision model training and validation loss curve." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show system architecture" aria-selected="true"><img src="assets/images/bwsi/bwsi-streetsmart-architecture.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show audio confusion matrix" aria-selected="false"><img src="assets/images/bwsi/aud_to_fp_v2-cell16-out1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show vision training curve" aria-selected="false"><img src="assets/images/bwsi/classification_v5-cell23-out0.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://github.com/arham-siddiqui/BWSICapstone" target="_blank" rel="noreferrer">GitHub</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Industry / Research</span>
+              <span><strong>Timeline:</strong> Feb 2024 - Aug 2024</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Computer Vision</span><span>YOLOv8</span><span>TensorFlow</span><span>Keras</span><span>Librosa</span><span>Audio Classification</span><span>Streamlit</span><span>Text-To-Speech</span><span>Assistive Navigation</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I built StreetSmart through MIT Beaver Works Summer Institute as an assistive navigation perception system for visually impaired users. The project combined computer vision, environmental audio classification, and text-to-speech feedback into a Streamlit application that could take an image or audio clip, infer the relevant street sign or hazard, and turn that result into a spoken navigation cue. My goal was to move beyond a single-modality detector and build a prototype that could reason over both visual street context and acoustic hazards, because real navigation requires awareness of signs, moving vehicles, construction sounds, sirens, and spatial position at the same time.</p>
+          </div>
+          <div>
+            <h2>Problem</h2>
+            <p>Visually impaired navigation systems need to communicate useful information without overloading the user. A raw object label is not enough: a user needs to know what was detected, where it is relative to them, and whether it is a safety-relevant cue. I framed StreetSmart as a perception-to-language pipeline: detect salient signs or sounds, convert model outputs into compact semantic messages, and speak those messages through a low-friction interface. This required tying together model training, preprocessing, inference, localization heuristics, and user-facing feedback rather than treating each model as an isolated notebook experiment.</p>
+          </div>
+          <div>
+            <h2>Vision Pipeline</h2>
+            <p>For the visual branch, I worked with road-sign image data and annotation files, parsing XML annotations with `xml.etree.ElementTree`, extracting filenames and class labels, balancing the class distribution by filtering a fixed number of examples per class, and converting images into normalized arrays for training. I experimented with TensorFlow/Keras CNN classifiers using convolutional blocks, max-pooling, flattening, dense layers, dropout, one-hot encoded labels, and Adam optimization with categorical cross-entropy. I also explored EfficientNetB0 as a pretrained feature extractor, then moved toward an Ultralytics YOLO-based detector because object detection is more useful for navigation than whole-image classification: it provides bounding boxes, labels, confidence, and spatial position in the frame.</p>
+            <p>The deployed Streamlit code loads a custom YOLO model from `best.pt`, runs inference on uploaded images, and extracts the detected object summary from the YOLO result object. I added quadrant-style localization logic using bounding-box center coordinates relative to the image dimensions. If the detected object center was near the upper-left, upper-right, lower-left, lower-right, left, right, above, below, or center region, the application generated a corresponding spatial phrase such as "top right," "to the left," "above you," or "in front of you." This turned vision outputs into navigation language instead of stopping at a bounding box.</p>
+          </div>
+          <div>
+            <h2>Audio Pipeline</h2>
+            <p>For the audio branch, I built an environmental sound classifier around Librosa feature extraction. I extracted compact audio fingerprints from each clip using zero-crossing rate, spectral centroid, spectral bandwidth, spectral contrast, spectral rolloff, RMS energy, chroma features, and MFCCs. I organized the training labels into seven hazard categories: car horn, dog barking, drilling, engine idling, jackhammer, siren, and violence. Those classes were chosen because they represent navigation-relevant acoustic events that can signal traffic, nearby machinery, construction, emergency vehicles, or potential danger.</p>
+            <p>I trained a Keras dense neural network with alternating 512-unit and 256-unit ReLU layers, dropout regularization, and a seven-way softmax output. The application preprocesses uploaded audio by flattening, truncating, or zero-padding the waveform to the expected model shape, runs the TensorFlow model, and maps the highest-probability class to a spoken label. The notebook confusion matrix helped me evaluate which classes the model separated cleanly and where confusions remained, especially for acoustically similar urban sounds.</p>
+          </div>
+          <div>
+            <h2>Application Architecture</h2>
+            <p>I integrated the vision and audio branches into a Streamlit app called "StreetSmart: Sign and Sound Detection." The application uses `@st.cache_resource` to load the YOLO and TensorFlow models once, accepts image uploads through a file uploader, converts images through PIL/OpenCV/NumPy preprocessing, runs object detection, and displays the uploaded image and detection output. For audio, the app writes uploaded files to a temporary WAV path, reads them with SoundFile, applies model-specific preprocessing, and returns the predicted hazard category.</p>
+            <p>The final user-facing layer is text-to-speech. I used `pyttsx3` so detections could be spoken aloud immediately: the sign or sound class is converted into a short phrase, and the spatial localization logic adds direction when a visual object is detected. This made the capstone a complete inference loop: input stream, preprocessing, model inference, semantic post-processing, spatial phrase generation, and auditory feedback.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>The final repository contains trained model artifacts for both modalities, including `best.pt` for YOLO-based visual detection, `yolo_model.h5`, `audio_model.h5`, and `audio_model_v2.h5`. It also contains notebook iterations for image classification, YOLO training, audio fingerprinting, confusion-matrix evaluation, and text-to-speech integration. The most important result for me was not just training a model, but building a prototype that connected perception outputs to a spoken assistive-navigation interface.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>StreetSmart helped me think about assistive navigation as a multimodal systems problem. I had to combine computer vision, audio signal processing, neural-network training, model serialization, Streamlit deployment, and text-to-speech feedback into one user-facing tool. The project also showed me why evaluation matters differently in assistive technology: a visually impressive detection model is only useful if its outputs become timely, interpretable, and actionable cues for the person using it.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/bwsi/bwsi-streetsmart-architecture.png" alt="StreetSmart multimodal assistive navigation architecture." loading="lazy"><figcaption>System architecture connecting image/audio inputs to YOLO detection, Librosa feature extraction, model inference, semantic post-processing, and spoken navigation feedback.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/bwsi/aud_to_fp_v2-cell16-out1.png" alt="Audio classifier confusion matrix." loading="lazy"><figcaption>Audio classifier confusion matrix for seven environmental hazard classes used in the sound-recognition branch.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/bwsi/classification_v5-cell23-out0.png" alt="Vision classifier training loss curve." loading="lazy"><figcaption>Vision-classification training curve from the notebook iterations, motivating the shift from whole-image classification toward object detection with YOLO.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260715-resume-fixed"></script>
+  </body>
+</html>

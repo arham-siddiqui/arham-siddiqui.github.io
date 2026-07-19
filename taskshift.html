@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TaskShift - Arham Siddiqui">
+    <title>TaskShift - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260718-taskshift-writeup">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">TaskShift</h1>
+            <p class="project-detail-date">Jun 2026</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/taskshift/cka-heatmap.png" alt="CKA heatmap comparing passive and navigation representations." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/taskshift/head-concept-shift.png" alt="Head hidden concept shift magnitudes for TaskShift." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/taskshift/head-tuning-correlation.png" alt="Head hidden tuning-vector correlation plot." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show CKA heatmap" aria-selected="true"><img src="assets/images/taskshift/cka-heatmap.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show head concept shift" aria-selected="false"><img src="assets/images/taskshift/head-concept-shift.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show head tuning correlation" aria-selected="false"><img src="assets/images/taskshift/head-tuning-correlation.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://github.com/arham-siddiqui/TaskShift" target="_blank" rel="noreferrer">GitHub</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Project</span>
+              <span><strong>Timeline:</strong> Jun 2026</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>DINOv2 ViT-S/14</span><span>AI2-THOR</span><span>Representation Analysis</span><span>CKA</span><span>Linear Probes</span><span>Concept Shift</span><span>PyTorch</span><span>Experiment Sweeps</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p class="abstract-copy">I built TaskShift as a research codebase for measuring how pretrained vision-model representations change under different objectives. In the current experiment, I compare the same DINOv2 ViT-S/14 backbone after training on passive recognition versus navigation affordance prediction from AI2-THOR egocentric indoor frames.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>My central question is whether a vision transformer encodes a scene differently when optimized for object/room recognition versus embodied navigation labels. I use passive recognition to predict visible object types and room category, while the navigation task predicts affordance labels such as path blockage, obstacle presence, reachable goal visibility, and best action.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I built a pipeline that generates AI2-THOR frames with a shared metadata contract, trains passive and navigation heads on top of DINOv2, extracts activations from backbone features, transformer blocks, head hidden states, and logits, then compares representation geometry with linear CKA. I also use post-hoc linear concept probes to estimate decodable directions for concepts such as path, obstacle, landmark, goal object, and container, and concept-shift metrics to compare passive versus navigation probe vectors.</p>
+          </div>
+          <div>
+            <h2>What Was Built</h2>
+            <p>I implemented dataset builders, schema validation, a PyTorch `TaskShiftDataset`, DINOv2 backbone wrappers, task-specific heads, activation hooks, concept-probe training, CKA and representation-shift analysis, statistical validation, experiment-sweep orchestration, plot generation, and static dashboards. My reference sweep runs eight paired random seeds across frozen-backbone and final-block-tuned conditions.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>I found that when DINOv2 is frozen, passive and navigation models share identical backbone representations. When I unfreeze the final transformer block, `block_11` matched CKA drops from 1.000 to 0.945 and mean `block_11` concept shift rises from 0.000 to 1.648, while the frozen `block_9` control remains at 1.000 CKA. The largest final-block concept shift is for `path`, which matches the navigation labels that explicitly probe whether forward movement succeeds.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>My current result supports a precise claim: task-specific training can induce a localized, measurable representation shift in the trainable portion of a pretrained vision transformer. The frozen layers act as controls, showing that the effect is not an artifact of activation extraction or the CKA/probe pipeline. My next directions include unfreeze-depth sweeps, shuffled-label controls, passive-vs-passive controls, and broader AI2-THOR scene coverage.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/taskshift/cka-heatmap.png" alt="CKA heatmap." loading="lazy"><figcaption>CKA heatmap comparing representation similarity between passive and navigation objectives.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/taskshift/head-concept-shift.png" alt="Head hidden concept shift." loading="lazy"><figcaption>Concept-shift magnitudes in task-head hidden states.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/taskshift/head-tuning-correlation.png" alt="Head hidden tuning correlation." loading="lazy"><figcaption>Tuning-vector correlation used to compare task-head concept directions across objectives.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

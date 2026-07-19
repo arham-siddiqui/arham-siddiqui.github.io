@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CometKitz - Arham Siddiqui">
+    <title>CometKitz - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260718-cometkitz-writeup">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">CometKitz</h1>
+            <p class="project-detail-date">Jan 2022 - Jun 2025</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-photo-slide is-active"><img src="assets/images/cometkitz/cometkitz-workshop-1.jpg" alt="CometKitz student robotics workshop with laptop programming activity." loading="lazy"></div>
+              <div class="project-slide project-photo-slide"><img src="assets/images/cometkitz/cometkitz-workshop-2.jpg" alt="CometKitz hands-on classroom robotics activity." loading="lazy"></div>
+              <div class="project-slide project-photo-slide"><img src="assets/images/cometkitz/cometkitz-workshop-3.jpg" alt="CometKitz students working with robotics kits." loading="lazy"></div>
+              <div class="project-slide project-photo-slide"><img src="assets/images/cometkitz/cometkitz-workshop-4.jpg" alt="CometKitz robotics kit demonstration." loading="lazy"></div>
+              <div class="project-slide project-photo-slide"><img src="assets/images/cometkitz/cometkitz-workshop-5.jpg" alt="CometKitz workshop materials and classroom deployment." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb is-active" type="button" aria-label="Show workshop photo 1" aria-selected="true"><img src="assets/images/cometkitz/cometkitz-workshop-1.jpg" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show workshop photo 2" aria-selected="false"><img src="assets/images/cometkitz/cometkitz-workshop-2.jpg" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show workshop photo 3" aria-selected="false"><img src="assets/images/cometkitz/cometkitz-workshop-3.jpg" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show workshop photo 4" aria-selected="false"><img src="assets/images/cometkitz/cometkitz-workshop-4.jpg" alt="" loading="lazy"></button>
+              <button class="project-thumb" type="button" aria-label="Show workshop photo 5" aria-selected="false"><img src="assets/images/cometkitz/cometkitz-workshop-5.jpg" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://wilcox-robotics-team.com/cometkitz/" target="_blank" rel="noreferrer">Website</a><a href="https://www.nbcbayarea.com/news/local/bay-area-proud/south-bay-high-school-robotics-team-bringing-sport-to-next-generation/3461924/" target="_blank" rel="noreferrer">Feature</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Leadership</span>
+              <span><strong>Timeline:</strong> Jan 2022 - Jun 2025</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Robotics</span><span>Curriculum Design</span><span>Kit Design</span><span>Manufacturing</span><span>Workshop Leadership</span><span>Fundraising</span><span>Education Operations</span><span>NGSS Alignment</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I built CometKitz through the Wilcox Robotics Team to make hands-on STEM learning more accessible for public-school students. I designed the project around a practical access problem: commercial robotics kits can cost hundreds of dollars, which limits how many classrooms can provide students with real engineering hardware. I addressed that gap by building lower-cost robotics kits, classroom-ready curriculum, and guided workshops that could be deployed directly into local elementary schools.</p>
+          </div>
+          <div>
+            <h2>Problem</h2>
+            <p>My core challenge was not just making a robot. I had to create a scalable learning system that teachers could realistically use: affordable hardware, durable kit packaging, repeatable classroom activities, age-appropriate instructions, and enough curriculum structure for students to learn engineering concepts without needing a full competition robotics lab. I targeted the equipment gap between well-resourced private programs and public-school classrooms by treating the kit, curriculum, and workshop model as one integrated product.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I helped design and manufacture a custom printed chassis, then paired it with robotics components and lesson materials aligned with the Next Generation Science Standards. My curriculum emphasized project-based learning: students could assemble a robot, understand how mechanical structure affects motion, connect electronics and control logic to physical behavior, and use programming activities to test, debug, and iterate. I customized the program with teachers in the district so lessons matched student age, classroom constraints, and local learning goals.</p>
+            <p>Operationally, I treated CometKitz like a small education-technology deployment. I coordinated sponsorship, local industry and government support, classroom logistics, kit preparation, student-facing instruction, and post-workshop iteration. That meant balancing engineering decisions against cost, manufacturability, reliability, safety, and ease of instruction.</p>
+          </div>
+          <div>
+            <h2>What Was Built</h2>
+            <p>I delivered a complete robotics-kit program: physical robot kits with custom chassis design, classroom curriculum, workshops led by robotics team members, and an outreach model that could expand across schools. I built the system for accessibility first, using hands-on activities to teach robotics fundamentals such as mechanical design, sensors/actuators, programming logic, debugging, iteration, and competition-style problem solving.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>I launched the program at two elementary schools, with additional expansion planned through more sponsors, more kits, and multiple curriculum levels. CometKitz was also recognized by NBC Bay Area for its mission of bringing robotics to younger students. The strongest outcome for me was transforming a high-school robotics team project into a deployable STEM education platform: students were not just hearing about robotics, they were building, testing, and revising real systems with mentorship.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>CometKitz became one of my leadership and engineering projects at the same time. I combined mechanical design, curriculum engineering, nonprofit-style operations, stakeholder coordination, and classroom delivery into a single program. I see the technical value in the full-stack educational system I built: a physical robotics kit designed for manufacturability and reuse, a curriculum designed around standards and student engagement, and an implementation model that made the kits usable in real classrooms.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/cometkitz/cometkitz-workshop-1.jpg" alt="CometKitz workshop programming activity." loading="lazy"><figcaption>Hands-on workshop session where students interacted with robotics programming and simulation activities.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/cometkitz/cometkitz-workshop-2.jpg" alt="CometKitz classroom robotics activity." loading="lazy"><figcaption>Classroom deployment of the CometKitz program with student-facing robotics instruction.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/cometkitz/cometkitz-workshop-4.jpg" alt="CometKitz robot kit demonstration." loading="lazy"><figcaption>Workshop media showing kit usage, debugging, and student interaction with the robotics activity.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260715-resume-polish"></script>
+  </body>
+</html>

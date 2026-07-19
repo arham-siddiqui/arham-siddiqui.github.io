@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Resume - Arham Siddiqui">
+    <title>Resume - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page resume-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a class="is-active" href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <div class="resume-stage">
+        <div class="resume-visual" data-active-resume="industry">
+          <section class="brain-strip" aria-label="Interactive brain animation">
+            <canvas id="brain-canvas" aria-hidden="true"></canvas>
+          </section>
+          <div class="resume-brain-callout" aria-hidden="true">
+            <span>Industry Experience</span>
+          </div>
+        </div>
+
+        <section class="resume-panel" aria-label="Resume">
+          <h1 class="page-title resume-heading">Resume</h1>
+          <p class="resume-lede">
+            A brief resume view of my industry, research, project, and leadership work across
+            computer vision, adaptive AI agents, assistive perception, robotics education, and
+            climate technology policy.
+          </p>
+
+          <div id="resume-industry" class="resume-section" data-resume-section="industry">
+            <h2>Industry Experience</h2>
+            <div class="resume-list">
+              <article class="resume-item">
+                <div class="resume-item-head">
+                  <div class="resume-org-heading">
+                    <span class="resume-logo"><img src="assets/logos/apple.jpeg" alt="" loading="lazy"></span>
+                    <div>
+                      <h3><a class="resume-title-link" href="apple-vision-pipeline.html">Software Engineer (Contract)</a></h3>
+                      <p class="resume-company">Apple</p>
+                    </div>
+                  </div>
+                  <span class="resume-date">Jan 2026 - May 2026</span>
+                </div>
+                <ul class="resume-bullets">
+                  <li>Built an end-to-end computer vision pipeline to automatically validate large-scale image datasets for ML training.</li>
+                  <li>Designed multi-model image-quality scoring for blur, noise, content, and aesthetics, with backend aggregation logic for threshold-based filtering and human-in-the-loop review.</li>
+                </ul>
+                <div class="resume-tags"><span>Computer Vision</span><span>Data Pipelines</span><span>OpenCV</span></div>
+              </article>
+
+              <article class="resume-item">
+                <div class="resume-item-head">
+                  <div class="resume-org-heading">
+                    <span class="resume-logo"><img src="assets/logos/deepmind.jpeg" alt="" loading="lazy"></span>
+                    <div>
+                      <h3><a class="resume-title-link" href="deepmind-calendar-agent.html">Software Engineer (Contract)</a></h3>
+                      <p class="resume-company">Google DeepMind</p>
+                    </div>
+                  </div>
+                  <span class="resume-date">Sep 2025 - Mar 2026</span>
+                </div>
+                <ul class="resume-bullets">
+                  <li>Designed and built a Gemini-powered Google Calendar AI agent using LangChain, integrating tool-calling workflows for calendar reasoning, scheduling assistance, and adaptive task execution.</li>
+                  <li>Developed a Hybrid LinUCB contextual bandit to dynamically select agent autonomy levels, modeling user trust as a time-evolving latent state and using Bayesian-inspired uncertainty, confidence-bound exploration, and trust-aware rewards to balance personalization, safety, and long-term acceptance.</li>
+                </ul>
+                <div class="resume-tags"><span>Reinforcement Learning</span><span>AI Agents</span><span>Contextual Bandits</span><span>Bayesian Uncertainty</span></div>
+              </article>
+
+              <article class="resume-item">
+                <div class="resume-item-head">
+                  <div class="resume-org-heading">
+                    <span class="resume-logo"><img src="assets/logos/bwsi.jpeg" alt="" loading="lazy"></span>
+                    <div>
+                      <h3><a class="resume-title-link" href="bwsi-assistive-navigation.html">Researcher</a></h3>
+                      <p class="resume-company">MIT Beaver Works Summer Institute</p>
+                    </div>
+                  </div>
+                  <span class="resume-date">Feb 2024 - Aug 2024</span>
+                </div>
+                <ul class="resume-bullets">
+                  <li>Built four multimodal perception systems for assistive navigation across audio, vision, and language tasks.</li>
+                  <li>Implemented Discrete Fourier Transform-based feature extraction, sequential neural networks, NLP pipelines, and transformer-based models for real-world perception tasks.</li>
+                </ul>
+                <div class="resume-tags"><span>Multimodal ML</span><span>Signal Processing</span><span>NLP</span><span>Transformers</span></div>
+              </article>
+
+              <article class="resume-item">
+                <div class="resume-item-head">
+                  <div class="resume-org-heading">
+                    <span class="resume-logo"><img src="assets/logos/csiro.jpeg" alt="" loading="lazy"></span>
+                    <div>
+                      <h3><a class="resume-title-link" href="csiro-climate-tech.html">Researcher</a></h3>
+                      <p class="resume-company">CSIRO</p>
+                    </div>
+                  </div>
+                  <span class="resume-date">Jul 2023</span>
+                </div>
+                <p>
+                  Contributed to the USA-Australia Climate Technology MOU around ML-enabled grid
+                  optimization, emissions quantification, and ESG risk assessment.
+                </p>
+                <div class="resume-tags"><span>Climate Technology</span><span>AI Policy</span><span>Grid Optimization</span></div>
+              </article>
+            </div>
+          </div>
+
+          <div id="resume-projects" class="resume-section" data-resume-section="projects">
+            <h2>Projects</h2>
+            <div class="resume-list">
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3><a class="resume-title-link" href="silent-speech.html">Speech Foundation Models for Silent Speech Decoding</a></h3></div><span class="resume-date">Sep 2025 - Present</span></div>
+                <ul class="resume-bullets">
+                  <li>Building an interpretable silent-speech decoding framework extending a 30-class pipeline into a causal analysis system for speech self-supervised models.</li>
+                  <li>Implemented layer-wise probing, sparse autoencoder feature discovery, causal ablation, and activation steering on HuBERT/Wav2Vec2 hidden states to study articulatory and phonetic representations.</li>
+                  <li>Engineered multimodal encoders for lip landmarks, mouth video, UWB radar, mmWave/FMCW radar, and laser speckle signals using CNN-LSTMs, BiLSTMs, temporal attention, ResNet18, and 1D/2D convolutions.</li>
+                  <li>Improved speaker-independent generalization using supervised contrastive learning, domain-adversarial training, gradient reversal, and speaker-disjoint evaluation.</li>
+                </ul>
+                <div class="resume-tags"><span>Multimodal Deep Learning</span><span>Mechanistic Interpretability</span><span>PyTorch</span><span>Sensor Fusion</span><span>Contrastive Learning</span></div>
+              </article>
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3><a class="resume-title-link" href="taskshift.html">TaskShift</a></h3></div><span class="resume-date">Jun 2026</span></div>
+                <ul class="resume-bullets">
+                  <li>Built a representation-drift benchmarking pipeline to study how frozen DINOv2 features behave under task shifts across medical imaging, satellite imagery, and natural image domains.</li>
+                  <li>Used CKA analysis, dataset builders, and controlled downstream classifiers to compare whether pretrained visual embeddings transfer cleanly or require task-specific adaptation.</li>
+                </ul>
+                <div class="resume-tags"><span>DINOv2</span><span>Representation Learning</span><span>CKA</span><span>PyTorch</span><span>Transfer Learning</span></div>
+              </article>
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3><a class="resume-title-link" href="curriculearn.html">Curriculearn</a></h3></div><span class="resume-date">Jun 2026</span></div>
+                <ul class="resume-bullets">
+                  <li>Built an AI-powered curriculum optimization system that simulates cognitive responses to lesson content and translates brain-state representations into educational metrics.</li>
+                  <li>Implemented brain simulation and metric translation components for learning score, cognitive load, engagement, concept flow, retention, and novelty analysis.</li>
+                </ul>
+                <div class="resume-tags"><span>TypeScript</span><span>Python</span><span>AI Agents</span><span>Curriculum Optimization</span><span>Brain Simulation</span></div>
+              </article>
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3><a class="resume-title-link" href="overhead-radar.html">Overhead Movement Alarm Radar (OMAR)</a></h3></div><span class="resume-date">Sep 2021 - Jun 2025</span></div>
+                <ul class="resume-bullets">
+                  <li>Built an assistive wearable to detect overhead obstacles for the blind using computer vision, ultrasonic sensors, Arduino Nano, and vibration motors; earned the California State Seal of Civic Engagement.</li>
+                  <li>Iteratively prototyped and tested with the same blind user over four years, improving detection range, feedback timing, sensor placement, and wearable form factor.</li>
+                </ul>
+                <div class="resume-tags"><span>Embedded Systems</span><span>Computer Vision</span><span>Wearable Prototyping</span></div>
+              </article>
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3>Machine Learning Research</h3></div><span class="resume-date">2022 - Present</span></div>
+                <ul class="resume-bullets">
+                  <li>Conducted long-term ML research across audio, vision, and language domains, developing skills in model design, literature review, experimental methodology, and comparative analysis.</li>
+                  <li>Built and compared CNN, LSTM, hybrid, ensemble, and classical ML models using engineered features such as MFCCs, spectral representations, image features, and structured behavioral/testing data.</li>
+                </ul>
+                <div class="resume-citations" aria-label="Machine learning research papers">
+                  <a href="audio-modeling.html"><strong>A. Siddiqui.</strong> "Developing the Optimal Method to Detect Auditory Hazards for the Visually Impaired," 2025.</a>
+                  <a href="medical-testing.html"><strong>A. Siddiqui, C. Houle, D. Ticau.</strong> "A Machine Learning Approach to Examine the Reactionary Effects of Medical Testing on Rodents: A Comparative Analysis," 2023.</a>
+                  <a href="phishing-risk.html"><strong>A. Siddiqui.</strong> "A Comparative Analysis of Ensemble and Individual Machine Learning Architectures for Mitigating Phishing Attack Risks," 2022.</a>
+                  <a href="casting-defect.html"><strong>A. Siddiqui.</strong> "Assessing the Viability of Machine Learning in Casting Defect Detection: A Comprehensive Analysis of Machine Learning Models," 2022.</a>
+                </div>
+                <div class="resume-tags"><span>CNN</span><span>LSTM</span><span>MFCCs</span><span>Experimental Methodology</span></div>
+              </article>
+            </div>
+          </div>
+
+          <div id="resume-leadership" class="resume-section" data-resume-section="leadership">
+            <h2>Leadership</h2>
+            <div class="resume-list">
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3><a class="resume-title-link" href="cometkitz.html">CometKitz Robotics Kits Program</a></h3><p class="resume-company">Founder</p></div><span class="resume-date">Jan 2022 - Jun 2025</span></div>
+                <p>Built robotics kits, curriculum, and workshops for 500+ students across five schools.</p>
+                <div class="resume-tags"><span>Robotics</span><span>Curriculum</span><span>STEM Education</span></div>
+              </article>
+              <article class="resume-item">
+                <div class="resume-item-head"><div><h3><a class="resume-title-link" href="santa-clara-coding-association.html">Santa Clara Coding Association</a></h3><p class="resume-company">Founder</p></div><span class="resume-date">Mar 2021 - Jun 2025</span></div>
+                <p>Led city-wide CS clubs, hackathons, and coding curriculum for 1,500+ students.</p>
+                <div class="resume-tags"><span>Python</span><span>Java</span><span>Hackathons</span></div>
+              </article>
+            </div>
+          </div>
+
+          <div id="resume-skills" class="resume-section" data-resume-section="skills">
+            <h2>Skills</h2>
+            <div class="resume-skill-groups">
+              <div><h3>Languages</h3><div class="resume-tags"><span>Python</span><span>C++</span><span>Java</span><span>TypeScript</span><span>JavaScript</span><span>HTML</span><span>CSS</span><span>SQL</span></div></div>
+              <div><h3>ML / AI</h3><div class="resume-tags"><span>PyTorch</span><span>Machine Learning Models</span><span>TensorFlow</span><span>Keras</span><span>scikit-learn</span><span>NumPy</span><span>Pandas</span><span>OpenCV</span><span>Computer Vision</span><span>Deep Learning</span><span>Deep Learning Optimization</span><span>Neural Network Architectures</span><span>Reinforcement Learning</span><span>Multi-modal Learning</span><span>Foundation Models</span><span>Supervised Learning</span><span>Unsupervised Learning</span><span>Transformers</span><span>LangChain</span><span>Large Language Models</span><span>NLP</span><span>Classification</span><span>ModelOps</span><span>AI Application</span><span>Contrastive Learning</span></div></div>
+              <div><h3>Systems / Infrastructure</h3><div class="resume-tags"><span>Object-Oriented Design</span><span>Data Structures</span><span>Algorithms</span><span>Software Design</span><span>Software Development</span><span>Software Optimization</span><span>Embedded Systems</span><span>Robotics</span><span>Neuroscience</span><span>Neurotechnology</span><span>Biotechnology</span><span>Cloud Infrastructure</span><span>Data Integration</span><span>Version Control Systems</span><span>Git</span><span>React</span><span>Node.js</span><span>VSCode</span><span>Jupyter</span><span>LaTeX</span><span>Arduino</span><span>Raspberry Pi</span><span>Slack</span><span>Debugging</span><span>Analytics</span></div></div>
+            </div>
+          </div>
+        </section>
+        <nav class="resume-scroll-map" aria-label="Resume section map">
+          <a class="is-active" href="#resume-industry" data-resume-target="industry">Industry Experience</a>
+          <a href="#resume-projects" data-resume-target="projects">Projects</a>
+          <a href="#resume-leadership" data-resume-target="leadership">Leadership</a>
+          <a href="#resume-skills" data-resume-target="skills">Skills</a>
+        </nav>
+      </div>
+    </main>
+
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
+    <script src="assets/brain/brain-points.js?v=20260705-curriculearn-brain"></script>
+    <script src="theme.js?v=20260716-resume-region-animate"></script>
+    <script src="brain-scene.js?v=20260718-resume-fast-labels"></script>
+  </body>
+</html>

@@ -14,472 +14,104 @@
         document.documentElement.classList.add("dark");
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260704-resume-refresh">
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
   </head>
-  <body>
+  <body class="home-page">
     <main class="page">
       <header class="site-header">
-        <a class="name-link" href="#">Arham Siddiqui</a>
         <nav class="topline" aria-label="Primary navigation">
-          <a href="#experience">experience</a>
-          <a href="#projects">projects</a>
-          <a href="#research">research</a>
-          <a href="#leadership">leadership</a>
-          <a href="#skills">skills</a>
+          <a class="is-active" href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
         </nav>
       </header>
 
-      <section class="intro">
-        <div class="intro-head">
-          <div class="profile-frame">
-            <img class="profile-photo" src="assets/images/profile.jpeg" alt="Arham Siddiqui" loading="lazy">
-          </div>
-          <div>
-            <div class="title-row">
-              <h1>Arham Siddiqui</h1>
-              <div class="contact-icons" aria-label="Contact links">
-                <a href="mailto:arham_siddiqui@berkeley.edu" aria-label="Email Arham Siddiqui">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4.75 6.75h14.5v10.5H4.75z"></path>
-                    <path d="m5.25 7.25 6.75 5 6.75-5"></path>
-                  </svg>
-                </a>
-                <a href="https://github.com/arham-siddiqui" target="_blank" rel="noreferrer" aria-label="GitHub">
-                  <img class="github-logo-light" src="assets/logos/github.svg" alt="" loading="lazy">
-                  <img class="github-logo-dark" src="assets/logos/github-dark.png" alt="" loading="lazy">
-                </a>
-                <a href="https://www.linkedin.com/in/arham-siddiqui-758b49275/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                  <img src="assets/logos/linkedin.webp" alt="" loading="lazy">
-                </a>
-              </div>
-            </div>
-          </div>
+      <!-- Split hero layout experiment: remove this wrapper to return to the stacked version. -->
+      <div class="split-hero">
+        <div class="split-hero-visual">
+          <section class="brain-strip" aria-label="Interactive brain animation">
+            <canvas id="brain-canvas" aria-hidden="true"></canvas>
+          </section>
         </div>
 
-        <p>
-          I am from Santa Clara, California, and study Electrical Engineering &
-          Computer Science at UC Berkeley. I build machine learning systems across
-          computer vision, multimodal perception, AI agents, neurotechnology, and
-          embedded assistive technology.
-        </p>
-
-        <p>
-          I am currently building an
-          <a class="intro-link" href="#silent-speech">interpretable silent-speech foundation-model system</a>.
-          Recently, I built computer vision data-validation pipelines at
-          <a class="intro-link" href="#apple">Apple</a> and developed trust-aware
-          autonomy selection for a Gemini-powered Google Calendar agent at
-          <a class="intro-link" href="#deepmind">Google DeepMind</a>.
-        </p>
-      </section>
-
-      <section class="brain-strip" aria-label="Interactive brain animation">
-        <canvas id="brain-canvas" aria-hidden="true"></canvas>
-      </section>
-
-      <section id="education" class="section">
-        <h2>Education</h2>
-
-        <article class="entry">
-          <div class="entry-head">
-            <h3>University of California, Berkeley</h3>
-            <span>Expected May 2028</span>
-          </div>
-          <p class="meta">B.S. Electrical Engineering & Computer Science</p>
-          <p>
-            Relevant Coursework: Optimization Models in Engineering, Discrete
-            Mathematics and Probability Theory, Machine Structures, Data Structures,
-            The Structure and Interpretation of Computer Programs, Foundations of
-            Signals Dynamical Systems and Information Processing, Linear Algebra and
-            Differential Equations, Physics for Scientists and Engineers.
-          </p>
-        </article>
-      </section>
-
-      <section id="experience" class="section">
-        <h2>Experience</h2>
-
-        <article id="apple" class="entry logo-entry">
-          <div class="entry-head">
-            <h3><a class="entry-icon logo-link" href="https://www.apple.com/" target="_blank" rel="noreferrer" aria-label="Apple homepage"><img class="logo-icon" src="assets/logos/apple.jpeg" alt="" loading="lazy"></a>Software Engineer (Contract)</h3>
-            <span>Jan 2026 - May 2026</span>
-          </div>
-          <p class="meta">Apple</p>
-          <p>
-            Built an end-to-end computer vision pipeline to automatically validate
-            large-scale image datasets for ML training, with multi-model image-quality
-            scoring for blur, noise, content, and aesthetics.
-          </p>
-          <p>
-            Designed backend aggregation logic for threshold-based filtering and
-            human-in-the-loop review across dataset quality checks.
-          </p>
-          <p class="entry-links">
-            <span>Computer Vision</span>
-            <span>Data Pipelines</span>
-            <span>OpenCV</span>
-          </p>
-        </article>
-
-        <article id="deepmind" class="entry logo-entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3><a class="entry-icon logo-link" href="https://deepmind.google/" target="_blank" rel="noreferrer" aria-label="Google DeepMind homepage"><img class="logo-icon" src="assets/logos/deepmind.jpeg" alt="" loading="lazy"></a>Software Engineer (Contract)</h3>
-              <div class="inline-links">
-                <a href="https://drive.google.com/file/d/1IaMvZWYHsVTkg4qxuARYHjinMlAsfYGb/view?usp=sharing" target="_blank" rel="noreferrer">report</a>
-                <a href="https://github.com/arham-siddiqui/deepmindtrustbandit" target="_blank" rel="noreferrer">github</a>
+        <div class="split-hero-content">
+          <section class="intro">
+            <div class="intro-head">
+              <div class="profile-stack">
+                <div class="profile-frame">
+                  <img class="profile-photo" src="assets/images/profile.jpeg" alt="Arham Siddiqui" loading="lazy">
+                </div>
+              </div>
+              <div>
+                <div class="title-row">
+                  <h1>Arham Siddiqui</h1>
+                </div>
+                <div class="contact-icons" aria-label="Contact links">
+                  <a href="mailto:arham_siddiqui@berkeley.edu" aria-label="Email Arham Siddiqui">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4.75 6.75h14.5v10.5H4.75z"></path>
+                      <path d="m5.25 7.25 6.75 5 6.75-5"></path>
+                    </svg>
+                  </a>
+                  <a href="https://github.com/arham-siddiqui" target="_blank" rel="noreferrer" aria-label="GitHub">
+                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.41 1.02.01 2.04.14 3 .41 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.69.83.58C20.57 21.79 24 17.29 24 12c0-6.63-5.37-12-12-12z"></path>
+                    </svg>
+                  </a>
+                  <a href="https://www.linkedin.com/in/arham-siddiqui-758b49275/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path>
+                    </svg>
+                  </a>
+                  <a href="assets/resume/ArhamSiddiquiResumeUpdated.pdf" target="_blank" rel="noreferrer" aria-label="Resume PDF">
+                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2 5 5h-5V4zM6 20V4h5v7h7v9H6zm2-4h8v1.5H8V16zm0-3h8v1.5H8V13z"></path>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
-            <span>Sep 2025 - Mar 2026</span>
-          </div>
-          <p class="meta">Google DeepMind</p>
-          <p>
-            Designed and built a Gemini-powered Google Calendar AI agent with
-            LangChain, integrating tool-calling workflows for calendar reasoning,
-            scheduling assistance, and adaptive task execution.
-          </p>
-          <p>
-            Developed a Hybrid LinUCB contextual bandit to dynamically select agent
-            autonomy levels, modeling user trust as a time-evolving latent state with
-            Bayesian-inspired uncertainty and confidence-bound exploration.
-          </p>
-          <p class="entry-links">
-            <span>Reinforcement Learning</span>
-            <span>AI Agents</span>
-            <span>Contextual Bandits</span>
-            <span>Bayesian Uncertainty</span>
-          </p>
-        </article>
 
-        <article class="entry logo-entry">
-          <div class="entry-head">
-            <h3><a class="entry-icon logo-link" href="https://beaverworks.ll.mit.edu/CMS/bw/bwsi" target="_blank" rel="noreferrer" aria-label="MIT Beaver Works Summer Institute homepage"><img class="logo-icon" src="assets/logos/bwsi.jpeg" alt="" loading="lazy"></a>Researcher</h3>
-            <span>Feb 2024 - Aug 2024</span>
-          </div>
-          <p class="meta">MIT Beaver Works Summer Institute</p>
-          <p>
-            Built four multimodal perception systems for assistive navigation across
-            audio, visual, and language domains, including DFT-based feature extraction,
-            sequential neural networks, NLP, and transformers.
-          </p>
-          <p class="entry-links">
-            <span>Multimodal ML</span>
-            <span>Signal Processing</span>
-            <span>NLP</span>
-            <span>Transformers</span>
-          </p>
-        </article>
+            <p>
+              I am from Santa Clara, California, and study Electrical Engineering &
+              Computer Science at UC Berkeley. I build machine learning systems across
+              computer vision, multimodal perception, AI agents, neurotechnology, and
+              embedded assistive technology.
+            </p>
 
-        <article class="entry logo-entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3><a class="entry-icon logo-link" href="https://www.csiro.au/" target="_blank" rel="noreferrer" aria-label="CSIRO homepage"><img class="logo-icon" src="assets/logos/csiro.jpeg" alt="" loading="lazy"></a>Researcher</h3>
-              <div class="inline-links">
-                <a href="https://drive.google.com/file/d/1_jiD-_7O4Z4gR_ssvHjP_t0hHEDm2tTn/view?usp=sharing" target="_blank" rel="noreferrer">mou document</a>
+            <p>
+              I am currently building an
+              <a class="intro-link" href="silent-speech.html">interpretable silent-speech foundation-model system</a>.
+              Recently, I built computer vision data-validation pipelines at
+              <a class="intro-link" href="apple-vision-pipeline.html">Apple</a> and developed trust-aware
+              autonomy selection for a Gemini-powered Google Calendar agent at
+              <a class="intro-link" href="deepmind-calendar-agent.html">Google DeepMind</a>.
+            </p>
+          </section>
+
+          <section id="education" class="section home-education">
+            <h2>Education</h2>
+            <article class="entry">
+              <div class="entry-head">
+                <h3>University of California, Berkeley</h3>
+                <span>Expected May 2028</span>
               </div>
-            </div>
-            <span>Jul 2023</span>
-          </div>
-          <p class="meta">CSIRO</p>
-          <p>
-            Contributed to the USA-Australia Climate Technology Memorandum of
-            Understanding between NSW, Australia and California, defining collaboration
-            around ML-enabled grid optimization, emissions quantification models, and
-            ESG risk assessment.
-          </p>
-          <p class="entry-links">
-            <span>Climate Technology</span>
-            <span>AI Policy</span>
-          </p>
-        </article>
-      </section>
-
-      <section id="projects" class="section">
-        <h2>Projects</h2>
-
-        <article id="silent-speech" class="entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3>Speech Foundation Models for Silent Speech Decoding</h3>
-              <div class="inline-links">
-                <a href="https://drive.google.com/file/d/1xHhZNLfurAyho5anMl13Zp7aPgUI7awr/view?usp=sharing" target="_blank" rel="noreferrer">poster</a>
-                <a href="https://github.com/arham-siddiqui/silent-speech-interpretability" target="_blank" rel="noreferrer">github</a>
-              </div>
-            </div>
-            <span>Sep 2025 - present</span>
-          </div>
-          <p>
-            Building an interpretable silent-speech decoding framework that extends a
-            30-class multimodal pipeline into a causal analysis system for speech
-            self-supervised models.
-          </p>
-          <p>
-            Implemented layer-wise probing, sparse autoencoder feature discovery,
-            causal ablation, and activation steering on HuBERT/Wav2Vec2 hidden states
-            to study articulatory and phonetic representations.
-          </p>
-          <p>
-            Engineered multimodal encoders for lip landmarks, mouth video, UWB radar,
-            mmWave/FMCW radar, and laser speckle signals using CNN-LSTMs, BiLSTMs,
-            temporal attention, ResNet18, and 1D/2D convolutions.
-          </p>
-          <p class="entry-links">
-            <span>Multimodal Deep Learning</span>
-            <span>Mechanistic Interpretability</span>
-            <span>PyTorch</span>
-            <span>Sensor Fusion</span>
-            <span>Contrastive Learning</span>
-          </p>
-        </article>
-
-        <article class="entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3>TaskShift</h3>
-              <div class="inline-links">
-                <a href="https://github.com/arham-siddiqui/TaskShift" target="_blank" rel="noreferrer">github</a>
-              </div>
-            </div>
-            <span>May 2026 - Jun 2026</span>
-          </div>
-          <p>
-            Built a deep learning interpretability framework that measured how
-            pretrained vision models reorganize internal representations when optimized
-            for passive recognition versus navigation-affordance objectives.
-          </p>
-          <p>
-            Adapted voxelwise encoding-model ideas from cognitive neuroscience to
-            model layers using DINOv2, semantic probes, CKA, PCA, concept-shift
-            metrics, bootstrap tests, and an affordance index.
-          </p>
-          <p class="entry-links">
-            <span>Interpretability</span>
-            <span>Representation Geometry</span>
-            <span>Computer Vision</span>
-          </p>
-        </article>
-
-        <article class="entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3>Deep Learning for Spatial-Temporal Audio Modeling</h3>
-              <div class="inline-links">
-                <a href="https://drive.google.com/file/d/1QWZQWzyw2lvL7dsTVzgifarasgnO7Yx-/view" target="_blank" rel="noreferrer">paper</a>
-              </div>
-            </div>
-            <span>Oct 2024 - Apr 2025</span>
-          </div>
-          <p>
-            Designed audio classification models using Librosa-extracted MFCC and
-            spectral features. Validated a hybrid CNN-LSTM architecture as the top
-            performing model with 90.48% accuracy, using recall and F1-score for
-            evaluation.
-          </p>
-          <p class="entry-links">
-            <span>Audio ML</span>
-            <span>CNN-LSTM</span>
-            <span>Librosa</span>
-          </p>
-        </article>
-
-        <article class="entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3>Overhead Movement Alarm Radar</h3>
-              <div class="inline-links">
-                <a href="https://drive.google.com/file/d/1IsqUJUhZ8AhV0gP2z1cJfP_0TotN7TdU/view?usp=sharing" target="_blank" rel="noreferrer">patent</a>
-                <a href="https://github.com/orgs/overheadinitiative/repositories" target="_blank" rel="noreferrer">github</a>
-              </div>
-            </div>
-            <span>Sep 2021 - Jun 2025</span>
-          </div>
-          <p>
-            Built an assistive wearable to detect overhead obstacles for blind users
-            using computer vision, ultrasonic sensors, Arduino Nano, and vibration
-            motors; earned the California State Seal of Civic Engagement.
-          </p>
-          <p>
-            Iteratively prototyped and tested with the same blind user over four years,
-            improving detection range, feedback timing, sensor placement, and wearable
-            form factor.
-          </p>
-          <p class="entry-links">
-            <span>Embedded Systems</span>
-            <span>Computer Vision</span>
-            <span>Wearable Prototyping</span>
-          </p>
-        </article>
-      </section>
-
-      <section id="research" class="section">
-        <h2>Research</h2>
-
-        <article class="entry">
-          <p>
-            Conducted long-term ML research across audio, vision, and language domains,
-            developing skills in model design, literature review, experimental
-            methodology, and comparative analysis.
-          </p>
-          <p>
-            Built and compared CNN, LSTM, hybrid, ensemble, and classical ML models
-            using engineered features such as MFCCs, spectral representations, image
-            features, and structured behavioral/testing data.
-          </p>
-        </article>
-
-        <article class="entry compact">
-          <p>
-            <strong>A. Siddiqui.</strong> "Developing the Optimal Method to Detect
-            Auditory Hazards for the Visually Impaired," 2025. <a class="inline-link" href="https://drive.google.com/file/d/1QWZQWzyw2lvL7dsTVzgifarasgnO7Yx-/view" target="_blank" rel="noreferrer">paper</a>
-          </p>
-        </article>
-
-        <article class="entry compact">
-          <p>
-            <strong>A. Siddiqui, C. Houle, D. Ticau.</strong> "A Machine Learning
-            Approach to Examine the Reactionary Effects of Medical Testing on Rodents:
-            A Comparative Analysis," 2023. <a class="inline-link" href="https://drive.google.com/file/d/11fWXFii5x58CW5lnXpjaRmcB6PSN2_9P/view?usp=sharing" target="_blank" rel="noreferrer">paper</a>
-          </p>
-        </article>
-
-        <article class="entry compact">
-          <p>
-            <strong>A. Siddiqui.</strong> "A Comparative Analysis of Ensemble and
-            Individual Machine Learning Architectures for Mitigating Phishing Attack
-            Risks," 2022. <a class="inline-link" href="https://drive.google.com/file/d/16oNMado2GaJaP75GkoUNIX9YOVOqHVdo/view?usp=sharing" target="_blank" rel="noreferrer">paper</a>
-          </p>
-        </article>
-
-        <article class="entry compact">
-          <p>
-            <strong>A. Siddiqui.</strong> "Assessing the Viability of Machine Learning
-            in Casting Defect Detection: A Comprehensive Analysis of Machine Learning
-            Models," 2022. <a class="inline-link" href="https://drive.google.com/file/d/1WbAatQpwBvLNHQ37LbNRM69TbPMvFCpf/view?usp=sharing" target="_blank" rel="noreferrer">paper</a>
-          </p>
-        </article>
-      </section>
-
-      <section id="leadership" class="section">
-        <h2>Leadership</h2>
-
-        <article class="entry">
-          <div class="entry-head">
-            <div class="entry-title">
-              <h3>Founder, CometKitz Non-Profit Robotics Kits Program</h3>
-              <div class="inline-links">
-                <a href="https://www.nbcbayarea.com/news/local/bay-area-proud/south-bay-high-school-robotics-team-bringing-sport-to-next-generation/3461924/" target="_blank" rel="noreferrer">feature</a>
-              </div>
-            </div>
-            <span>Jan 2022 - Jun 2025</span>
-          </div>
-          <p>
-            Developed robotics kits, software curriculum, and a handbook; led workshops
-            for 500+ students across five schools. Licensed to SCUSD, raised $20k,
-            received a Mayoral Award for Excellence in STEM, and was featured on NBC's
-            Bay Area Proud.
-          </p>
-          <p class="entry-links">
-            <span>Robotics Education</span>
-            <span>Curriculum</span>
-          </p>
-        </article>
-
-        <article class="entry">
-          <div class="entry-head">
-            <h3>Founder, Santa Clara Coding Association</h3>
-            <span>Mar 2021 - Jun 2025</span>
-          </div>
-          <p>
-            Led city-wide computer science clubs and hackathons for 1,500+ students.
-            Designed and taught Python, Java, and ML curriculum while recruiting and
-            training five students to teach.
-          </p>
-        </article>
-      </section>
-
-      <section id="skills" class="section">
-        <h2>Skills</h2>
-        <div class="skills">
-          <div class="skill-group">
-            <h3>Languages</h3>
-            <div class="skill-pills">
-              <span>Python</span>
-              <span>C++</span>
-              <span>Java</span>
-              <span>TypeScript</span>
-              <span>JavaScript</span>
-              <span>HTML</span>
-              <span>CSS</span>
-              <span>SQL</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3>ML / AI</h3>
-            <div class="skill-pills">
-              <span>PyTorch</span>
-              <span>Machine Learning Models</span>
-              <span>TensorFlow</span>
-              <span>Keras</span>
-              <span>scikit-learn</span>
-              <span>NumPy</span>
-              <span>Pandas</span>
-              <span>OpenCV</span>
-              <span>Computer Vision</span>
-              <span>Deep Learning</span>
-              <span>Deep Learning Optimization</span>
-              <span>Neural Network Architectures</span>
-              <span>Reinforcement Learning</span>
-              <span>Multi-modal Learning</span>
-              <span>Foundation Models</span>
-              <span>Supervised Learning</span>
-              <span>Unsupervised Learning</span>
-              <span>Transformers</span>
-              <span>LangChain</span>
-              <span>Large Language Models</span>
-              <span>NLP</span>
-              <span>Classification</span>
-              <span>ModelOps</span>
-              <span>AI Application</span>
-              <span>Contrastive Learning</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <h3>Systems / Infrastructure</h3>
-            <div class="skill-pills">
-              <span>Object-Oriented Design</span>
-              <span>Data Structures</span>
-              <span>Algorithms</span>
-              <span>Software Design</span>
-              <span>Software Development</span>
-              <span>Software Optimization</span>
-              <span>Embedded Systems</span>
-              <span>Robotics</span>
-              <span>Neuroscience</span>
-              <span>Neurotechnology</span>
-              <span>Biotechnology</span>
-              <span>Cloud Infrastructure</span>
-              <span>Data Integration</span>
-              <span>Version Control Systems</span>
-              <span>Git</span>
-              <span>React</span>
-              <span>Node.js</span>
-              <span>VSCode</span>
-              <span>Jupyter</span>
-              <span>LaTeX</span>
-              <span>Arduino</span>
-              <span>Raspberry Pi</span>
-              <span>Slack</span>
-              <span>Debugging</span>
-              <span>Analytics</span>
-            </div>
-          </div>
+              <p class="meta">B.S. Electrical Engineering & Computer Science</p>
+              <p>
+                Relevant Coursework: Optimization Models in Engineering, Discrete
+                Mathematics and Probability Theory, Machine Structures, Data Structures,
+                The Structure and Interpretation of Computer Programs, Foundations of
+                Signals Dynamical Systems and Information Processing, Linear Algebra and
+                Differential Equations, Physics for Scientists and Engineers.
+              </p>
+              <p>
+                Activities: Neurotech @ Berkeley, Generative AI @ Berkeley.
+              </p>
+            </article>
+          </section>
         </div>
-      </section>
-
-      <footer class="footer">
-        <a href="mailto:arham_siddiqui@berkeley.edu">arham_siddiqui@berkeley.edu</a>
-        <span>Berkeley, CA</span>
-      </footer>
+      </div>
     </main>
     <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
       <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
@@ -499,7 +131,7 @@
     </button>
     <script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
     <script src="assets/brain/brain-points.js?v=20260705-curriculearn-brain"></script>
-    <script src="theme.js?v=20260613"></script>
-    <script src="brain-scene.js?v=20260705-neuron-firing"></script>
+    <script src="theme.js?v=20260715-resume-polish"></script>
+    <script src="brain-scene.js?v=20260718-resume-fast-labels"></script>
   </body>
 </html>

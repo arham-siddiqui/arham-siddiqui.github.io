@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Research - Arham Siddiqui">
+    <title>Research - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page section-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <section id="research" class="section">
+        <h1 class="page-title">Research</h1>
+        <div class="work-grid">
+          <a class="work-card" href="audio-modeling.html">
+            <span class="work-card-icon">AH</span>
+            <span>
+              <h2>Spatial-Temporal Audio Modeling</h2>
+              <span class="work-card-date">2025</span>
+              <p>CNN-LSTM audio hazard classification using spectral and temporal features.</p>
+            </span>
+          </a>
+
+          <a class="work-card" href="medical-testing.html">
+            <span class="work-card-icon">MT</span>
+            <span>
+              <h2>Reactionary Effects of Medical Testing on Rodents</h2>
+              <span class="work-card-date">2023</span>
+              <p>Supervised ML comparison for classifying rodent post-injection reaction signatures.</p>
+            </span>
+          </a>
+
+          <a class="work-card" href="phishing-risk.html">
+            <span class="work-card-icon">PR</span>
+            <span>
+              <h2>Phishing Risk Classification</h2>
+              <span class="work-card-date">2022</span>
+              <p>Ensemble and individual ML architectures for mitigating phishing attack risk.</p>
+            </span>
+          </a>
+
+          <a class="work-card" href="casting-defect.html">
+            <span class="work-card-icon">CD</span>
+            <span>
+              <h2>Casting Defect Detection</h2>
+              <span class="work-card-date">2022</span>
+              <p>Machine-learning viability study for identifying casting defects.</p>
+            </span>
+          </a>
+        </div>
+      </section>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg>
+    </button>
+    <script src="theme.js?v=20260715-resume-fixed"></script>
+  </body>
+</html>

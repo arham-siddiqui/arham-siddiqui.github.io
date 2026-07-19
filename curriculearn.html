@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Curriculearn - Arham Siddiqui">
+    <title>Curriculearn - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Curriculearn</h1>
+            <p class="project-detail-date">Jun 2026</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-photo-slide is-active"><img src="assets/images/curriculearn-team.jpg" alt="Curriculearn team presenting the project demo." loading="lazy"></div>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb is-active" type="button" aria-label="Show figure 1" aria-selected="true"><img src="assets/images/curriculearn-team.jpg" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2>
+            <div class="project-side-links"><a href="https://github.com/jshaha/Curriculearn-" target="_blank" rel="noreferrer">GitHub</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Project</span>
+              <span><strong>Timeline:</strong> Jun 2026</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>TypeScript</span><span>Next.js</span><span>Python</span><span>Flask</span><span>AI Agents</span><span>Sentence Transformers</span><span>Three.js</span><span>Curriculum Optimization</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I built Curriculearn as an AI-powered curriculum optimization system that treats a lesson like an input program and repeatedly evaluates, diagnoses, edits, and re-scores it against simulated cognitive-response metrics. Instead of generating lesson material from scratch, I designed the system to ingest teacher-authored PDFs, PowerPoints, Word documents, plain text, or raw lesson content, segment the material, convert each segment into a semantic brain-state representation, and use those trajectories to identify cognitive overload, weak concept flow, low retention support, and low multimodal reinforcement.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>My central problem was that teachers usually do not get granular feedback on how a lesson will feel cognitively until students are already interacting with it. I built Curriculearn as a feedback loop for that gap: parse the lesson, simulate how a learner's representational state changes over time, translate those changes into interpretable pedagogy metrics, and then generate targeted revisions only where the lesson is predicted to break down.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I organized the backend pipeline as a multi-agent NeuroCompiler system. Agent 1 parses uploaded documents using PDF, PPTX, DOCX, and TXT extractors, then normalizes the output into structured lesson segments. Agent 2 uses a sentence-transformer model, `paraphrase-MiniLM-L3-v2`, to produce 384-dimensional semantic embeddings for each segment as a lightweight proxy for brain-state trajectories. Agent 3 translates those embeddings into learning metrics by computing text-complexity signals, pairwise semantic distance, cosine similarity between adjacent segments, novelty, information density, and concept reactivation.</p>
+            <p>I converted those metrics into typed Pydantic data contracts, including `StructuredLesson`, `MetricScores`, `MetricReport`, `Diagnosis`, `EditOperation`, and `OptimizationResult`. I defined the learning objective around engagement, inverse cognitive load, concept flow, reinforcement, and multimodal support, then used a deterministic diagnostician to prioritize issues such as cognitive overload, poor concept flow, low retention, novelty spikes, and low multimodal support. The curriculum editor then generates bounded edit candidates such as splitting overloaded sections, adding transitions, inserting retrieval questions, simplifying explanations, or adding examples/analogies.</p>
+          </div>
+          <div>
+            <h2>What Was Built</h2>
+            <p>I worked on the end-to-end product architecture: a Flask REST API for upload, analysis, optimization, and visualization; a Next.js/TypeScript frontend for classroom and document workflows; and a Three.js brain visualization that maps curriculum metrics onto interactive brain regions. The frontend calls stateless `/api/upload`, `/api/analyze`, and `/api/optimize` endpoints, stores parsed lesson content client-side, and renders learning score, engagement, cognitive load, concept flow, retention, novelty, information density, reinforcement, and multimodal support as actionable outputs.</p>
+            <p>I built the optimization loop to evaluate the original lesson, run diagnostics, generate candidate edits under bounded segment-growth constraints, re-simulate each candidate, and keep the revision only if it improves the global learning score. I also included local demos, sample lessons, deployment configuration, persistent JSON-backed result storage, optional Claude-powered diagnostician/editor variants, and frontend brain-region components for section-level metric exploration.</p>
+          </div>
+          <div>
+            <h2>Results</h2>
+            <p>In a committed sample optimization run on an introductory photosynthesis lesson, my system improved the learning score from 55.8 to 57.4 over two optimization iterations. In that run, the optimizer identified an overloaded segment containing chlorophyll, photons, ATP, carbon fixation, glucose, and light reactions; split it into an intuition-first segment and a core-detail segment; and preserved the revised candidate because it improved the objective score. This demonstrates the loop I wanted: detect the exact weak segment, generate a pedagogically motivated edit, and validate the edit through re-simulation rather than accepting it blindly.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>Curriculearn became my full-stack curriculum compiler: document ingestion, semantic brain-state simulation, interpretable educational metrics, diagnosis generation, candidate rewriting, score-based optimization, and a visual interface for understanding the result. I see the technical value of my work in the coupling between language-model-style lesson editing and a separate evaluation signal, which creates a measurable loop for improving instructional materials instead of relying only on unconstrained generation.</p>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-resume-region-animate"></script>
+  </body>
+</html>

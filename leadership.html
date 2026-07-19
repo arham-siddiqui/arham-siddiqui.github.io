@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Leadership - Arham Siddiqui">
+    <title>Leadership - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page section-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <section id="leadership" class="section">
+        <h1 class="page-title">Leadership</h1>
+        <div class="work-grid">
+          <a class="work-card" href="cometkitz.html">
+            <span class="work-card-icon">CK</span>
+            <span>
+              <h2>CometKitz Robotics Kits Program</h2>
+              <span class="work-card-date">Jan 2022 - Jun 2025</span>
+              <p>Robotics kits, curriculum, and workshops for 500+ students across five schools.</p>
+            </span>
+          </a>
+
+          <a class="work-card" href="santa-clara-coding-association.html">
+            <span class="work-card-icon">SC</span>
+            <span>
+              <h2>Santa Clara Coding Association</h2>
+              <span class="work-card-date">Mar 2021 - Jun 2025</span>
+              <p>City-wide CS clubs, hackathons, and coding curriculum for 1,500+ students.</p>
+            </span>
+          </a>
+        </div>
+      </section>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg>
+    </button>
+    <script src="theme.js?v=20260715-resume-fixed"></script>
+  </body>
+</html>

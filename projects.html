@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Projects - Arham Siddiqui">
+    <title>Projects - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page section-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <section id="projects" class="section project-index">
+        <h1 class="page-title">Projects</h1>
+
+        <div class="project-filter" aria-label="Project category filter">
+          <span>Category</span>
+          <button class="filter-btn is-active" type="button" data-filter="all">All</button>
+          <button class="filter-btn" type="button" data-filter="industry">Industry</button>
+          <button class="filter-btn" type="button" data-filter="project">Projects</button>
+          <button class="filter-btn" type="button" data-filter="research">Research</button>
+          <button class="filter-btn" type="button" data-filter="leadership">Leadership</button>
+        </div>
+
+        <div class="project-grid">
+          <a class="project-card" href="silent-speech.html" data-category="project">
+            <span class="project-card-media diagram-media"><img src="assets/images/silent-speech/accuracy-comparison.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span class="meta-label">Project</span><span class="meta-date"><span class="active-dot" aria-hidden="true"></span>2026 - Present</span></span>
+              <strong>Silent Speech Decoding</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="taskshift.html" data-category="project">
+            <span class="project-card-media diagram-media"><img src="assets/images/taskshift/cka-heatmap.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Project</span><span>Jun 2026</span></span>
+              <strong>TaskShift</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="curriculearn.html" data-category="project">
+            <span class="project-card-media photo-media"><img src="assets/images/curriculearn-team.jpg" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Project</span><span>Jun 2026</span></span>
+              <strong>Curriculearn</strong>
+            </span>
+          </a>
+
+          <a id="apple" class="project-card" href="apple-vision-pipeline.html" data-category="industry">
+            <span class="project-card-media diagram-media"><img src="assets/images/apple/backend-architecture.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Industry</span><span>Jan 2026 - May 2026</span></span>
+              <strong>FastAPI Image Validation Backend</strong>
+            </span>
+          </a>
+
+          <a id="deepmind" class="project-card" href="deepmind-calendar-agent.html" data-category="industry">
+            <span class="project-card-media diagram-media"><img src="assets/images/deepmind/system-architecture.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Industry</span><span>Sep 2025 - Mar 2026</span></span>
+              <strong>Gemini + Hybrid LinUCB Calendar Agent</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="audio-modeling.html" data-category="project research">
+            <span class="project-card-media diagram-media"><img src="assets/images/research/auditory-hazard-p14-1.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Project / Research</span><span>2025</span></span>
+              <strong>Spatial-Temporal Audio Modeling</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="overhead-radar.html" data-category="project leadership">
+            <span class="project-card-media diagram-media"><img src="assets/images/omar-figure-2.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Project / Leadership</span><span>2021 - 2025</span></span>
+              <strong>Overhead Movement Alarm Radar</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="cometkitz.html" data-category="leadership">
+            <span class="project-card-media photo-media"><img src="assets/images/cometkitz/cometkitz-workshop-1.jpg" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Leadership</span><span>Jan 2022 - Jun 2025</span></span>
+              <strong>CometKitz Robotics Kits Program</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="santa-clara-coding-association.html" data-category="leadership">
+            <span class="project-card-media photo-media"><img src="assets/images/scca/scca-3.jpg" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Leadership</span><span>Mar 2021 - Jun 2025</span></span>
+              <strong>Santa Clara Coding Association</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="bwsi-assistive-navigation.html" data-category="industry research">
+            <span class="project-card-media diagram-media"><img src="assets/images/bwsi/bwsi-streetsmart-architecture.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Industry / Research</span><span>Feb 2024 - Aug 2024</span></span>
+              <strong>Assistive Navigation Systems</strong>
+            </span>
+          </a>
+
+          <a id="medical-testing" class="project-card" href="medical-testing.html" data-category="research">
+            <span class="project-card-media diagram-media"><img src="assets/images/medical-testing-poster.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Research</span><span>2023</span></span>
+              <strong>Reactionary Effects of Medical Testing on Rodents</strong>
+            </span>
+          </a>
+
+          <a class="project-card" href="csiro-climate-tech.html" data-category="industry leadership">
+            <span class="project-card-media photo-media"><img src="assets/images/csiro/csiro-1.jpg" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Industry / Leadership</span><span>Jul 2023</span></span>
+              <strong>USA-Australia Climate Technology MOU</strong>
+            </span>
+          </a>
+
+          <a id="phishing-risk" class="project-card" href="phishing-risk.html" data-category="research">
+            <span class="project-card-media diagram-media"><img src="assets/images/research/phishing-risk-p1-1.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Research</span><span>2022</span></span>
+              <strong>Phishing Risk Classification</strong>
+            </span>
+          </a>
+
+          <a id="casting-defect" class="project-card" href="casting-defect.html" data-category="research">
+            <span class="project-card-media diagram-media"><img src="assets/images/research/casting-defect-samples.png" alt="" loading="lazy"></span>
+            <span class="project-card-body">
+              <span class="project-card-meta"><span>Research</span><span>2022</span></span>
+              <strong>Casting Defect Detection</strong>
+            </span>
+          </a>
+        </div>
+      </section>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg>
+    </button>
+    <script src="theme.js?v=20260715-resume-polish"></script>
+  </body>
+</html>

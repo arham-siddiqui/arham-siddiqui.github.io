@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Google Calendar Agent - Arham Siddiqui">
+    <title>Google Calendar Agent - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260718-deepmind-writeup">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Google Gemini Calendar Agent</h1>
+            <p class="project-detail-date">Sep 2025 - Mar 2026</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/deepmind/system-architecture.png" alt="System architecture for the trust-gated Google Calendar agent." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/deepmind/contextual-bandit.png" alt="Hybrid LinUCB contextual bandit architecture for adaptive autonomy." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/deepmind/autonomy-ladder.png" alt="Six-level autonomy ladder for assistive AI agents." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/deepmind/morning-brief-flow.png" alt="Morning brief decision flow for proactive calendar assistance." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/deepmind/conflict-resolution-flow.png" alt="Conflict resolution decision flow for calendar rescheduling." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/deepmind/user-journey-map.png" alt="User journey map for the adaptive calendar assistant." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show system architecture" aria-selected="true"><img src="assets/images/deepmind/system-architecture.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show contextual bandit architecture" aria-selected="false"><img src="assets/images/deepmind/contextual-bandit.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show autonomy ladder" aria-selected="false"><img src="assets/images/deepmind/autonomy-ladder.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show morning brief flow" aria-selected="false"><img src="assets/images/deepmind/morning-brief-flow.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show conflict resolution flow" aria-selected="false"><img src="assets/images/deepmind/conflict-resolution-flow.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show user journey map" aria-selected="false"><img src="assets/images/deepmind/user-journey-map.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://github.com/arham-siddiqui/deepmindtrustbandit" target="_blank" rel="noreferrer">GitHub</a><a href="https://drive.google.com/file/d/1IaMvZWYHsVTkg4qxuARYHjinMlAsfYGb/view?usp=sharing" target="_blank" rel="noreferrer">Report</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Industry</span>
+              <span><strong>Timeline:</strong> Sep 2025 - Mar 2026</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Gemini</span><span>LangChain</span><span>Google Calendar API</span><span>Contextual Bandits</span><span>Hybrid LinUCB</span><span>Tool Calling</span><span>Trust Modeling</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p class="abstract-copy">I was contracted by Google DeepMind to develop this software for AI trust and autonomy research. I developed a trust-gated autonomy framework for assistive AI, demonstrated through a Google Gemini and LangChain-powered Calendar agent. My system pairs Google Calendar API tool calling with a Beta-Binomial trust estimator and a Hybrid LinUCB contextual bandit, allowing agent autonomy to adapt from observed user reliance, compliance, overrides, edits, and uncertainty rather than remaining fixed.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>I approached LLM-agent autonomy as a systems problem: once an agent moves from passive recommendation into tool-mediated execution, it has to decide when to call tools, when to propose alternatives, and when to require explicit confirmation. I used calendar automation as the testbed because scheduling exposes structured state, temporal constraints, user-specific preferences, and measurable correction signals after each interaction sequence.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I separated capability from control. The capability layer uses Google Gemini, LangChain, and Google Calendar API tools to parse natural-language scheduling requests, inspect calendar state, infer intent, find free slots, create/edit/delete events, and generate conflict-aware alternatives. The control layer models trust with a Beta-Binomial Bayesian update and adjusts autonomy using a Hybrid LinUCB contextual bandit over actions {-2, -1, 0, +1, +2}, constrained to valid movement along a six-level autonomy ladder.</p>
+          </div>
+          <div>
+            <h2>What Was Built</h2>
+            <p>I built LangChain tool wrappers for Google Calendar primitives, Gemini-based intent reasoning, free-slot discovery, event creation/edit/deletion, LLM-generated scheduling suggestions, conflict-aware rescheduling, persona-conditioned proposal behavior, and a modular autonomy controller. My adaptive layer consumes interaction outcomes, user overrides, edit magnitudes, reliance/compliance signals, and posterior trust uncertainty to select the next autonomy-level transition.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>My conclusion was that assistive AI should behave like a calibrated collaborator: initiative should expand when the user repeatedly accepts and relies on the agent, and contract when corrections, overrides, or uncertainty indicate discomfort. My prototype demonstrates the calendar-agent side of the system and outlines how trust estimation and contextual-bandit control can generalize to other domains such as email, task planning, and travel booking.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/deepmind/system-architecture.png" alt="System architecture diagram." loading="lazy"><figcaption>Closed-loop architecture connecting the calendar agent, trust estimation, outcome logging, and adaptive autonomy control.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/deepmind/contextual-bandit.png" alt="Contextual bandit diagram." loading="lazy"><figcaption>Hybrid LinUCB controller that chooses autonomy-level adjustments from interaction context and trust-module outputs.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/deepmind/autonomy-ladder.png" alt="Autonomy ladder diagram." loading="lazy"><figcaption>Six-level autonomy ladder, ranging from direct action support to proactive supervisory automation.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/deepmind/conflict-resolution-flow.png" alt="Conflict resolution flowchart." loading="lazy"><figcaption>Conflict-resolution flow for proposing alternative schedules when a requested event cannot fit directly.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

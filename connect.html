@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Connect with Arham Siddiqui">
+    <title>Connect - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+  </head>
+  <body>
+    <main class="page section-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a href="projects.html">Projects</a>
+          <a class="is-active" href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <section class="section connect-page" aria-labelledby="connect-title">
+        <h1 id="connect-title" class="page-title">Connect</h1>
+        <p class="connect-lede">I prefer email for the fastest response.</p>
+
+        <div class="connect-grid">
+          <div class="connect-links" aria-label="Contact links">
+            <a href="mailto:arham_siddiqui@berkeley.edu">
+              <span class="connect-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3h13A2.5 2.5 0 0 1 21 5.5v13a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 18.5v-13Zm2.5-.7a.7.7 0 0 0-.7.7v.48l7.2 4.82 7.2-4.82V5.5a.7.7 0 0 0-.7-.7h-13Zm13.7 3.35-6.7 4.48a.9.9 0 0 1-1 0L4.8 8.15V18.5c0 .39.31.7.7.7h13a.7.7 0 0 0 .7-.7V8.15Z"></path></svg>
+              </span>
+              arham_siddiqui@berkeley.edu
+            </a>
+            <a href="https://www.linkedin.com/in/arham-siddiqui-758b49275/" target="_blank" rel="noreferrer">
+              <span class="connect-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path></svg>
+              </span>
+              LinkedIn
+            </a>
+            <a href="https://www.instagram.com/krm_arham/" target="_blank" rel="noreferrer">
+              <span class="connect-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5ZM12 7.25A4.75 4.75 0 1 1 12 16.75 4.75 4.75 0 0 1 12 7.25Zm0 2A2.75 2.75 0 1 0 12 14.75 2.75 2.75 0 0 0 12 9.25Zm5-2.4a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"></path></svg>
+              </span>
+              @krm_arham
+            </a>
+          </div>
+
+          <section class="connect-availability" aria-label="Availability">
+            <a class="connect-primary" href="https://calendly.com/arham_siddiqui-berkeley/new-meeting" target="_blank" rel="noreferrer">Book a meeting through Calendly</a>
+          </section>
+        </div>
+      </section>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
+      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg>
+      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg>
+    </button>
+    <script src="theme.js?v=20260715-resume-polish"></script>
+  </body>
+</html>

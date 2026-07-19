@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Casting Defect Detection - Arham Siddiqui">
+    <title>Casting Defect Detection - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-project-video-carousel">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Casting Defect Detection</h1>
+            <p class="project-detail-date">2022</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/research/casting-defect-samples.png" alt="Grid of casting product image samples for defect detection." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/casting-defect-p3-2.png" alt="Random forest confusion matrix for casting defect detection." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/casting-defect-p3-3.png" alt="Random forest AUC plot for casting defect detection." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/casting-defect-p3-5.png" alt="CNN accuracy and loss plots." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show casting image samples" aria-selected="true"><img src="assets/images/research/casting-defect-samples.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show random forest confusion matrix" aria-selected="false"><img src="assets/images/research/casting-defect-p3-2.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show random forest AUC plot" aria-selected="false"><img src="assets/images/research/casting-defect-p3-3.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show CNN training plots" aria-selected="false"><img src="assets/images/research/casting-defect-p3-5.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2>
+            <div class="project-side-links"><a href="https://drive.google.com/file/d/1WbAatQpwBvLNHQ37LbNRM69TbPMvFCpf/view?usp=sharing" target="_blank" rel="noreferrer">Paper</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Research</span>
+              <span><strong>Timeline:</strong> 2022</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Computer Vision</span><span>Image Classification</span><span>Machine Learning</span><span>Model Comparison</span><span>Python</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I built Casting Defect Detection as a computer-vision study evaluating whether machine-learning models can automate quality inspection for manufactured casting parts. I treated defect inspection as a binary image-classification problem: given an image of a casting surface, classify it as defective or non-defective. I compared classical machine-learning approaches against sequential convolutional architectures to determine which model family was most viable for a constrained industrial defect-detection setting.</p>
+          </div>
+          <div>
+            <h2>Problem</h2>
+            <p>Casting defects such as blow holes, pinholes, burrs, shrinkage defects, mold-material defects, pouring-metal defects, and metallurgical imperfections can reduce product quality and require costly manual inspection. Human inspection is slow, subjective, and difficult to scale across large production volumes. I investigated whether image-based ML could offer a faster, more consistent alternative by learning visual patterns associated with defective castings.</p>
+          </div>
+          <div>
+            <h2>Dataset And Preprocessing</h2>
+            <p>I used the Kaggle Casting Product Image Data for Quality Inspection dataset, containing 7,348 images of defective and non-defective casting material. Each original image was represented as a 300x300x3 RGB input. My preprocessing pipeline converted images from RGB to grayscale, shuffled training and testing images with their corresponding labels to reduce ordering bias, and prepared two parallel representations: flattened vectors for classical scikit-learn models and spatial image tensors for convolutional neural networks.</p>
+            <p>This split in representation was important to my experiment. Logistic Regression and Random Forest operated on flattened pixel vectors, which discard spatial topology but allow classical classifiers to process the data. My CNN models retained image structure, allowing convolutional filters to learn local spatial patterns such as surface texture, irregularity, defect edges, and shape artifacts.</p>
+          </div>
+          <div>
+            <h3>Methods</h3>
+            <p>I evaluated four model configurations. I used Logistic Regression as a linear baseline after flattening each grayscale image into a one-dimensional feature vector, with a maximum iteration count of 200. I also trained Random Forest Classification on flattened image vectors, using an ensemble of decision trees to capture nonlinear pixel-intensity relationships and reduce sensitivity to noisy or outlier regions.</p>
+            <p>I trained two TensorFlow Sequential CNNs on non-flattened image data. The first used three convolutional and max-pooling blocks with Leaky ReLU activations. The second added a fourth convolutional/max-pooling block to test whether additional depth and parameters improved classification performance. Both CNNs used the Adam optimizer, binary cross-entropy loss, and 10 training epochs. I evaluated model quality using confusion matrices, AUC/ROC analysis, recall, precision, validation accuracy, and training/validation loss curves.</p>
+          </div>
+          <div>
+            <h3>Results</h3>
+            <p>My Logistic Regression model reached an AUC score of 89.1% and recall of 82.4%, showing that flattened pixel information still contained useful signal. Random Forest performed best, reaching a 98.2% AUC score and 96.6% recall. Precision analysis also favored RFC: Logistic Regression reached 93.5% precision, while Random Forest reached 99.1%, indicating a much lower false-positive rate for defective classifications.</p>
+            <p>My CNN results were weaker under the available compute/data constraints. The three-layer Sequential CNN reached 79.0% accuracy, with a steep loss decrease during epochs 0-4 before stabilizing. The four-layer CNN improved to 82.5% accuracy and stabilized around epochs 5-6, suggesting that additional depth helped but was still insufficient to surpass the RFC. Precision also did not improve monotonically with depth: the three-layer CNN reached 84.4% precision, while the four-layer CNN reached 81.4% precision.</p>
+          </div>
+          <div>
+            <h3>Conclusion</h3>
+            <p>I concluded that Random Forest was the most viable model for this binary casting-defect detection setup. Its ensemble architecture, nonlinear decision structure, and robustness to noise/outliers made it better suited to the available dataset than my Logistic Regression and CNN configurations. My CNN results suggest that deeper architectures and larger augmented datasets could become competitive, but my attempted rotational augmentation could not be fully used because of local memory limitations. In a production-scale extension, I would use generator-based data loading, more aggressive augmentation, transfer learning, and larger CNN backbones to test whether deep models can surpass the classical RFC baseline.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/research/casting-defect-p3-2.png" alt="Random forest confusion matrix." loading="lazy"><figcaption>Random Forest confusion matrix, the strongest reported model in the paper.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/casting-defect-p3-5.png" alt="CNN accuracy and loss curves." loading="lazy"><figcaption>CNN accuracy/loss curves used to evaluate sequential image models.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/casting-defect-p3-3.png" alt="Random forest AUC plot." loading="lazy"><figcaption>Random Forest ROC/AUC visualization showing the strongest reported class-separation performance.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Curriculearn project photo placeholder</title>
+  <desc id="desc">A stylized placeholder for the Curriculearn project image.</desc>
+  <defs>
+    <linearGradient id="wall" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff3df"/>
+      <stop offset="0.52" stop-color="#c98745"/>
+      <stop offset="1" stop-color="#0f1d34"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="48%" cy="44%" r="48%">
+      <stop offset="0" stop-color="#8bc6ff" stop-opacity="0.9"/>
+      <stop offset="0.42" stop-color="#3a86ff" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#07111f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#wall)"/>
+  <rect y="590" width="1600" height="310" fill="#101827" opacity="0.58"/>
+  <circle cx="330" cy="315" r="104" fill="#182235"/>
+  <circle cx="330" cy="270" r="58" fill="#221b19"/>
+  <rect x="210" y="410" width="245" height="410" rx="82" fill="#263447"/>
+  <circle cx="800" cy="335" r="92" fill="#271c21"/>
+  <circle cx="800" cy="300" r="54" fill="#221b19"/>
+  <rect x="692" y="426" width="220" height="365" rx="76" fill="#7a263e"/>
+  <circle cx="1210" cy="312" r="108" fill="#241b1a"/>
+  <circle cx="1210" cy="268" r="62" fill="#1a1514"/>
+  <rect x="1084" y="410" width="255" height="420" rx="86" fill="#121827"/>
+  <rect x="520" y="505" width="560" height="285" rx="18" fill="#111827"/>
+  <rect x="548" y="532" width="504" height="220" rx="10" fill="#07111f"/>
+  <rect x="548" y="532" width="504" height="220" rx="10" fill="url(#glow)"/>
+  <text x="800" y="623" fill="#eaf3ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="52" font-weight="800" text-anchor="middle">CURRICULEARN</text>
+  <text x="800" y="688" fill="#8bc6ff" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="31" font-weight="700" text-anchor="middle">AI CURRICULUM OPTIMIZATION</text>
+</svg>

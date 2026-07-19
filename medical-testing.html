@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A Machine Learning Approach to Examine the Reactionary Effects of Medical Testing on Rodents: A Comparative Analysis - Arham Siddiqui">
+    <title>A Machine Learning Approach to Examine the Reactionary Effects of Medical Testing on Rodents - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-project-video-carousel">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">A Machine Learning Approach to Examine the Reactionary Effects of Medical Testing on Rodents: A Comparative Analysis</h1>
+            <p class="project-detail-date">2023</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active">
+                <img src="assets/images/medical-testing-poster.png" alt="Medical testing reaction analysis workflow poster." loading="lazy">
+              </div>
+              <div class="project-slide project-diagram-slide">
+                <img src="assets/images/research/medical-testing-p4-2.png" alt="Model tuning and comparative medical testing analysis figure." loading="lazy">
+              </div>
+              <div class="project-slide project-diagram-slide">
+                <img src="assets/images/research/medical-testing-p5-1.png" alt="Medical testing model performance analysis figure." loading="lazy">
+              </div>
+              <div class="project-slide project-diagram-slide">
+                <img src="assets/images/research/medical-testing-p7-1.png" alt="Medical testing confusion matrix." loading="lazy">
+              </div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show poster figure" aria-selected="true"><img src="assets/images/medical-testing-poster.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show figure 2" aria-selected="false"><img src="assets/images/research/medical-testing-p4-2.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show figure 3" aria-selected="false"><img src="assets/images/research/medical-testing-p5-1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show figure 4" aria-selected="false"><img src="assets/images/research/medical-testing-p7-1.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2>
+            <div class="project-side-links"><a href="https://drive.google.com/file/d/11fWXFii5x58CW5lnXpjaRmcB6PSN2_9P/view?usp=sharing" target="_blank" rel="noreferrer">Paper</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Research</span>
+              <span><strong>Timeline:</strong> 2023</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Python</span><span>scikit-learn</span><span>KNN</span><span>SVC</span><span>Random Forest</span><span>Voting Classifier</span><span>Feature Engineering</span><span>Confusion Matrices</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>In A Machine Learning Approach to Examine the Reactionary Effects of Medical Testing on Rodents: A Comparative Analysis, I studied whether supervised classification can match a new post-injection rodent observation profile to the drug class most consistent with previously observed reaction patterns. I framed drug-response interpretation as a structured pattern-recognition problem, using behavioral and physiological proxy features collected across a 72-hour post-injection observation window.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>Drug discovery often depends on interpreting complex animal-response data before a candidate treatment can move further through the development pipeline. I explored whether machine-learning classifiers could provide a fast comparative reference point for scientists by learning relationships between observed rodent reactions and known tested drugs. My goal was not to replace biological validation, but to test whether supervised models could reduce ambiguity in early-stage screening by identifying reaction signatures that cluster with prior outcomes.</p>
+          </div>
+          <div>
+            <h3>Methods</h3>
+            <p>I built a tabular dataset with 13 engineered features representing post-injection rodent reactions. I artificially generated and varied feature vectors to simulate experimentally observed responses for multiple drug classes, then expanded the dataset from a 13x1800 matrix to a 13x6000 matrix to evaluate whether model behavior remained stable under a larger synthetic sample regime. My pipeline included matrix construction, duplicate filtering, train/test partitioning, model fitting, hyperparameter sweeps, and classification-metric analysis.</p>
+            <p>I compared multiple supervised classifiers, including K-Nearest Neighbors, Support Vector Classification, Random Forest classification, and an ensemble Voting Classifier. In my KNN experiments, I tested distance-function sensitivity with Manhattan and Euclidean metrics, while tree-based and support-vector models provided comparison points for nonlinear decision boundaries, variance control, and generalization behavior. I evaluated model performance through accuracy, class-level prediction behavior, and confusion-matrix inspection.</p>
+          </div>
+          <div>
+            <h3>Results</h3>
+            <p>My KNN-based classifier produced the strongest reported performance, outperforming the SVC baseline by roughly 40 percentage points on average and reaching 100% accuracy in the final configuration. The larger 13x6000 dataset supported broader evaluation of the classifier behavior, and the Manhattan distance metric produced better matching performance than Euclidean distance for my final KNN setup. These results suggested that the reaction vectors were highly separable under a neighborhood-based classifier when the feature space was normalized around consistent drug-response profiles.</p>
+          </div>
+          <div>
+            <h3>Conclusion</h3>
+            <p>I concluded that supervised ML can serve as a computational aid for comparing rodent medical-testing reactions against known drug-response patterns. In my experimental setup, KNN with Manhattan distance was the most effective model because local similarity in the engineered feature space captured drug-class membership more reliably than the tested alternatives. Future versions of my work would benefit from real longitudinal animal-response data, stronger biological covariates, uncertainty calibration, and external validation across independent labs or treatment classes.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/medical-testing-poster.png" alt="Medical testing poster workflow." loading="lazy"><figcaption>Workflow poster for the medical testing reaction-analysis pipeline.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/medical-testing-p4-2.png" alt="Medical testing model tuning figure." loading="lazy"><figcaption>Model-development figure showing the classifier tuning and comparative evaluation process.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/medical-testing-p5-1.png" alt="Medical testing performance figure." loading="lazy"><figcaption>Performance analysis for the supervised drug-reaction matching models.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/medical-testing-p7-1.png" alt="Medical testing confusion matrix." loading="lazy"><figcaption>Final confusion matrix showing strong drug-class matching performance.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

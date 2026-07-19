@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Apple Vision Pipeline - Arham Siddiqui">
+    <title>Apple Vision Pipeline - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260718-apple-writeup">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Apple Image Validation Backend</h1>
+            <p class="project-detail-date">Jan 2026 - May 2026</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/apple/backend-architecture.png" alt="Top-to-bottom system architecture of the apple-backend FastAPI service." loading="lazy"></div>
+              <div class="project-slide"><div class="project-slide-graphic">FastAPI</div></div>
+              <div class="project-slide"><div class="project-slide-graphic">PostgreSQL</div></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images"><button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show backend architecture" aria-selected="true"><img src="assets/images/apple/backend-architecture.png" alt="" loading="lazy"></button><button class="project-thumb" type="button" aria-label="Show FastAPI figure" aria-selected="false">API</button><button class="project-thumb" type="button" aria-label="Show database figure" aria-selected="false">DB</button></div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2><div class="project-side-links"><a href="https://github.com/Generative-AI-at-Berkeley/apple-sp26" target="_blank" rel="noreferrer">GitHub</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Industry</span>
+              <span><strong>Timeline:</strong> Jan 2026 - May 2026</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>FastAPI</span><span>PostgreSQL</span><span>asyncpg</span><span>Pydantic Settings</span><span>REST API Design</span><span>Image Validation</span><span>Rule Contracts</span><span>Python</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p class="abstract-copy">I was contracted by Apple to work on this image-validation backend system. I built an `apple-backend` FastAPI service for validating image records against configurable rule contracts and persisting validation outcomes to PostgreSQL. My backend exposes versioned REST endpoints, routes image-validation requests through a dedicated business-logic layer, and serializes structured response payloads for downstream review or ingestion workflows.</p>
+          </div>
+          <div>
+            <h2>Introduction</h2>
+            <p>I treated large-scale image validation as a backend systems problem: before records can enter a training, annotation, or review workflow, they need deterministic validation gates. I formalized that validation step as an API-backed quality-control layer where clients submit image metadata and candidate validation values, my backend evaluates those values against threshold rules, and the result is recorded with status, rule outputs, failure reasons, model/upload context, and timestamps.</p>
+          </div>
+          <div>
+            <h2>Methods</h2>
+            <p>I separated transport, routing, validation logic, configuration, and persistence. The FastAPI application handles startup/shutdown lifecycle events, initializes an asynchronous PostgreSQL connection pool, and fans requests into versioned route handlers. The core validation endpoint receives an `ImageValidationRequest`, applies comparison operators such as greater-than, greater-than-or-equal, less-than, less-than-or-equal, and equality through `evaluate_contracts()`, then maps each request to `APPROVED`, `REJECTED`, or `RETRY` based on passed rules and exception handling.</p>
+          </div>
+          <div>
+            <h2>What Was Built</h2>
+            <p>I built health/time/hello service routes, a `/api/v1/validation/validate-image` validation flow, Pydantic-based application settings, async database utility functions, and a `ValidatedImages` PostgreSQL schema for durable storage. My response builder returns typed `ImageValidationResponse` objects containing fields such as status, collection ID, rules passed, rules failed, raw outputs, image ID, model/upload metadata, and validation timestamp.</p>
+          </div>
+          <div>
+            <h2>Conclusion</h2>
+            <p>My final service turns image quality control into a modular backend system instead of an ad hoc notebook or script. By combining FastAPI routing, Pydantic configuration, rule-contract evaluation, async PostgreSQL writes, and explicit lifecycle management, I created an auditable validation layer that can sit between image upload, model output generation, and human-in-the-loop review.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/apple/backend-architecture.png" alt="FastAPI backend architecture diagram." loading="lazy"><figcaption>Top-to-bottom architecture of the `apple-backend` FastAPI service, including routing, validation logic, lifecycle hooks, settings, and PostgreSQL persistence.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>

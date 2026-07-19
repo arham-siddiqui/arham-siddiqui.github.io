@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Phishing Risk Classification - Arham Siddiqui">
+    <title>Phishing Risk Classification - Arham Siddiqui</title>
+    <script>
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme !== "light") document.documentElement.classList.add("dark");
+    </script>
+    <link rel="stylesheet" href="styles.css?v=20260716-project-video-carousel">
+  </head>
+  <body>
+    <main class="page detail-page">
+      <header class="site-header">
+        <nav class="topline" aria-label="Primary navigation">
+          <a href="index.html">Home</a>
+          <a href="resume.html">Resume</a>
+          <a class="is-active" href="projects.html">Projects</a>
+          <a href="connect.html">Connect</a>
+        </nav>
+      </header>
+
+      <article class="project-detail-shell">
+        <a class="back-link" href="projects.html">Back To Projects</a>
+        <div class="project-detail-top">
+          <div>
+            <h1 class="page-title">Phishing Risk Classification</h1>
+            <p class="project-detail-date">2022</p>
+          </div>
+        </div>
+
+        <div class="project-detail-grid">
+          <div class="project-gallery">
+            <div class="project-hero-visual">
+              <div class="project-slide project-diagram-slide is-active"><img src="assets/images/research/phishing-risk-p1-1.png" alt="Phishing attack flow diagram." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/phishing-risk-p3-1.png" alt="Random forest classifier confusion matrix." loading="lazy"></div>
+              <div class="project-slide project-diagram-slide"><img src="assets/images/research/phishing-risk-p4-1.png" alt="Phishing model accuracy comparison table." loading="lazy"></div>
+              <button class="gallery-nav gallery-nav-prev" type="button" aria-label="Previous image">‹</button>
+              <button class="gallery-nav gallery-nav-next" type="button" aria-label="Next image">›</button>
+            </div>
+            <div class="project-thumbs" role="tablist" aria-label="Project images">
+              <button class="project-thumb project-thumb-diagram is-active" type="button" aria-label="Show phishing flow diagram" aria-selected="true"><img src="assets/images/research/phishing-risk-p1-1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show random forest confusion matrix" aria-selected="false"><img src="assets/images/research/phishing-risk-p3-1.png" alt="" loading="lazy"></button>
+              <button class="project-thumb project-thumb-diagram" type="button" aria-label="Show accuracy comparison" aria-selected="false"><img src="assets/images/research/phishing-risk-p4-1.png" alt="" loading="lazy"></button>
+            </div>
+          </div>
+          <aside class="project-meta-panel">
+            <h2>Links</h2>
+            <div class="project-side-links"><a href="https://drive.google.com/file/d/16oNMado2GaJaP75GkoUNIX9YOVOqHVdo/view?usp=sharing" target="_blank" rel="noreferrer">Paper</a></div>
+            <h2>Project Info</h2>
+            <div class="project-info-list">
+              <span><strong>Category:</strong> Research</span>
+              <span><strong>Timeline:</strong> 2022</span>
+              <span><strong>Status:</strong> Complete</span>
+            </div>
+            <h2>Skills</h2>
+            <div class="project-skill-list"><span>Machine Learning</span><span>Ensemble Models</span><span>Classification</span><span>Cybersecurity</span><span>Python</span></div>
+          </aside>
+        </div>
+        <section class="project-writeup">
+          <div>
+            <h2>Overview</h2>
+            <p>I built Phishing Risk Classification as a comparative machine-learning study focused on detecting malicious websites from structured URL and page-level indicators. I framed phishing mitigation as a supervised classification problem: given a fixed feature vector extracted from a suspicious website, predict whether the site should be treated as legitimate, suspicious, or phishing-risk aligned. I compared individual and ensemble classifiers to determine which architecture best balances accuracy, precision, recall, and F1-score for practical anti-phishing use.</p>
+          </div>
+          <div>
+            <h2>Problem</h2>
+            <p>Traditional anti-phishing tools often depend on static blacklists, browser toolbars, or known-domain databases. Those approaches can fail when attackers generate new domains, use character substitution, manipulate URL structure, or deploy convincing cloned pages before the blacklist has been updated. I therefore evaluated whether a feature-driven classifier could generalize beyond a specific list of known malicious domains by learning structural patterns associated with phishing behavior.</p>
+          </div>
+          <div>
+            <h2>Dataset And Preprocessing</h2>
+            <p>I used the UCI phishing dataset, containing 11,055 samples with 30 engineered website features. The features encode signals such as URL length, pop-up-window behavior, double-slash redirecting, and related lexical or page-structure attributes. Each feature was represented with the dataset's ternary encoding: `1` for legitimate, `0` for suspicious, and `-1` for phishing. Because the raw feature values were initially stored in a non-numeric format, I applied Unicode decoding and converted the full matrix into numerical feature vectors usable by scikit-learn classifiers.</p>
+            <p>I split the dataset into a 75% training partition and a 25% testing partition. This setup allowed my models to learn from a majority of the feature matrix while reserving unseen examples for performance evaluation. I emphasized accuracy, precision, recall, F1-score, and confusion matrices so I could distinguish between broad correctness and the cost of false negatives or false positives in a cybersecurity setting.</p>
+          </div>
+          <div>
+            <h3>Methods</h3>
+            <p>I implemented three model families. The first was K-Nearest Neighbors, which classifies each sample according to the labels of nearby points in the 30-dimensional feature space. KNN was useful as a distance-based baseline because it does not impose an explicit parametric decision boundary, but its performance depends heavily on neighborhood size and the separability of the encoded feature vectors.</p>
+            <p>My second model was a Random Forest Classifier. I selected RFC because phishing features are heterogeneous and can interact nonlinearly; ensembles of decision trees are well suited to capturing feature thresholds, feature interactions, and robust voting behavior. I tuned the number of estimators and found that increasing the tree count improved model stability, with 100 estimators producing the strongest reported balance of metrics.</p>
+            <p>My third approach was a Voting Classifier ensemble composed of a Decision Tree, Support Vector Classifier, and Random Forest Classifier. I used this ensemble to test whether aggregating models with different inductive biases could outperform the strongest individual classifier. I intentionally compared the ensemble against tuned single-model baselines to evaluate whether architectural diversity alone was enough without extensive ensemble hyperparameter tuning.</p>
+          </div>
+          <div>
+            <h3>Results</h3>
+            <p>My tuned Random Forest Classifier achieved the best overall performance, reaching 97.11% accuracy. The tuned KNN reached 95.81% accuracy, while the untuned DecisionTree-SVC-RFC ensemble reached 96.71%. The RFC's confusion matrix and metric profile showed the strongest classification reliability, suggesting that tree aggregation captured the feature interactions more effectively than distance-based voting alone.</p>
+            <p>My RFC result mattered because phishing detection is sensitive to false negatives: a model that misses phishing sites can leave users exposed to credential theft, identity theft, ransomware, or financial loss. I therefore cared about precision and recall alongside accuracy. My tuned RFC provided the best combined profile, while the ensemble's competitive performance suggested that a more carefully optimized voting strategy could be promising in future work.</p>
+          </div>
+          <div>
+            <h3>Conclusion</h3>
+            <p>I concluded that Random Forest was the most viable architecture for this phishing-risk classification setup because it handled nonlinear feature interactions, reduced variance through tree-level voting, and produced the strongest measured accuracy among the tested models. My clear next step would be to tune the ensemble model more aggressively, experiment with additional voting schemes, and deploy the best classifier as a browser plugin or lightweight web service that can evaluate suspicious URLs in real time.</p>
+          </div>
+          <div class="research-figure-grid">
+            <figure class="research-figure"><img src="assets/images/research/phishing-risk-p3-1.png" alt="Random forest confusion matrix." loading="lazy"><figcaption>Random Forest confusion matrix from the tuned phishing classifier experiments.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/phishing-risk-p4-1.png" alt="Model accuracy table." loading="lazy"><figcaption>Model comparison table showing RFC as the strongest reported classifier.</figcaption></figure>
+            <figure class="research-figure"><img src="assets/images/research/phishing-risk-p2-3.png" alt="Phishing feature distribution." loading="lazy"><figcaption>Feature-level distribution analysis used to understand how encoded URL/page signals separate legitimate and phishing samples.</figcaption></figure>
+          </div>
+        </section>
+      </article>
+    </main>
+    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.75v2"></path><path d="M12 19.25v2"></path><path d="M21.25 12h-2"></path><path d="M4.75 12h-2"></path><path d="m18.55 5.45-1.4 1.4"></path><path d="m6.85 17.15-1.4 1.4"></path><path d="m18.55 18.55-1.4-1.4"></path><path d="m6.85 6.85-1.4-1.4"></path></svg></button>
+    <script src="theme.js?v=20260716-video-carousel"></script>
+  </body>
+</html>
