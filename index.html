@@ -1,137 +1,57 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Arham Siddiqui - UC Berkeley EECS student working on machine learning, computer vision, robotics, and research."
-    >
+      content="Arham Siddiqui is a UC Berkeley EECS student researching AI safety and alignment, multimodal learning, and human-compatible AI."
+    />
     <title>Arham Siddiqui</title>
-    <script>
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme !== "light") {
-        document.documentElement.classList.add("dark");
-      }
-    </script>
-    <link rel="stylesheet" href="styles.css?v=20260716-fixed-carousel">
+    <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body class="home-page">
-    <main class="page">
-      <header class="site-header">
-        <nav class="topline" aria-label="Primary navigation">
-          <a class="is-active" href="index.html">Home</a>
-          <a href="resume.html">Resume</a>
-          <a href="projects.html">Projects</a>
-          <a href="connect.html">Connect</a>
-        </nav>
-      </header>
+  <body>
+    <main class="home-stage">
+      <article class="profile-card">
+        <aside class="profile-media">
+          <img
+            class="profile-photo"
+            src="./profile.jpeg"
+            alt="Arham Siddiqui"
+            width="180"
+            height="180"
+          />
+          <div class="mobile-identity">
+            <p class="mobile-name">Arham Siddiqui</p>
+            <nav class="profile-links mobile-links" aria-label="Profile links">
+              <a href="https://x.com/codexdiff" target="_blank" rel="noreferrer" aria-label="X" title="X"><img src="./icons/x-twitter.svg" alt="" /></a>
+              <a href="https://www.linkedin.com/in/arham-siddiqui-758b49275/" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn"><img src="./icons/linkedin.svg" alt="" /></a>
+              <a href="https://github.com/arham-siddiqui" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><img src="./icons/github.svg" alt="" /></a>
+              <a href="mailto:arham_siddiqui@berkeley.edu" aria-label="Email" title="Email"><img src="./icons/envelope.svg" alt="" /></a>
+            </nav>
+          </div>
+          <nav class="profile-links desktop-links" aria-label="Profile links">
+            <a href="https://x.com/codexdiff" target="_blank" rel="noreferrer" aria-label="X" title="X"><img src="./icons/x-twitter.svg" alt="" /></a>
+            <a href="https://www.linkedin.com/in/arham-siddiqui-758b49275/" target="_blank" rel="noreferrer" aria-label="LinkedIn" title="LinkedIn"><img src="./icons/linkedin.svg" alt="" /></a>
+            <a href="https://github.com/arham-siddiqui" target="_blank" rel="noreferrer" aria-label="GitHub" title="GitHub"><img src="./icons/github.svg" alt="" /></a>
+            <a href="mailto:arham_siddiqui@berkeley.edu" aria-label="Email" title="Email"><img src="./icons/envelope.svg" alt="" /></a>
+          </nav>
+        </aside>
 
-      <!-- Split hero layout experiment: remove this wrapper to return to the stacked version. -->
-      <div class="split-hero">
-        <div class="split-hero-visual">
-          <section class="brain-strip" aria-label="Interactive brain animation">
-            <canvas id="brain-canvas" aria-hidden="true"></canvas>
-          </section>
+        <div class="profile-copy">
+          <h1 class="desktop-name">Arham Siddiqui</h1>
+          <p>
+            I'm an EECS student at UC Berkeley currently researching AI alignment &amp; causal learning at
+            <a href="https://bair.berkeley.edu/" target="_blank" rel="noreferrer">BAIR</a>
+            under Professor Gopnik.
+          </p>
+          <p>
+            I recently worked on agents &amp; reinforcement learning at Google DeepMind and built an image validation backend at Apple.
+          </p>
+          <p>Find my projects <a href="./projects.html">here</a>.</p>
+          <p>I enjoy pickup basketball, reading a good book, and <a href="https://www.youtube.com/live/gVkTeXBuweY?si=fiiEej50_1wxhHBc" target="_blank" rel="noreferrer">clipfarming</a>.</p>
         </div>
-
-        <div class="split-hero-content">
-          <section class="intro">
-            <div class="intro-head">
-              <div class="profile-stack">
-                <div class="profile-frame">
-                  <img class="profile-photo" src="assets/images/profile.jpeg" alt="Arham Siddiqui" loading="lazy">
-                </div>
-              </div>
-              <div>
-                <div class="title-row">
-                  <h1>Arham Siddiqui</h1>
-                </div>
-                <div class="contact-icons" aria-label="Contact links">
-                  <a href="mailto:arham_siddiqui@berkeley.edu" aria-label="Email Arham Siddiqui">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M4.75 6.75h14.5v10.5H4.75z"></path>
-                      <path d="m5.25 7.25 6.75 5 6.75-5"></path>
-                    </svg>
-                  </a>
-                  <a href="https://github.com/arham-siddiqui" target="_blank" rel="noreferrer" aria-label="GitHub">
-                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.11-3.18 0 0 1.01-.32 3.3 1.23.96-.27 1.98-.4 3-.41 1.02.01 2.04.14 3 .41 2.28-1.55 3.29-1.23 3.29-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.63-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.69.83.58C20.57 21.79 24 17.29 24 12c0-6.63-5.37-12-12-12z"></path>
-                    </svg>
-                  </a>
-                  <a href="https://www.linkedin.com/in/arham-siddiqui-758b49275/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"></path>
-                    </svg>
-                  </a>
-                  <a href="assets/resume/ArhamSiddiquiResumeUpdated.pdf" target="_blank" rel="noreferrer" aria-label="Resume PDF">
-                    <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 2 5 5h-5V4zM6 20V4h5v7h7v9H6zm2-4h8v1.5H8V16zm0-3h8v1.5H8V13z"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <p>
-              I am from Santa Clara, California, and study Electrical Engineering &
-              Computer Science at UC Berkeley. I build machine learning systems across
-              computer vision, multimodal perception, AI agents, neurotechnology, and
-              embedded assistive technology.
-            </p>
-
-            <p>
-              I am currently building an
-              <a class="intro-link" href="silent-speech.html">interpretable silent-speech foundation-model system</a>.
-              Recently, I built computer vision data-validation pipelines at
-              <a class="intro-link" href="apple-vision-pipeline.html">Apple</a> and developed trust-aware
-              autonomy selection for a Gemini-powered Google Calendar agent at
-              <a class="intro-link" href="deepmind-calendar-agent.html">Google DeepMind</a>.
-            </p>
-          </section>
-
-          <section id="education" class="section home-education">
-            <h2>Education</h2>
-            <article class="entry">
-              <div class="entry-head">
-                <h3>University of California, Berkeley</h3>
-                <span>Expected May 2028</span>
-              </div>
-              <p class="meta">B.S. Electrical Engineering & Computer Science</p>
-              <p>
-                Relevant Coursework: Optimization Models in Engineering, Discrete
-                Mathematics and Probability Theory, Machine Structures, Data Structures,
-                The Structure and Interpretation of Computer Programs, Foundations of
-                Signals Dynamical Systems and Information Processing, Linear Algebra and
-                Differential Equations, Physics for Scientists and Engineers.
-              </p>
-              <p>
-                Activities: Neurotech @ Berkeley, Generative AI @ Berkeley.
-              </p>
-            </article>
-          </section>
-        </div>
-      </div>
+      </article>
     </main>
-    <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="true">
-      <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M20.25 14.2A7.75 7.75 0 0 1 9.8 3.75 8.5 8.5 0 1 0 20.25 14.2Z"></path>
-      </svg>
-      <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="4"></circle>
-        <path d="M12 2.75v2"></path>
-        <path d="M12 19.25v2"></path>
-        <path d="M21.25 12h-2"></path>
-        <path d="M4.75 12h-2"></path>
-        <path d="m18.55 5.45-1.4 1.4"></path>
-        <path d="m6.85 17.15-1.4 1.4"></path>
-        <path d="m18.55 18.55-1.4-1.4"></path>
-        <path d="m6.85 6.85-1.4-1.4"></path>
-      </svg>
-    </button>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.124.0/build/three.min.js"></script>
-    <script src="assets/brain/brain-points.js?v=20260705-curriculearn-brain"></script>
-    <script src="theme.js?v=20260715-resume-polish"></script>
-    <script src="brain-scene.js?v=20260718-resume-fast-labels"></script>
   </body>
 </html>
