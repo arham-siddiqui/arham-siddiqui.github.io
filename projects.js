@@ -166,7 +166,10 @@ const projects = {
   }
 };
 
+window.mountProjects = function mountProjects() {
 const dialog = document.querySelector("#project-dialog");
+if (!dialog || dialog.dataset.bound) return;
+dialog.dataset.bound = "true";
 const dialogTitle = document.querySelector("#project-dialog-title");
 const dialogMeta = document.querySelector("#project-dialog-meta");
 const dialogDescription = document.querySelector("#project-dialog-description");
@@ -195,7 +198,7 @@ function openProject(slug, trigger = null) {
 
   window.history.replaceState(null, "", `#${slug}`);
   if (!dialog.open) dialog.showModal();
-  window.requestAnimationFrame(() => dialogTitle.focus());
+  window.requestAnimationFrame(() => dialogTitle.focus({ preventScroll: true }));
 }
 
 document.querySelectorAll("[data-project]").forEach((trigger) => {
@@ -208,8 +211,10 @@ dialog.addEventListener("click", (event) => {
 });
 dialog.addEventListener("close", () => {
   window.history.replaceState(null, "", window.location.pathname);
-  window.requestAnimationFrame(() => lastTrigger?.focus());
+  window.requestAnimationFrame(() => lastTrigger?.focus({ preventScroll: true }));
 });
 
 const initialProject = window.location.hash.slice(1);
 if (projects[initialProject]) openProject(initialProject);
+};
+window.mountProjects();

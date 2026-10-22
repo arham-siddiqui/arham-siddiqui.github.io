@@ -1,3 +1,9 @@
+.home-stage,
+.page-stage {
+  position: relative;
+  z-index: 1;
+}
+
 :root {
   --background: #edf3f8;
   --foreground: #000000;
@@ -12,6 +18,11 @@
 html,
 body {
   min-height: 100%;
+}
+
+html {
+  /* Keep the layout and fixed shark canvas steady when a modal locks scrolling. */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -60,7 +71,7 @@ p {
   align-items: flex-start;
   gap: 32px;
   padding: 16px;
-  background: #ffffff;
+  background: var(--panel);
 }
 
 .profile-media {
@@ -76,6 +87,8 @@ p {
   height: 180px;
   object-fit: cover;
   object-position: top;
+  /* Hide the thin right-edge line without resizing the photo or its layout box. */
+  clip-path: inset(0 1% 0 0);
 }
 
 .profile-links {
@@ -127,7 +140,7 @@ p {
   max-width: 672px;
   min-height: 100vh;
   padding: 80px;
-  background: #ffffff;
+  background: var(--panel);
 }
 
 .projects-page {
@@ -162,7 +175,7 @@ p {
 }
 
 .project-row:hover {
-  background: #f9fafb;
+  background: var(--hover);
 }
 
 .project-trigger {
@@ -220,17 +233,17 @@ p {
   margin: auto;
   padding: 0;
   overflow-y: auto;
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--dialog-border);
   border-radius: 0;
-  background: #ffffff;
-  color: #000000;
+  background: var(--panel);
+  color: var(--foreground);
 }
 
 .project-dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
 
-body:has(.project-dialog[open]) {
+html:has(.project-dialog[open]) {
   overflow: hidden;
 }
 
@@ -247,7 +260,7 @@ body:has(.project-dialog[open]) {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #000000;
+  color: var(--foreground);
   cursor: pointer;
   font: inherit;
   font-size: 1.5rem;
@@ -358,3 +371,53 @@ body:has(.project-dialog[open]) {
     transition: none;
   }
 }
+
+/* Theme-aware sharks stay below opaque cards. */
+:root {
+  color-scheme: light;
+  --panel: #ffffff;
+  --shark-ink: #304e66;
+  --hover: #f9fafb;
+  --dialog-border: #d1d5db;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #101923;
+  --panel: #18232f;
+  --foreground: #e4eaf0;
+  --muted: #a6b4c3;
+  --line: #2c3a49;
+  --shark-ink: #809db4;
+  --hover: #202e3d;
+  --dialog-border: #3b4c5e;
+}
+.shark-background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.75;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--muted);
+  font: 20px/1 Georgia, serif;
+  cursor: pointer;
+}
+.theme-toggle:hover { color: var(--foreground); border-color: var(--muted); }
+.theme-toggle[aria-pressed="true"] span { transform: rotate(180deg); }
+:root[data-theme="dark"] .profile-links img { filter: invert(1); }

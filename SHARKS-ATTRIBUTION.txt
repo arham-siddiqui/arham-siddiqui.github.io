@@ -1,0 +1,21 @@
+# ASCII sharks
+
+Adapted from https://github.com/stackedlol/ascii-sharks by stackedlol.
+Source revision: c521e24a787e6d4cc460d4cf2b9815f25e4fe453.
+
+The upstream shark geometry, swimming simulation, and ASCII rasterizer are
+retained. Portfolio changes render the sharks on a transparent canvas,
+use translucent glyphs in the site's original light/dark ink with distinct great
+hammerhead, thresher, and tiger silhouettes, tune speed and frame rate, omit fish,
+pause while hidden or when reduced motion is requested, and preserve the
+same sharks through resizing and navigation.
+
+Fish-free roaming adds smoothly varying speed and broad, momentum-driven turns.
+Each click reserves one shark for a smooth, direct approach to an ASCII portal.
+The shark contracts into the ripple, disappears, then emerges elsewhere on
+screen. Extra clicks queue without interrupting occupied portals. ASCII crests
+stay alive until arrival, crossfade, and dissolve into punctuation. Journey
+state persists across navigation and resize. No automatic
+water-surface effects or shark trails are rendered.
+
+The upstream repository did not include a license file at this revision.
